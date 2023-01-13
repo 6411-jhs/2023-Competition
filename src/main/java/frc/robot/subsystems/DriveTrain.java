@@ -59,6 +59,10 @@ private DifferentialDrive drive;
     drive.tankDrive(left,right);
   }
 
-  
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new ArcadeDrive());
+}
+
 
 }

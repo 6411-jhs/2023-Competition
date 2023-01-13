@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.TankDrive;
+// import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -21,11 +21,11 @@ import frc.robot.subsystems.DriveTrain;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  private final XboxController m_xboxController;
+ public static XboxController m_xboxController;
 
- private final DriveTrain m_driveTrain;
+ public static  DriveTrain m_driveTrain;
  private final ArcadeDrive m_arcadeDrive;
- private final TankDrive m_tankDrive;
+//  private final TankDrive m_tankDrive;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -33,10 +33,10 @@ public class RobotContainer {
   {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
-    m_arcadeDrive = new ArcadeDrive(m_driveTrain, m_xboxController);
-    m_tankDrive = new TankDrive(m_driveTrain, m_xboxController);
+    m_arcadeDrive = new ArcadeDrive();
+    // m_tankDrive = new TankDrive(m_driveTrain, m_xboxController);
 
-
+    m_driveTrain.setDefaultCommand(m_arcadeDrive);
     // Configure the button bindings
     configureButtonBindings();
   }
