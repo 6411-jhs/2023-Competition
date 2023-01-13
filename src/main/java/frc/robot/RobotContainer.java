@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.commands.ArcadeDrive;
+// import frc.robot.commands.ArcadeDrive;
 // import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 
@@ -26,7 +26,7 @@ public class RobotContainer {
  public static XboxController m_xboxController;
 
  public static  DriveTrain m_driveTrain;
- private final ArcadeDrive m_arcadeDrive;
+//  private final ArcadeDrive m_arcadeDrive;
 //  private final TankDrive m_tankDrive;
 
 
@@ -35,12 +35,16 @@ public class RobotContainer {
   {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
-    m_arcadeDrive = new ArcadeDrive();
+    // m_arcadeDrive = new ArcadeDrive();
     // m_tankDrive = new TankDrive(m_driveTrain, m_xboxController);
-    m_driveTrain.setDefaultCommand(Commands.run(
+    // m_driveTrain.setDefaultCommand(Commands.run(
+    //   () -> 
+    //       m_driveTrain.arcadeDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getLeftX()* Constants.DRIVE_TRAIN_SPEED
+    //   ),m_driveTrain));
+    m_driveTrain.setDefaultCommand(Commands.run( 
       () -> 
-          m_driveTrain.arcadeDrive(-m_xboxController.getLeftY(), -m_xboxController.getLeftX()
-      ),m_driveTrain));
+        m_driveTrain.tankDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getRightY()* Constants.DRIVE_TRAIN_SPEED), m_driveTrain));
+    
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -58,9 +62,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_arcadeDrive;
-  }
+  // public Command getAutonomousCommand() {
+  //   // An ExampleCommand will run in autonomous
+  //   return m_arcadeDrive;
+  // }
 
 }
