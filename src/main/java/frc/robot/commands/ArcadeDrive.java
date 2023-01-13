@@ -33,7 +33,7 @@ public class ArcadeDrive extends CommandBase {
   public void execute() 
   {
     leftStickY = Constants.DRIVE_TRAIN_SPEED * RobotContainer.m_xboxController.getRawAxis(Constants.XBOX_LEFT_X_AXIS);
-    leftStickX = Constants.DRIVE_TRAIN_SPEED * RobotContainer.m_xboxController. getRawAxis(Constants.XBOX_LEFT_Y_AXIS);
+    leftStickX = Constants.DRIVE_TRAIN_SPEED * RobotContainer.m_xboxController.getRawAxis(Constants.XBOX_LEFT_Y_AXIS);
     RobotContainer.m_driveTrain.arcadeDrive(leftStickY, leftStickX);
   }
 
@@ -44,6 +44,6 @@ public class ArcadeDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

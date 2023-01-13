@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.ArcadeDrive;
 // import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
@@ -35,8 +37,10 @@ public class RobotContainer {
     m_driveTrain = new DriveTrain();
     m_arcadeDrive = new ArcadeDrive();
     // m_tankDrive = new TankDrive(m_driveTrain, m_xboxController);
-
-    m_driveTrain.setDefaultCommand(m_arcadeDrive);
+    m_driveTrain.setDefaultCommand(Commands.run(
+      () -> 
+          m_driveTrain.arcadeDrive(-m_xboxController.getLeftY(), -m_xboxController.getLeftX()
+      ),m_driveTrain));
     // Configure the button bindings
     configureButtonBindings();
   }

@@ -29,6 +29,7 @@ private DifferentialDrive drive;
     rightBackMotor = new VictorSP(Constants.RIGHT_BACK_MOTOR);
     leftMotors = new MotorControllerGroup(leftFrontMotor, leftBackMotor);
     rightMotors = new MotorControllerGroup(rightFrontMotor, rightBackMotor);
+    rightMotors.setInverted(true);
     drive = new DifferentialDrive(leftMotors, rightMotors);
   }
 
@@ -59,10 +60,10 @@ private DifferentialDrive drive;
     drive.tankDrive(left,right);
   }
 
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new ArcadeDrive());
-}
+//   public void initDefaultCommand() {
+//     // Set the default command for a subsystem here.
+//     setDefaultCommand(new ArcadeDrive());
+// }
 
 
 }
