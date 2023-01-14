@@ -37,13 +37,17 @@ public class RobotContainer {
     m_driveTrain = new DriveTrain();
     // m_arcadeDrive = new ArcadeDrive();
     // m_tankDrive = new TankDrive(m_driveTrain, m_xboxController);
-    // m_driveTrain.setDefaultCommand(Commands.run(
-    //   () -> 
-    //       m_driveTrain.arcadeDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getLeftX()* Constants.DRIVE_TRAIN_SPEED
-    //   ),m_driveTrain));
-    m_driveTrain.setDefaultCommand(Commands.run( 
+
+    /*arcade*/
+    m_driveTrain.setDefaultCommand(Commands.run(
       () -> 
-        m_driveTrain.tankDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getRightY()* Constants.DRIVE_TRAIN_SPEED), m_driveTrain));
+          m_driveTrain.arcadeDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getLeftX()* Constants.DRIVE_TRAIN_SPEED
+      ),m_driveTrain));
+
+      /*tank*/
+    // m_driveTrain.setDefaultCommand(Commands.run( 
+    //   () -> 
+    //     m_driveTrain.tankDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getRightY()* Constants.DRIVE_TRAIN_SPEED), m_driveTrain));
     
     // Configure the button bindings
     configureButtonBindings();
