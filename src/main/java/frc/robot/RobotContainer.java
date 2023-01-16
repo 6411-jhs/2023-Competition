@@ -26,6 +26,8 @@ public class RobotContainer {
  public static XboxController m_xboxController;
 
  public static  DriveTrain m_driveTrain;
+
+ public static CustomControl control = new CustomControl();
 //  private final ArcadeDrive m_arcadeDrive;
 //  private final TankDrive m_tankDrive;
 
@@ -47,8 +49,11 @@ public class RobotContainer {
 
       /*tank*/
     m_driveTrain.setDefaultCommand(Commands.run( 
-      () -> 
-        m_driveTrain.tankDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getRightY()* Constants.DRIVE_TRAIN_SPEED), m_driveTrain));
+         () -> 
+         //   m_driveTrain.tankDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getRightY()* Constants.DRIVE_TRAIN_SPEED), m_driveTrain)
+         control.init()
+         )
+      );
     
     // Configure the button bindings
     configureButtonBindings();
