@@ -27,7 +27,7 @@ public class RobotContainer {
 
  public static  DriveTrain m_driveTrain;
 
- public static CustomControl control = new CustomControl();
+//  public static CustomControl control = new CustomControl();
 //  private final ArcadeDrive m_arcadeDrive;
 //  private final TankDrive m_tankDrive;
 
@@ -37,27 +37,41 @@ public class RobotContainer {
   {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
-    // m_arcadeDrive = new ArcadeDrive();
-    // m_tankDrive = new TankDrive(m_driveTrain, m_xboxController);
-
-    /*arcade*/
-    // m_driveTrain.setDefaultCommand(Commands.run(
-    //   () -> 
-    //       m_driveTrain.arcadeDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, 
-    //       -m_xboxController.getLeftX()* Constants.DRIVE_TRAIN_SPEED
-    //   ),m_driveTrain));
-
-      /*tank*/
-    m_driveTrain.setDefaultCommand(Commands.run( 
-         () -> 
-         //   m_driveTrain.tankDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getRightY()* Constants.DRIVE_TRAIN_SPEED), m_driveTrain)
-         control.init()
-         )
-      );
     
+    // tankDrive();
+    // arcadeDrive();
+     triggerHybrid();
+
     // Configure the button bindings
     configureButtonBindings();
   }
+
+
+      public void tankDrive()
+      {
+        /*arcade*/
+      m_driveTrain.setDefaultCommand(Commands.run(
+        () -> 
+            m_driveTrain.arcadeDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, 
+            -m_xboxController.getLeftX()* Constants.DRIVE_TRAIN_SPEED
+        ),m_driveTrain));
+      }
+
+      public void arcadeDrive()
+      {
+        m_driveTrain.setDefaultCommand(Commands.run( 
+          () -> 
+            m_driveTrain.tankDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getRightY()* Constants.DRIVE_TRAIN_SPEED), m_driveTrain));
+      }
+
+      public void triggerHybrid()
+      {
+        /*trigger Hybrid 1 */
+        m_driveTrain.setDefaultCommand(Commands.run( 
+          () -> 
+          m_driveTrain.arcadeDrive(m_xboxController.getRightTriggerAxis() * Constants.DRIVE_TRAIN_RATIO - m_xboxController.getLeftTriggerAxis(), -m_xboxController.getLeftX() ), m_driveTrain  ));
+      }
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -65,7 +79,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() 
+  {
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
