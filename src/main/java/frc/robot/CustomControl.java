@@ -8,7 +8,6 @@ public class CustomControl {
    private final DriveTrain drive = new DriveTrain();
 
    public void init(){
-      System.out.println(controller.getRightTriggerAxis());
-      // drive.arcadeDrive(controller.getRightTriggerAxis(), 0);
+      drive.arcadeDrive(controller.getRightTriggerAxis() * Constants.DRIVE_TRAIN_RATIO, controller.getLeftX());
    }
 }
