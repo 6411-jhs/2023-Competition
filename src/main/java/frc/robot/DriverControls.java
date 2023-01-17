@@ -24,7 +24,7 @@ public class DriverControls {
     * Left stick controls left wheels and right stick controls right wheels
     */
    public void tankMode(){
-      drive.tankDrive(xbox.getLeftY() * Constants.DRIVE_TRAIN_SPEED, xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED);
+      drive.tankDrive(-xbox.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED);
    }
    /**
     * This arcade mode is a bit different from the original arcade mode. The y value of the primary stick controls
@@ -32,9 +32,9 @@ public class DriverControls {
     */
    public void arcadeMode(){
       if (Constants.PRIMARY_JOYSTICK == "Left"){
-         drive.arcadeDrive(xbox.getLeftY() * Constants.DRIVE_TRAIN_SPEED, xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
+         drive.arcadeDrive(-xbox.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
       } else {
-         drive.arcadeDrive(xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED, xbox.getLeftX() * Constants.DRIVE_TRAIN_SPEED);
+         drive.arcadeDrive(-xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getLeftX() * Constants.DRIVE_TRAIN_SPEED);
       }
    }
 
@@ -43,9 +43,9 @@ public class DriverControls {
     */
    public void singleStickMode(){
       if (Constants.PRIMARY_JOYSTICK == "Left"){
-         drive.arcadeDrive(xbox.getLeftY() * Constants.DRIVE_TRAIN_SPEED, xbox.getLeftX() * Constants.DRIVE_TRAIN_SPEED);
+         drive.arcadeDrive(-xbox.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getLeftX() * Constants.DRIVE_TRAIN_SPEED);
       } else {
-         drive.arcadeDrive(xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED, xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
+         drive.arcadeDrive(-xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
       }
    }
    /**
@@ -65,10 +65,11 @@ public class DriverControls {
       double triggerCalc = -xbox.getLeftTriggerAxis() + xbox.getRightTriggerAxis();
       double stickCalc = 0;
       if (Constants.PRIMARY_JOYSTICK == "Left"){
-         if (triggerCalc > 0) stickCalc = (triggerCalc + xbox.getLeftX()) / 2;
+         if (triggerCalc > 0) stickCalc = ((triggerCalc) + -xbox.getLeftX()) / 2;
       } else {
-         if (triggerCalc > 0) stickCalc = (triggerCalc + xbox.getRightX()) / 2;
+         if (triggerCalc > 0) stickCalc = (triggerCalc + -xbox.getRightX()) / 2;
       }
+      System.out.println(stickCalc * Constants.DRIVE_TRAIN_SPEED);
       drive.arcadeDrive(triggerCalc * Constants.DRIVE_TRAIN_SPEED, stickCalc * Constants.DRIVE_TRAIN_SPEED);
    }
 }
