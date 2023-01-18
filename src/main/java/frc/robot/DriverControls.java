@@ -62,14 +62,19 @@ public class DriverControls {
     * Uses primary stick as the direction of the bot; Uses right and left trigger as forward and back.
     */
    public void gameMode(){
-      double triggerCalc = -xbox.getLeftTriggerAxis() + xbox.getRightTriggerAxis();
-      double stickCalc = 0;
+      double triggerCalc = -xbox.getLeftTriggerAxis() + xbox.getRightTriggerAxis(), stickCalc = 0;
+      boolean reverse = triggerCalc < 0, right;
+      triggerCalc = Math.abs(triggerCalc);
       if (Constants.PRIMARY_JOYSTICK == "Left"){
-         if (triggerCalc > 0) stickCalc = ((triggerCalc) + -xbox.getLeftX()) / 2;
+         if (xbox.getLeftX() != 0 && triggerCalc != 0) stickCalc = ((triggerCalc) + Math.abs(xbox.getLeftX())) / 2;
+         right = xbox.getLeftX() > 0;
       } else {
-         if (triggerCalc > 0) stickCalc = (triggerCalc + -xbox.getRightX()) / 2;
+         if (xbox.getRightX() != 0 && triggerCalc != 0) stickCalc = ((triggerCalc) + Math.abs(xbox.getRightX())) / 2;
+         right = xbox.getRightX() > 0;
       }
-      System.out.println(stickCalc * Constants.DRIVE_TRAIN_SPEED);
+      if (reverse) triggerCalc = -triggerCalc;
+      if (right) stickCalc = -stickCalc;
+      System.out.println(stickCalc);
       drive.arcadeDrive(triggerCalc * Constants.DRIVE_TRAIN_SPEED, stickCalc * Constants.DRIVE_TRAIN_SPEED);
    }
 }
