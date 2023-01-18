@@ -33,6 +33,7 @@ private LimeLight limeLight;
     rightMotors = new MotorControllerGroup(rightFrontMotor, rightBackMotor);
     rightMotors.setInverted(true);
     drive = new DifferentialDrive(leftMotors, rightMotors);
+    limeLight = new LimeLight();
   }
 
   @Override

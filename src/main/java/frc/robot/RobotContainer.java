@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AllignTarget;
 // import frc.robot.commands.ArcadeDrive;
 // import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
@@ -24,7 +26,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
  public static XboxController m_xboxController;
-
+  public static AllignTarget m_AllignTarget;
  public static  DriveTrain m_driveTrain;
 
 //  public static CustomControl control = new CustomControl();
@@ -81,7 +83,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() 
   {
-
+    JoystickButton limeButton = new JoystickButton(m_xboxController, 6);
+    limeButton.onTrue(m_AllignTarget);
   }
 
   /**
