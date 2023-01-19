@@ -6,13 +6,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveTrain;
 
 public class AllignTarget extends CommandBase {
   /** Creates a new AllignTarget. */
   public AllignTarget() {
     // Use addRequirements() here to declare subsystem dependencies.
-
   }
 
   // Called when the command is initially scheduled.
@@ -21,9 +19,9 @@ public class AllignTarget extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
-    RobotContainer.m_driveTrain.allignTarget();
+  public void execute() {
+    
+          RobotContainer.m_driveTrain.allignTarget();
   }
 
   // Called once the command ends or is interrupted.

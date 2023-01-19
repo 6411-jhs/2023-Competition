@@ -65,10 +65,14 @@ private LimeLight limeLight;
 
   public void allignTarget()
   {
-    if (limeLight.getIsTargetFound())
+    if (limeLight.getIsTargetFound() && limeLight.getdegRotationToTarget() !=0)
     {
-      double turn = limeLight.getdegRotationToTarget()/27.0;
+      boolean negative = false;
+      negative = -limeLight.getdegRotationToTarget() < 0;
+      double turn = 0.3 + (0.02592 * Math.abs(limeLight.getdegRotationToTarget()));
+      if (negative) turn = -turn;
       drive.arcadeDrive(0, turn);
+      System.out.println("turn is " + turn);
     }
   }
 

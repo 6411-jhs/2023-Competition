@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AllignTarget;
 // import frc.robot.commands.ArcadeDrive;
 // import frc.robot.commands.TankDrive;
@@ -39,6 +40,7 @@ public class RobotContainer {
   {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
+    m_AllignTarget = new AllignTarget();
     
     // tankDrive();
     // arcadeDrive();
@@ -83,8 +85,15 @@ public class RobotContainer {
    */
   private void configureButtonBindings() 
   {
-    JoystickButton limeButton = new JoystickButton(m_xboxController, 6);
-    limeButton.onTrue(m_AllignTarget);
+   Trigger limeButton = new JoystickButton(m_xboxController,XboxController.Button.kRightBumper.value);
+   try {
+    limeButton.whileTrue(m_AllignTarget);
+    
+   }
+   catch(Exception e)
+   {
+    System.out.println("problem is " + e.getLocalizedMessage());
+   }
   }
 
   /**
