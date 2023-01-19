@@ -26,13 +26,13 @@ public class DriverControls {
     * Uses a configuration that allows the user to change which control mode they're using. Press LB + RB to cycle through modes.
     */
    public void ModeSwitchMode(){
-      String modes[] = {"TankJoystick","TankTrigger","Arcade","SignleStick","TriggerHybrid","Game"};
+      String modes[] = {"TankJoystick","TankTrigger","Arcade","SingleStick","TriggerHybrid","Game"};
       if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed()){
          if (!modeSwitchEToggle) {
             currentMode++;
             if (currentMode > 5) currentMode = 0;
             modeSwitchEToggle = true;
-            System.out.println("> Switch to " + modes[currentMode] + " mode");
+            System.out.println("> Switched to " + modes[currentMode] + " mode");
          }
       }
       if (xbox.getLeftBumperReleased() && xbox.getRightBumperReleased()){
@@ -130,6 +130,7 @@ public class DriverControls {
          left = xbox.getRightX() < 0;
       }
       if (reverse) triggerCalc = -triggerCalc;
+      if (!reverse) stickCalc = -stickCalc;
       if (left) stickCalc = -stickCalc;
       drive.arcadeDrive(triggerCalc * Constants.DRIVE_TRAIN_SPEED, stickCalc * Constants.DRIVE_TRAIN_SPEED);
    }

@@ -38,7 +38,8 @@ public class RobotContainer {
 
      m_driveTrain.setDefaultCommand(Commands.run(
       () -> 
-         m_driverControls.tankMode()
+        m_driverControls.ModeSwitchMode()
+        //  m_driverControls.tankMode()
         //  m_driverControls.arcadeMode()
         //  m_driverControls.singleStickMode()
         // m_driverControls.triggerHybridMode()
