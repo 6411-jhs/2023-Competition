@@ -10,6 +10,8 @@ import frc.robot.subsystems.DriveTrain;
 public class DriverControls {
    private XboxController xbox;
    private DriveTrain drive;
+   private int currentMode = 0;
+   private boolean modeSwitchEToggle = false;
    /**
     * Defines the xbox controller and sets the drive train
     * @param driveTrain Activated drive train class for motor controlling
@@ -21,10 +23,65 @@ public class DriverControls {
    }
 
    /**
+    * Uses a configuration that allows the user to change which control mode they're using. Press LB + RB to cycle through modes.
+    */
+   public void ModeSwitchMode(){
+      String modes[] = {"TankJoystick","TankTrigger","Arcade","SignleStick","TriggerHybrid","Game"};
+      if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed()){
+         if (!modeSwitchEToggle) {
+            currentMode++;
+            if (currentMode > 5) currentMode = 0;
+            modeSwitchEToggle = true;
+            System.out.println("> Switch to " + modes[currentMode] + " mode");
+         }
+      }
+      if (xbox.getLeftBumperReleased() && xbox.getRightBumperReleased()){
+         modeSwitchEToggle = false;
+      }
+      chooseMode(modes[currentMode]);
+   }
+
+   /**
+    * Execute a mode based on string name; this can be used as is but it is also used for mode switching.
+    * @param mode String name of the mode
+    */
+   private void chooseMode(String mode){
+      switch (mode){
+         case "TankJoystick":
+            tankJoystickMode();
+            break;
+         case "TankTrigger":
+            tankTriggerMode();
+            break;
+         case "Arcade":
+            arcadeMode();
+            break;
+         case "SingleStick":
+            singleStickMode();
+            break;
+         case "TriggerHybrid":
+            triggerHybridMode();
+            break;
+         case "Game":
+            gameMode();
+            break;
+      }
+   }
+
+   /**
     * Left stick controls left wheels and right stick controls right wheels
     */
-   public void tankMode(){
+   public void tankJoystickMode(){
       drive.tankDrive(-xbox.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED);
+   }
+
+   /**
+    * Use the trigger instead of joysticks for tank driving.
+    */
+   public void tankTriggerMode(){
+      double triggerCalc = (xbox.getLeftTriggerAxis() + xbox.getRightTriggerAxis()) / 2;
+      double turnCalc = xbox.getLeftTriggerAxis() - xbox.getRightTriggerAxis();
+      drive.arcadeDrive(triggerCalc * Constants.DRIVE_TRAIN_SPEED, turnCalc * Constants.DRIVE_TRAIN_SPEED);
    }
    /**
     * This arcade mode is a bit different from the original arcade mode. The y value of the primary stick controls
@@ -63,18 +120,17 @@ public class DriverControls {
     */
    public void gameMode(){
       double triggerCalc = -xbox.getLeftTriggerAxis() + xbox.getRightTriggerAxis(), stickCalc = 0;
-      boolean reverse = triggerCalc < 0, right;
+      boolean reverse = triggerCalc < 0, left;
       triggerCalc = Math.abs(triggerCalc);
       if (Constants.PRIMARY_JOYSTICK == "Left"){
          if (xbox.getLeftX() != 0 && triggerCalc != 0) stickCalc = ((triggerCalc) + Math.abs(xbox.getLeftX())) / 2;
-         right = xbox.getLeftX() > 0;
+         left = xbox.getLeftX() < 0;
       } else {
          if (xbox.getRightX() != 0 && triggerCalc != 0) stickCalc = ((triggerCalc) + Math.abs(xbox.getRightX())) / 2;
-         right = xbox.getRightX() > 0;
+         left = xbox.getRightX() < 0;
       }
       if (reverse) triggerCalc = -triggerCalc;
-      if (right) stickCalc = -stickCalc;
-      System.out.println(stickCalc);
+      if (left) stickCalc = -stickCalc;
       drive.arcadeDrive(triggerCalc * Constants.DRIVE_TRAIN_SPEED, stickCalc * Constants.DRIVE_TRAIN_SPEED);
    }
 }
