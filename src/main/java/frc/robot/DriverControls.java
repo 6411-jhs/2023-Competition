@@ -26,8 +26,8 @@ public class DriverControls {
     * Uses a configuration that allows the user to change which control mode they're using. Press LB + RB to cycle through modes.
     */
    public void ModeSwitchMode(){
-      String modes[] = {"TankJoystick","TankTrigger","Arcade","SingleStick","TriggerHybrid","Game"};
-      if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed()){
+      String modes[] = {"TankJoystick","TankTrigger","Arcade","SingleStick","TriggerHybrid","Game","MarioCart"};
+      if (xbox.getStartButtonPressed()){
          if (!modeSwitchEToggle) {
             currentMode++;
             if (currentMode > 5) currentMode = 0;
@@ -35,18 +35,10 @@ public class DriverControls {
             System.out.println("> Switched to " + modes[currentMode] + " mode");
          }
       }
-      if (xbox.getLeftBumperReleased() && xbox.getRightBumperReleased()){
+      if (xbox.getStartButtonReleased()){
          modeSwitchEToggle = false;
       }
-      chooseMode(modes[currentMode]);
-   }
-
-   /**
-    * Execute a mode based on string name; this can be used as is but it is also used for mode switching.
-    * @param mode String name of the mode
-    */
-   private void chooseMode(String mode){
-      switch (mode){
+      switch (modes[currentMode]){
          case "TankJoystick":
             tankJoystickMode();
             break;
@@ -64,6 +56,9 @@ public class DriverControls {
             break;
          case "Game":
             gameMode();
+            break;
+         case "MarioCart":
+            marioCartMode();
             break;
       }
    }
@@ -133,5 +128,49 @@ public class DriverControls {
       if (!reverse) stickCalc = -stickCalc;
       if (left) stickCalc = -stickCalc;
       drive.arcadeDrive(triggerCalc * Constants.DRIVE_TRAIN_SPEED, stickCalc * Constants.DRIVE_TRAIN_SPEED);
+   }
+
+   //todo - Make mario cart mode
+   private boolean marioCartHopToggle = false;
+   private boolean marioCartAbilityToggle = false;
+
+   public void marioCartMode(){
+      //CONTROL
+      double joyStick[] = {xbox.getLeftX(),xbox.getLeftY()};
+      if (xbox.getBButtonPressed()){
+         if (joyStick[1] < 0) joyStick[1] = 0;
+         drive.arcadeDrive(joyStick[1], joyStick[0]);
+      } else if (xbox.getAButtonPressed()){
+         if (joyStick[1] > 0) joyStick[1] = 0;
+         drive.arcadeDrive(joyStick[1], joyStick[0]);
+      } else drive.arcadeDrive(0, 0);
+      
+      //HOP
+      if (xbox.getRightBumperPressed() && !xbox.getLeftBumperPressed() && !marioCartHopToggle){
+         marioCartHopToggle = true;
+         new Thread(() -> {
+            try {
+               Thread.sleep(200);
+               marioCartHopToggle = false;
+            } catch (Exception e){
+               System.err.println(e);
+            }
+         }).start();
+      }
+      if (marioCartHopToggle) drive.arcadeDrive(joyStick[1]+0.2, joyStick[0]);
+
+      //ABILITY
+      if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed() && !marioCartAbilityToggle){
+         marioCartAbilityToggle = true;
+         new Thread(() -> {
+            try {
+               Thread.sleep(3000);
+               marioCartHopToggle = false;
+            } catch (Exception e){
+               System.err.println(e);
+            }
+         }).start();
+      }
+      if (marioCartAbilityToggle) drive.arcadeDrive(0, 0.8);
    }
 }
