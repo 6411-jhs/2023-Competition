@@ -3,8 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.DriveTrain;
 
-import java.time.Instant;
-import java.time.Duration;
+import java.util.Arrays;
 
 /**
  * Class containing all control modes for the robot. Currently only compatible for Xbox controller integration.
@@ -27,13 +26,16 @@ public class DriverControls {
 
    /**
     * Uses a configuration that allows the user to change which control mode they're using. Press LB + RB to cycle through modes.
+    * @param defaultMode Default mode for the bot to start on
     */
-   public void ModeSwitchMode(){
-      String modes[] = {"TankJoystick","TankTrigger","Arcade","SingleStick","TriggerHybrid","Game","MarioCart"};
+   public void ModeSwitchMode(String defaultMode){
+      String modes[] = {"TankJoystick","TankTrigger","Arcade","SingleStick","TriggerHybrid","Game"};
+      if (defaultMode == null) currentMode = 0;
+      else currentMode = Arrays.asList(modes).indexOf(defaultMode);
       if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed()){
          if (!modeSwitchEToggle) {
             currentMode++;
-            if (currentMode > 6) currentMode = 0;
+            if (currentMode > 5) currentMode = 0;
             modeSwitchEToggle = true;
             System.out.println("> Switched to " + modes[currentMode] + " mode");
          }
@@ -59,9 +61,6 @@ public class DriverControls {
             break;
          case "Game":
             gameMode();
-            break;
-         case "MarioCart":
-            marioCartMode();
             break;
       }
    }
@@ -131,61 +130,5 @@ public class DriverControls {
       if (!reverse) stickCalc = -stickCalc;
       if (left) stickCalc = -stickCalc;
       drive.arcadeDrive(triggerCalc * Constants.DRIVE_TRAIN_SPEED, stickCalc * Constants.DRIVE_TRAIN_SPEED);
-   }
-
-   //todo - Make mario cart mode
-   private boolean marioCartHopToggle = false;
-   private boolean marioCartAbilityToggle = false;
-
-   public void marioCartMode(){
-      //CONTROL
-      double joyStick[] = {xbox.getLeftX(),xbox.getLeftY()};
-      if (xbox.getBButton()){
-         System.out.println("B!");
-         if (joyStick[1] > 0) joyStick[1] = 0;
-         drive.arcadeDrive(-joyStick[1] * Constants.DRIVE_TRAIN_SPEED, joyStick[0] * Constants.DRIVE_TRAIN_SPEED);
-      } else if (xbox.getAButton()){
-         if (joyStick[1] < 0) joyStick[1] = 0;
-         drive.arcadeDrive(-joyStick[1] * Constants.DRIVE_TRAIN_SPEED, joyStick[0] * Constants.DRIVE_TRAIN_SPEED);
-      } else drive.arcadeDrive(0, 0);
-      
-      //HOP
-      if (xbox.getRightBumper() && !xbox.getLeftBumper() && !marioCartHopToggle){
-         System.out.println("Hop!");
-
-         Instant now = Instant.now();
-         Duration time = Duration.ofMillis(200);
-
-         // while (Duration.between(now, Instant.now()).toMillis() <= time.toMillis()){
-         //    drive.arcadeDrive((joyStick[1] * Constants.DRIVE_TRAIN_SPEED)+0.2, joyStick[0] * Constants.DRIVE_TRAIN_SPEED);
-         // }
-
-         marioCartHopToggle = true;
-         new Thread(() -> {
-            try {
-               drive.arcadeDrive((joyStick[1] * Constants.DRIVE_TRAIN_SPEED)+0.2, joyStick[0] * Constants.DRIVE_TRAIN_SPEED);
-               Thread.sleep(1000);
-               marioCartHopToggle = false;
-            } catch (Exception e){
-               System.err.println(e);
-            }
-         }).start();
-      }
-      // if (marioCartHopToggle) drive.arcadeDrive((joyStick[1] * Constants.DRIVE_TRAIN_SPEED)+0.2, joyStick[0]);
-
-      //ABILITY
-      if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed() && !marioCartAbilityToggle){
-         System.out.println("Ability!");
-         marioCartAbilityToggle = true;
-         new Thread(() -> {
-            try {
-               Thread.sleep(3000);
-               marioCartHopToggle = false;
-            } catch (Exception e){
-               System.err.println(e);
-            }
-         }).start();
-      }
-      if (marioCartAbilityToggle) drive.arcadeDrive(0, Constants.DRIVE_TRAIN_SPEED);
    }
 }
