@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 // import frc.robot.commands.ArcadeDrive;
-import limelightvision.limelight.frc.LimeLight;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -22,7 +21,6 @@ private VictorSP rightBackMotor;
 private MotorControllerGroup leftMotors;
 private MotorControllerGroup rightMotors;
 private DifferentialDrive drive;
-private LimeLight limeLight;
   /** Creates a new DriveTrain. */
   public DriveTrain() {
     leftFrontMotor = new VictorSP(Constants.LEFT_FRONT_MOTOR);
@@ -60,15 +58,6 @@ private LimeLight limeLight;
   public void tankDrive(double left,  double right)
   {
     drive.tankDrive(left,right);
-  }
-
-  public void allignTarget()
-  {
-    if (limeLight.getIsTargetFound())
-    {
-      double turn = limeLight.getdegRotationToTarget()/27.0;
-      drive.arcadeDrive(0, turn);
-    }
   }
 
 //   public void initDefaultCommand() {
