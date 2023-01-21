@@ -1,5 +1,6 @@
 package frc.robot.LimeLight;
 
+// import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,6 +15,8 @@ public class LimeLight extends SubsystemBase {
    NetworkTableEntry ta = table.getEntry("ta");
    double x, y, area;
 
+   public LimeLight(){}
+
    public void update(){
       x = tx.getDouble(0.0);
       y = ty.getDouble(0.0);
@@ -21,6 +24,7 @@ public class LimeLight extends SubsystemBase {
       SmartDashboard.putNumber("LimelightX", x);
       SmartDashboard.putNumber("LimelightY", y);
       SmartDashboard.putNumber("LimelightArea", area);
+      System.out.println(x + ", " + y + ", " + area);
    }
 
    @Override

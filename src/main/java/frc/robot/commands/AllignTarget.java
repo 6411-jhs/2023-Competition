@@ -24,7 +24,7 @@ public class AllignTarget extends CommandBase {
   @Override
   public void execute() 
   {
-    m_driveTrain.allignTarget();
+   //  m_driveTrain.allignTarget();
   }
 
   // Called once the command ends or is interrupted.
