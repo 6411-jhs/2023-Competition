@@ -25,7 +25,7 @@ public final class Constants {
     public static final int XBOX_RIGHT_Y_AXIS = 5;
 
     //speeds
-    public static final double DRIVE_TRAIN_SPEED = 1;
+    public static final double DRIVE_TRAIN_SPEED = 0.5;
     public static final int XBOX_USB_NUM = 0;
     public static final String PRIMARY_JOYSTICK = "Left";
 }

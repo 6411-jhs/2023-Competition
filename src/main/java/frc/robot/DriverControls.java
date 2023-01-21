@@ -3,6 +3,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.DriveTrain;
 
+import java.time.Instant;
+import java.time.Duration;
+
 /**
  * Class containing all control modes for the robot. Currently only compatible for Xbox controller integration.
  * Use Constants.PRIMARY_JOYSTICK to set which joystick you want as the main functionality for some of the modes
@@ -27,15 +30,15 @@ public class DriverControls {
     */
    public void ModeSwitchMode(){
       String modes[] = {"TankJoystick","TankTrigger","Arcade","SingleStick","TriggerHybrid","Game","MarioCart"};
-      if (xbox.getStartButtonPressed()){
+      if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed()){
          if (!modeSwitchEToggle) {
             currentMode++;
-            if (currentMode > 5) currentMode = 0;
+            if (currentMode > 6) currentMode = 0;
             modeSwitchEToggle = true;
             System.out.println("> Switched to " + modes[currentMode] + " mode");
          }
       }
-      if (xbox.getStartButtonReleased()){
+      if (!xbox.getLeftBumperPressed() && !xbox.getRightBumperPressed()){
          modeSwitchEToggle = false;
       }
       switch (modes[currentMode]){
@@ -137,30 +140,42 @@ public class DriverControls {
    public void marioCartMode(){
       //CONTROL
       double joyStick[] = {xbox.getLeftX(),xbox.getLeftY()};
-      if (xbox.getBButtonPressed()){
-         if (joyStick[1] < 0) joyStick[1] = 0;
-         drive.arcadeDrive(joyStick[1], joyStick[0]);
-      } else if (xbox.getAButtonPressed()){
+      if (xbox.getBButton()){
+         System.out.println("B!");
          if (joyStick[1] > 0) joyStick[1] = 0;
-         drive.arcadeDrive(joyStick[1], joyStick[0]);
+         drive.arcadeDrive(-joyStick[1] * Constants.DRIVE_TRAIN_SPEED, joyStick[0] * Constants.DRIVE_TRAIN_SPEED);
+      } else if (xbox.getAButton()){
+         if (joyStick[1] < 0) joyStick[1] = 0;
+         drive.arcadeDrive(-joyStick[1] * Constants.DRIVE_TRAIN_SPEED, joyStick[0] * Constants.DRIVE_TRAIN_SPEED);
       } else drive.arcadeDrive(0, 0);
       
       //HOP
-      if (xbox.getRightBumperPressed() && !xbox.getLeftBumperPressed() && !marioCartHopToggle){
+      if (xbox.getRightBumper() && !xbox.getLeftBumper() && !marioCartHopToggle){
+         System.out.println("Hop!");
+
+         Instant now = Instant.now();
+         Duration time = Duration.ofMillis(200);
+
+         // while (Duration.between(now, Instant.now()).toMillis() <= time.toMillis()){
+         //    drive.arcadeDrive((joyStick[1] * Constants.DRIVE_TRAIN_SPEED)+0.2, joyStick[0] * Constants.DRIVE_TRAIN_SPEED);
+         // }
+
          marioCartHopToggle = true;
          new Thread(() -> {
             try {
-               Thread.sleep(200);
+               drive.arcadeDrive((joyStick[1] * Constants.DRIVE_TRAIN_SPEED)+0.2, joyStick[0] * Constants.DRIVE_TRAIN_SPEED);
+               Thread.sleep(1000);
                marioCartHopToggle = false;
             } catch (Exception e){
                System.err.println(e);
             }
          }).start();
       }
-      if (marioCartHopToggle) drive.arcadeDrive(joyStick[1]+0.2, joyStick[0]);
+      // if (marioCartHopToggle) drive.arcadeDrive((joyStick[1] * Constants.DRIVE_TRAIN_SPEED)+0.2, joyStick[0]);
 
       //ABILITY
       if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed() && !marioCartAbilityToggle){
+         System.out.println("Ability!");
          marioCartAbilityToggle = true;
          new Thread(() -> {
             try {
@@ -171,6 +186,6 @@ public class DriverControls {
             }
          }).start();
       }
-      if (marioCartAbilityToggle) drive.arcadeDrive(0, 0.8);
+      if (marioCartAbilityToggle) drive.arcadeDrive(0, Constants.DRIVE_TRAIN_SPEED);
    }
 }
