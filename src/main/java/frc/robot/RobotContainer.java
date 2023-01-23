@@ -37,7 +37,7 @@ public class RobotContainer {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
-    m_limelight = new LimeLight();
+    m_limelight = new LimeLight(m_driveTrain);
 
      m_driveTrain.setDefaultCommand(Commands.run(
       () -> 
@@ -48,6 +48,7 @@ public class RobotContainer {
         // m_driverControls.triggerHybridMode()
         //  m_driverControls.gameMode()
       ,m_driveTrain));
+      m_limelight.setDefaultCommand(m_limelight.follow());
 
     // Configure the button bindings
     configureButtonBindings();

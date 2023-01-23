@@ -2,6 +2,7 @@ package frc.robot.LimeLight;
 
 // import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,35 +17,29 @@ public class LimeLight extends SubsystemBase {
    NetworkTableEntry tx = table.getEntry("tx");
    NetworkTableEntry ty = table.getEntry("ty");
    NetworkTableEntry ta = table.getEntry("ta");
+   DriveTrain drive;
    double x, y, area;
-   double avrg[] = {50.0,0.0,-50.0};
-   ArrayList<Double> data = new ArrayList<Double>();
 
-   public LimeLight(){}
+   public LimeLight(DriveTrain driveTrain){
+      drive = driveTrain;
+   }
 
    public void update(){
-      double sum = 0;
       x = tx.getDouble(0.0);
       y = ty.getDouble(0.0);
       area = ta.getDouble(0.0);
       SmartDashboard.putNumber("LimelightX", x);
       SmartDashboard.putNumber("LimelightY", y);
       SmartDashboard.putNumber("LimelightArea", area);
-      data.add(x);
-      if (x < avrg[0]) avrg[0] = x;
-      if (y > avrg[2]) avrg[2] = y;
-      for (int i = 0; i < data.size(); i++){
-         sum += data.get(i);
-      }
-      sum = sum / data.size();
-      System.out.println(avrg[0] + ", " + avrg[1] + ", " + avrg[2]);
    }
 
-   private CommandBase follow(){
+   public CommandBase follow(){
       return runOnce(() -> {
-
+         System.out.println(getHorizontalTurn(0, 0.75));
+         // drive.arcadeDrive(0, getHorizontalTurn(0, 0.75));
       });
    };
+   private double getHorizontalTurn(double minTurn, double maxTurn){return (((maxTurn - minTurn) / 27) * x) + minTurn;}
 
    @Override
    public void periodic(){
