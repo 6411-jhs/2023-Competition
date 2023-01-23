@@ -35,11 +35,16 @@ public class LimeLight extends SubsystemBase {
 
    public CommandBase follow(){
       return runOnce(() -> {
-         System.out.println(getHorizontalTurn(0, 0.75));
-         // drive.arcadeDrive(0, getHorizontalTurn(0, 0.75));
+         // System.out.println(getHorizontalTurn(0.4, 0.75));
+         drive.arcadeDrive(0, getHorizontalTurn(0.25, 0.7));
       });
    };
-   private double getHorizontalTurn(double minTurn, double maxTurn){return (((maxTurn - minTurn) / 27) * x) + minTurn;}
+   private double getHorizontalTurn(double minTurn, double maxTurn){
+      double value = ((maxTurn - minTurn) / 27) * x;
+      if (value < 0) value -= minTurn;
+      else if (value > 0) value += minTurn;
+      return -value;
+   }
 
    @Override
    public void periodic(){
