@@ -28,4 +28,11 @@ public final class Constants {
     public static final double DRIVE_TRAIN_SPEED = 0.5;
     public static final int XBOX_USB_NUM = 0;
     public static final String PRIMARY_JOYSTICK = "Left";
+
+    //limelight
+    public static final double HORIZONTAL_THRESHOLD = 1.545;
+    public static final double HORIZONTAL_POS_RANGE[] = {-1.84,1.28};
+    public static final double VERTICAL_THRESHOLD = 1.985;
+    public static final double VERTICAL_POS_RANGE[] = {13.74,17.71};
+    public static final double THRESHOLD_PERCENT = 0.8;
 }
