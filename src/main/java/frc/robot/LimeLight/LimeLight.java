@@ -18,8 +18,11 @@ public class LimeLight extends SubsystemBase {
    NetworkTableEntry tx = table.getEntry("tx");
    NetworkTableEntry ty = table.getEntry("ty");
    NetworkTableEntry ta = table.getEntry("ta");
+   NetworkTableEntry tv = table.getEntry("tv");
    DriveTrain drive;
    double x, y, area;
+   double posData[] = {0,0,0,0};
+   boolean lightDetected;
 
    public LimeLight(DriveTrain driveTrain){
       drive = driveTrain;
@@ -29,29 +32,23 @@ public class LimeLight extends SubsystemBase {
       x = tx.getDouble(0.0);
       y = ty.getDouble(0.0);
       area = ta.getDouble(0.0);
+      lightDetected = tv.getBoolean(false);
       SmartDashboard.putNumber("LimelightX", x);
       SmartDashboard.putNumber("LimelightY", y);
       SmartDashboard.putNumber("LimelightArea", area);
+      SmartDashboard.putBoolean("LimeLightDeteced",lightDetected);
+
+      if (lightDetected){
+         posData[0] = posData[2];
+         posData[1] = posData[3];
+         posData[2] = x;
+         posData[3] = y;
+      }
    }
 
-   public CommandBase follow(){
+   public CommandBase roughAlign(){
       return runOnce(() -> {
-         // System.out.println(getVerticalSpeed(0, 1,Constants.VERTICAL_TARGET));
-         // drive.arcadeDrive(0, getHorizontalTurn(0.25, 0.7));
-         
-         double params[] = {getVerticalSpeed(0.35, 0.75,Constants.VERTICAL_TARGET), getHorizontalTurn(0.25, 0.7, Constants.HORIZONTAL_TARGET)};
-         double vThresholdCalc[] = {
-            Constants.VERTICAL_TARGET - (Constants.VERTICAL_THRESHOLD * Constants.THRESHOLD_PERCENT),
-            Constants.VERTICAL_TARGET + (Constants.VERTICAL_THRESHOLD * Constants.THRESHOLD_PERCENT)
-         };
-         double hThresholdCalc[] = {
-            Constants.HORIZONTAL_TARGET - (Constants.HORIZONTAL_THRESHOLD * Constants.THRESHOLD_PERCENT),
-            Constants.HORIZONTAL_TARGET + (Constants.HORIZONTAL_THRESHOLD * Constants.THRESHOLD_PERCENT)
-         };
-         if (y <= 0 || (y > vThresholdCalc[0] && y < vThresholdCalc[1])) params[0] = 0;
-         if (x > hThresholdCalc[0] && x < hThresholdCalc[1]) params[1] = 0;
-         // System.out.println(params[0] + ", " + params[1]);
-         drive.arcadeDrive(params[0], params[1]);
+         follow();
       });
    };
    private double getHorizontalTurn(double minTurn, double maxTurn, double target){
@@ -65,6 +62,57 @@ public class LimeLight extends SubsystemBase {
       if (value < 0) value -= minSpeed;
       else if (value > 0) value += minSpeed;
       return -value;
+   }
+   private String getLightDirection(){
+      double dist[] = {0.7592 * x, y};
+      boolean neg = dist[0] < 0;
+      if (Math.abs(dist[0]) > dist[1]){
+         if (neg){
+            return "Left";
+         } else {
+            return "Right";
+         }
+      } else return "Up";
+   }
+   public CommandBase follow(){
+      return runOnce(() -> {
+         double params[] = {getVerticalSpeed(0.35, 0.75,Constants.VERTICAL_TARGET), getHorizontalTurn(0.25, 0.7, Constants.HORIZONTAL_TARGET)};
+         double vThresholdCalc[] = {
+            Constants.VERTICAL_TARGET - (Constants.VERTICAL_THRESHOLD * Constants.THRESHOLD_PERCENT),
+            Constants.VERTICAL_TARGET + (Constants.VERTICAL_THRESHOLD * Constants.THRESHOLD_PERCENT)
+         };
+         double hThresholdCalc[] = {
+            Constants.HORIZONTAL_TARGET - (Constants.HORIZONTAL_THRESHOLD * Constants.THRESHOLD_PERCENT),
+            Constants.HORIZONTAL_TARGET + (Constants.HORIZONTAL_THRESHOLD * Constants.THRESHOLD_PERCENT)
+         };
+         double areaThresholdCalc[] = {
+            Constants.AREA_TARGET - (Constants.AREA_THRESHOLD * Constants.THRESHOLD_PERCENT),
+            Constants.AREA_TARGET + (Constants.AREA_THRESHOLD * Constants.THRESHOLD_PERCENT)
+         };
+         if (area < areaThresholdCalc[0] || area > areaThresholdCalc[1]){
+            params[0] = -area;
+         } else {
+            // if (y <= 0 || (y > vThresholdCalc[0] && y < vThresholdCalc[1])) params[0] = 0;
+         }
+         if (x > hThresholdCalc[0] && x < hThresholdCalc[1]) params[1] = 0;
+         drive.arcadeDrive(params[0], params[1]);
+      });
+   }
+   public CommandBase search(){
+      return runOnce(() -> {
+         if (!lightDetected){
+            String lastKnownDirection = getLightDirection();
+            switch (lastKnownDirection){
+               case "Left":
+
+                  break;
+               case "Right":
+                  break;
+               case "Up":
+                  break;
+            }
+         }
+      });
    }
 
    @Override
