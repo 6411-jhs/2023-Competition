@@ -6,8 +6,10 @@ import frc.robot.subsystems.DriveTrain;
 import java.util.Arrays;
 
 /**
- * Class containing all control modes for the robot. Currently only compatible for Xbox controller integration.
+ * Class containing all control modes for the robot (these are just regular functions; not commands nor subsystems). 
+ * Currently only compatible for Xbox controller integration.
  * Use Constants.PRIMARY_JOYSTICK to set which joystick you want as the main functionality for some of the modes
+ * note:  setting the primary joystick still needs testing
  */
 public class DriverControls {
    private XboxController xbox;

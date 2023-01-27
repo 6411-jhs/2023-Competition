@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 // import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.DriverControls;
-import frc.robot.LimeLight.LimeLight;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,7 +27,6 @@ public class RobotContainer {
  public static XboxController m_xboxController;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
- public static LimeLight m_limelight;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -37,18 +35,17 @@ public class RobotContainer {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
-    m_limelight = new LimeLight(m_driveTrain);
 
      m_driveTrain.setDefaultCommand(Commands.run(
       () -> 
         m_driverControls.ModeSwitchMode(null)
-        //  m_driverControls.tankMode()
+        //  m_driverControls.tankJoystickMode()
+        //  m_driverControls.tankTriggerMode()
         //  m_driverControls.arcadeMode()
         //  m_driverControls.singleStickMode()
-        // m_driverControls.triggerHybridMode()
+        //  m_driverControls.triggerHybridMode()
         //  m_driverControls.gameMode()
       ,m_driveTrain));
-      m_limelight.setDefaultCommand(m_limelight.follow());
 
     // Configure the button bindings
     configureButtonBindings();
