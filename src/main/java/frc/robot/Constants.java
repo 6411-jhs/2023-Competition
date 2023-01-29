@@ -28,4 +28,6 @@ public final class Constants {
     public static final double DRIVE_TRAIN_SPEED = 0.5;
     public static final int XBOX_USB_NUM = 0;
     public static final String PRIMARY_JOYSTICK = "Left";
+
+    public static final float DRIVE_TRAIN_RATIO = 1; //Cannot go above 1; this multiplies the trigger input on the controller to set a speed limit
 }
