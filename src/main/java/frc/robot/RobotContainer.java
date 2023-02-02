@@ -16,6 +16,7 @@ import frc.robot.commands.AllignTarget;
 // import frc.robot.commands.ArcadeDrive;
 // import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.DriverControls;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,12 +28,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
  public static XboxController m_xboxController;
-  public static AllignTarget m_AllignTarget;
- public static  DriveTrain m_driveTrain;
 
-//  public static CustomControl control = new CustomControl();
-//  private final ArcadeDrive m_arcadeDrive;
-//  private final TankDrive m_tankDrive;
+ public static  DriveTrain m_driveTrain;
+ public static DriverControls m_driverControls;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -40,7 +38,6 @@ public class RobotContainer {
   {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
-    m_AllignTarget = new AllignTarget();
     
     // tankDrive();
     // arcadeDrive();
@@ -49,33 +46,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
   }
-
-
-      public void tankDrive()
-      {
-        /*arcade*/
-      m_driveTrain.setDefaultCommand(Commands.run(
-        () -> 
-            m_driveTrain.arcadeDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, 
-            -m_xboxController.getLeftX()* Constants.DRIVE_TRAIN_SPEED
-        ),m_driveTrain));
-      }
-
-      public void arcadeDrive()
-      {
-        m_driveTrain.setDefaultCommand(Commands.run( 
-          () -> 
-            m_driveTrain.tankDrive(-m_xboxController.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -m_xboxController.getRightY()* Constants.DRIVE_TRAIN_SPEED), m_driveTrain));
-      }
-
-      public void triggerHybrid()
-      {
-        /*trigger Hybrid 1 */
-        m_driveTrain.setDefaultCommand(Commands.run( 
-          () -> 
-          m_driveTrain.arcadeDrive(m_xboxController.getRightTriggerAxis() * Constants.DRIVE_TRAIN_RATIO - m_xboxController.getLeftTriggerAxis(), -m_xboxController.getLeftX() ), m_driveTrain  ));
-      }
-
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
