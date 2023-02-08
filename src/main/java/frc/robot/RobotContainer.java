@@ -28,7 +28,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
  public static XboxController m_xboxController;
-
+  public static AllignTarget m_AllignTarget;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
 
@@ -38,10 +38,23 @@ public class RobotContainer {
   {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
+    m_AllignTarget = new AllignTarget();
     
     // tankDrive();
     // arcadeDrive();
-     triggerHybrid();
+    
+    m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
+
+     m_driveTrain.setDefaultCommand(Commands.run(
+      () -> 
+        m_driverControls.ModeSwitchMode(null)
+        //  m_driverControls.tankJoystickMode()
+        //  m_driverControls.tankTriggerMode()
+        //  m_driverControls.arcadeMode()
+        //  m_driverControls.singleStickMode()
+        //  m_driverControls.triggerHybridMode()
+        //  m_driverControls.gameMode()
+      ,m_driveTrain));
 
     // Configure the button bindings
     configureButtonBindings();
