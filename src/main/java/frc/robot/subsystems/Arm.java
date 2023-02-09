@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import com.ctre.phoenix.motorcontrol.*;
 
 public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
-  private Talon armMotor;
-  private Encoder falconencoder;
+  private WPI_TalonFX  armMotor;
+  private  falconencoder;
   public Arm() 
   {
     armMotor = new Talon(Constants.ARM_MOTOR);
