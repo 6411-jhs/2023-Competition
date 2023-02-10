@@ -4,20 +4,22 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import com.ctre.phoenix.motorcontrol.*;
 
 public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
-  private WPI_TalonFX  armMotor;
-  private  falconencoder;
+  private final WPI_TalonFX armMotor;
+  private final PIDController armPID;
   public Arm() 
   {
-    armMotor = new Talon(Constants.ARM_MOTOR);
-    falconencoder = new Encoder(Constants.ENCODE_A, Constants.ENCODE_B);
+    armMotor = new WPI_TalonFX(Constants.ARM_MOTOR);
+    armPID = new PIDController(Constants.ARM_PROPORTIONAL, Constants.ARM_INTEGRAL, Constants.ARM_DERIVITIVE)
   }
 
   public void setArmSpeed(double speed)
@@ -25,6 +27,10 @@ public class Arm extends SubsystemBase {
     armMotor.set(speed *Constants.ARM_SPEED);
   }
 
+  public void setArmPostion(int degree)
+  {
+    armMotor.set();
+  }
   
 
   @Override
