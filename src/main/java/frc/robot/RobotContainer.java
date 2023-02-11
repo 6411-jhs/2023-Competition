@@ -9,6 +9,7 @@ import javax.naming.spi.DirStateFactory.Result;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -36,6 +37,9 @@ public class RobotContainer {
  public static DriverControls m_driverControls;
  public static PhotonCamera limeCamera;
 
+ public static  DigitalInput topLimit;
+ public static  DigitalInput bottomLimit;
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
@@ -45,6 +49,8 @@ public class RobotContainer {
     m_AllignTarget = new AllignTarget();
     limeCamera = new PhotonCamera("limeCamera");
     
+    topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
+    bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
     // tankDrive();
     // arcadeDrive();
     

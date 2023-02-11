@@ -17,8 +17,7 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   private final WPI_TalonFX armMotor;
   private final PIDController armPID;
-  private final DigitalInput topLimit;
-  private final DigitalInput bottomLimit;
+
 
 
   private double armMotorPosition;
@@ -28,8 +27,7 @@ public class Arm extends SubsystemBase {
     armMotor = new WPI_TalonFX(Constants.ARM_MOTOR);
     armPID = new PIDController(Constants.ARM_PROPORTIONAL, Constants.ARM_INTEGRAL, Constants.ARM_DERIVITIVE);
     armMotorPosition = getArmMotorPostion();
-    topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
-    bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
+
 
   }
 
