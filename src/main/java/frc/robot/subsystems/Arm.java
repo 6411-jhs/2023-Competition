@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,10 +17,24 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   private final WPI_TalonFX armMotor;
   private final PIDController armPID;
+  private final DigitalInput topLimit;
+  private final DigitalInput bottomLimit;
+
+
+  private double armMotorPosition;
+
   public Arm() 
   {
     armMotor = new WPI_TalonFX(Constants.ARM_MOTOR);
-    armPID = new PIDController(Constants.ARM_PROPORTIONAL, Constants.ARM_INTEGRAL, Constants.ARM_DERIVITIVE)
+    armPID = new PIDController(Constants.ARM_PROPORTIONAL, Constants.ARM_INTEGRAL, Constants.ARM_DERIVITIVE);
+    armMotorPosition = getArmMotorPostion();
+    topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
+    bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
+
+  }
+
+  public double getArmMotorPostion() {
+    return armMotor.getSelectedSensorPosition()/Constants.FALCON_ENCODER_UNITS / Constants.ARM_GEAR_RATIO * Constants.ARM_PULLEY_RATIO;
   }
 
   public void setArmSpeed(double speed)
@@ -27,9 +42,10 @@ public class Arm extends SubsystemBase {
     armMotor.set(speed *Constants.ARM_SPEED);
   }
 
-  public void setArmPostion(int degree)
+  public void setArmPostion(double degree)
   {
-    armMotor.set();
+    armMotorPosition = getArmMotorPostion();
+    armMotor.set(armPID.calculate(armMotorPosition, degree));
   }
   
 
