@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+import javax.naming.spi.DirStateFactory.Result;
+
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -13,8 +18,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AllignTarget;
-// import frc.robot.commands.ArcadeDrive;
-// import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.DriverControls;
 
@@ -31,6 +34,7 @@ public class RobotContainer {
   public static AllignTarget m_AllignTarget;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
+ public static PhotonCamera limeCamera;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -39,6 +43,7 @@ public class RobotContainer {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
+    limeCamera = new PhotonCamera("limeCamera");
     
     // tankDrive();
     // arcadeDrive();
@@ -48,12 +53,7 @@ public class RobotContainer {
      m_driveTrain.setDefaultCommand(Commands.run(
       () -> 
         m_driverControls.ModeSwitchMode(null)
-        //  m_driverControls.tankJoystickMode()
-        //  m_driverControls.tankTriggerMode()
-        //  m_driverControls.arcadeMode()
-        //  m_driverControls.singleStickMode()
-        //  m_driverControls.triggerHybridMode()
-        //  m_driverControls.gameMode()
+
       ,m_driveTrain));
 
     // Configure the button bindings
@@ -79,6 +79,7 @@ public class RobotContainer {
    }
   }
 
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -88,5 +89,12 @@ public class RobotContainer {
   //   // An ExampleCommand will run in autonomous
   //   return m_arcadeDrive;
   // }
+//photon helper methods
+    public static PhotonPipelineResult getResult()
+    {
+      return limeCamera.getLatestResult();
+    }
+
+    
 
 }
