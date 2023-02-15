@@ -36,7 +36,7 @@ public class RobotContainer {
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
  public static PhotonCamera limeCamera;
-
+ public static Arm m_arm; 
  public static  DigitalInput topLimit;
  public static  DigitalInput bottomLimit;
 
@@ -48,6 +48,7 @@ public class RobotContainer {
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
     limeCamera = new PhotonCamera("limeCamera");
+    m_arm = new Arm();
     
     topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
     bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
