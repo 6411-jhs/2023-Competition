@@ -39,7 +39,12 @@ public class PositionArm extends CommandBase {
       if (RobotContainer.m_driveTrain.allignTargetLime())
       {
         double angle = calculateAngle(target);
-        double groundDistance = calculateDistance(target);
+        double groundDistance = calculateCurrentDistance(target);
+        if (groundDistance > calculateIdealDistance(target))
+        {
+          RobotContainer.m_driveTrain.driveForward(Constants.ALLIGN_SPEED);
+        }
+      //  else grip drop
       }
      }
     }
@@ -52,7 +57,7 @@ public class PositionArm extends CommandBase {
    return Math.acos(heightOffset/Constants.ARM_LENGTH);
   }
 
-  private double calculateDistance(PhotonTrackedTarget target)
+  private double calculateCurrentDistance(PhotonTrackedTarget target)
   {
     //You need the hypotinuse of the triangle to finish the equation. cos = a/h;
     //The diagonal distance from the camera and the pole point is h
@@ -61,6 +66,11 @@ public class PositionArm extends CommandBase {
     //As far as I could tell, this is only measuring vertical height (The a of a^2 + b^2 = c^2)
     return (Constants.POLE_HEIGHT -Constants.CAM_HEIGHT )/ Math.tan(target.getPitch());
   }
+
+  private double calculateIdealDistance(PhotonTrackedTarget target)
+  {
+    return  (Constants.POLE_HEIGHT -Constants.CAM_HEIGHT )/ calculateAngle(target);
+ }
 
   // Called once the command ends or is interrupted.
   @Override
