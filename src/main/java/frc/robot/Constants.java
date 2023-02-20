@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalSource;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -20,14 +22,38 @@ public final class Constants {
     public static final int RIGHT_BACK_MOTOR = 3;
    
     //axis and button indexes 
+    public static final int XBOX_USB_NUM = 0;
+    public static final int JOYSTICK_USB_NUM = 1;
     public static final int XBOX_LEFT_Y_AXIS = 1;
     public static final int XBOX_LEFT_X_AXIS = 0;
     public static final int XBOX_RIGHT_Y_AXIS = 5;
 
     //speeds
-    public static final double DRIVE_TRAIN_SPEED = 0.5;
-    public static final int XBOX_USB_NUM = 0;
+    public static final double DRIVE_TRAIN_SPEED = 1;
+
     public static final String PRIMARY_JOYSTICK = "Left";
 
-    public static final float DRIVE_TRAIN_RATIO = 1; //Cannot go above 1; this multiplies the trigger input on the controller to set a speed limit
+    //auto created need to be fixed 
+    public static final int ARM_MOTOR = 0;
+    public static final double ARM_SPEED = .2;
+    public static final DigitalSource ENCODE_A = null;
+    public static final DigitalSource ENCODE_B = null;
+    public static final double ARM_DERIVITIVE = 0;
+    public static final double ARM_INTEGRAL = 0;
+    public static final double ARM_PROPORTIONAL = 0;
+    public static final double FALCON_ENCODER_UNITS = 0;
+    public static final double ARM_GEAR_RATIO = 0;
+    public static final double ARM_PULLEY_RATIO = 0;
+    public static final int TOP_LIMIT_DIO = 0;
+    public static final int BOTTOM_LIMIT_DIO = 0;
+    public static final int POLE_HEIGHT = 0;
+    public static final int CAM_HEIGHT = 0;
+    public static final int TOTAL_HEIGHT = 0;
+    public static final int OFFSET = 0;
+    public static final double ARM_LENGTH = 0;
+    public static final double ALLIGN_SPEED = 0;
+    public static final int GRIPP_MOTOR = 0;
+    public static final double STALL_SPEED = 0;
+    public static final double GRIPP_SPEED = 0;
+
 }

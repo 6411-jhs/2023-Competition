@@ -19,8 +19,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AllignTarget;
-// import frc.robot.subsystems.Arm;
+import frc.robot.commands.Gripp;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Gripper;
 import frc.robot.DriverControls;
 
 /**
@@ -33,23 +34,25 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
  public static XboxController m_xboxController;
-  public static AllignTarget m_AllignTarget;
+ public static XboxController m_joystick;
+ public static AllignTarget m_AllignTarget;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
+ public static Gripper m_gripper;
  public static PhotonCamera limeCamera;
-//  public static Arm m_arm; 
  public static  DigitalInput topLimit;
  public static  DigitalInput bottomLimit;
+ public static DigitalInput grippLimit;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
+    m_joystick = new XboxController(Constants.JOYSTICK_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
     limeCamera = new PhotonCamera("limeCamera");
-    // m_arm = new Arm();
     
     // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
     // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
@@ -60,12 +63,12 @@ public class RobotContainer {
 
      m_driveTrain.setDefaultCommand(Commands.run(
       () -> 
-        m_driverControls.ModeSwitchMode(null)
+        m_driverControls.tankJoystickMode()
 
       ,m_driveTrain));
 
     // Configure the button bindings
-    configureButtonBindings();
+   configureButtonBindings();
   }
 
   /**
@@ -85,6 +88,8 @@ public class RobotContainer {
    {
     System.out.println("problem is " + e.getLocalizedMessage());
    }
+
+   Trigger grippTrigger = new JoystickButton(m_joystick, 2);
   }
 
 

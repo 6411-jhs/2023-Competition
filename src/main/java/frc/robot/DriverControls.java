@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class DriverControls {
    private XboxController xbox;
    private DriveTrain drive;
-   private int currentMode = 0;
+   private int currentMode = -1;
    private boolean modeSwitchEToggle = false;
    /**
     * Defines the xbox controller and sets the drive train
@@ -32,8 +32,10 @@ public class DriverControls {
     */
    public void ModeSwitchMode(String defaultMode){
       String modes[] = {"TankJoystick","TankTrigger","Arcade","SingleStick","TriggerHybrid","Game"};
-      if (defaultMode == null) currentMode = 0;
-      else currentMode = Arrays.asList(modes).indexOf(defaultMode);
+      if (currentMode == -1){
+         if (defaultMode == null) currentMode = 0;
+         else currentMode = Arrays.asList(modes).indexOf(defaultMode);
+      }
       if (xbox.getLeftBumperPressed() && xbox.getRightBumperPressed()){
          if (!modeSwitchEToggle) {
             currentMode++;
