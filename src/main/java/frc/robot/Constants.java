@@ -32,7 +32,7 @@ public final class Constants {
     public static final String PRIMARY_JOYSTICK = "Left";
 
     public static final float DRIVE_TRAIN_RATIO = 1; //Cannot go above 1; this multiplies the trigger input on the controller to set a speed limit
-    public static final int ARM_MOTOR = 0;
+    public static final int ARM_MOTOR = 4;
     public static final double ARM_SPEED = .2;
     public static final DigitalSource ENCODE_A = null;
     public static final DigitalSource ENCODE_B = null;
@@ -49,4 +49,5 @@ public final class Constants {
     public static final int TOTAL_HEIGHT = 0;
     public static final int OFFSET = 0;
     public static final double ARM_LENGTH = 0;
+    public static final String ALLIGN_SPEED = null;
 }

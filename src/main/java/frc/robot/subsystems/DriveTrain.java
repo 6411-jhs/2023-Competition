@@ -105,6 +105,9 @@ private LimeLight limeLight;
     return false;
   }
 
+public void driveForward(String allignSpeed) {
+}
+
 //   public void initDefaultCommand() {
 //     // Set the default command for a subsystem here.
 //     setDefaultCommand(new ArcadeDrive());
