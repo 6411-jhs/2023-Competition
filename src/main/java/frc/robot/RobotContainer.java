@@ -6,9 +6,6 @@ package frc.robot;
 
 import javax.naming.spi.DirStateFactory.Result;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.targeting.PhotonPipelineResult;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -19,9 +16,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AllignTarget;
-// import frc.robot.subsystems.Arm;
+import frc.robot.commands.MountChargingStation;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.DriverControls;
+import frc.robot.subsystems.DriverControls;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -33,11 +30,10 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
  public static XboxController m_xboxController;
-  public static AllignTarget m_AllignTarget;
+ public static AllignTarget m_AllignTarget;
+ public static MountChargingStation m_ChargingStation;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
- public static PhotonCamera limeCamera;
-//  public static Arm m_arm; 
  public static  DigitalInput topLimit;
  public static  DigitalInput bottomLimit;
 
@@ -48,24 +44,23 @@ public class RobotContainer {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
-    limeCamera = new PhotonCamera("limeCamera");
-    // m_arm = new Arm();
-    
-    // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
-    // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
-    // tankDrive();
-    // arcadeDrive();
     
     m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
+    m_ChargingStation = new MountChargingStation(m_driveTrain,m_xboxController);
 
      m_driveTrain.setDefaultCommand(Commands.run(
       () -> 
-        m_driverControls.ModeSwitchMode(null)
+        m_driverControls.triggerHybridMode()
 
       ,m_driveTrain));
 
     // Configure the button bindings
     configureButtonBindings();
+  }
+
+  public void controlWrap(){
+   m_driverControls.triggerHybridMode();
+
   }
 
   /**
@@ -76,15 +71,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() 
   {
-   Trigger limeButton = new JoystickButton(m_xboxController,XboxController.Button.kRightBumper.value);
-   try {
-    limeButton.whileTrue(m_AllignTarget);
-    
-   }
-   catch(Exception e)
-   {
-    System.out.println("problem is " + e.getLocalizedMessage());
-   }
+
   }
 
 
@@ -97,11 +84,6 @@ public class RobotContainer {
   //   // An ExampleCommand will run in autonomous
   //   return m_arcadeDrive;
   // }
-//photon helper methods
-    public static PhotonPipelineResult getResult()
-    {
-      return limeCamera.getLatestResult();
-    }
 
     
 
