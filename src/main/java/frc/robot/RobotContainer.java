@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AllignTarget;
-import frc.robot.commands.MountChargingStation;
+import frc.robot.commands.EngageChargingStation;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
 
@@ -31,7 +31,7 @@ public class RobotContainer {
 
  public static XboxController m_xboxController;
  public static AllignTarget m_AllignTarget;
- public static MountChargingStation m_ChargingStation;
+ public static EngageChargingStation m_EngageChargingStation;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
  public static  DigitalInput topLimit;
@@ -46,13 +46,12 @@ public class RobotContainer {
     m_AllignTarget = new AllignTarget();
     
     m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
-    m_ChargingStation = new MountChargingStation(m_driveTrain,m_xboxController);
+    m_EngageChargingStation = new EngageChargingStation(m_driveTrain,m_xboxController);
 
-     m_driveTrain.setDefaultCommand(Commands.run(
-      () -> 
-        m_driverControls.triggerHybridMode()
-
-      ,m_driveTrain));
+     m_driveTrain.setDefaultCommand(
+      Commands.run(() -> controlWrap(),m_driveTrain)
+      //m_EngageChargingStation
+     );
 
     // Configure the button bindings
     configureButtonBindings();
@@ -60,6 +59,7 @@ public class RobotContainer {
 
   public void controlWrap(){
    m_driverControls.triggerHybridMode();
+   m_EngageChargingStation.test();
 
   }
 

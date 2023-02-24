@@ -29,6 +29,6 @@ public final class Constants {
     public static final int XBOX_USB_NUM = 0;
     public static final String PRIMARY_JOYSTICK = "Left";
 
-    public static final double CHARGE_CONTACT_THRESHOLD = 2; //Minimum value for charging station contact to be detected
-    public static final double CHARGE_DRIVE_SPEED = 0.5; //Drive train speed of the robot when it's mounting the charging station
+    public static final double CHARGE_DRIVE_SPEED = 0.5;
+
 }
