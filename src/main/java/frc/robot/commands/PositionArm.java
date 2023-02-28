@@ -31,8 +31,8 @@ public class PositionArm extends CommandBase {
   public void execute() 
   {
     PhotonPipelineResult result = RobotContainer.getResult();
-    if (!RobotContainer.topLimit.get()&& !RobotContainer.bottomLimit.get())
-    {
+    // if (!RobotContainer.topLimit.get()&& !RobotContainer.bottomLimit.get())
+    // {
      if (result.hasTargets())
      {
       PhotonTrackedTarget target = result.getBestTarget();
@@ -47,7 +47,7 @@ public class PositionArm extends CommandBase {
       //  else grip drop
       }
      }
-    }
+    // }
   }
 
   private double calculateAngle(PhotonTrackedTarget target)

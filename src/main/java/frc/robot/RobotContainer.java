@@ -40,8 +40,8 @@ public class RobotContainer {
  public static PhotonCamera limeCamera;
  public static Arm m_arm; 
  public static ArmTest m_ArmTest;
- public static  DigitalInput topLimit;
- public static  DigitalInput bottomLimit;
+//  public static  DigitalInput topLimit;
+//  public static  DigitalInput bottomLimit;
 public static Object m_encoder;
 
 
@@ -55,8 +55,8 @@ public static Object m_encoder;
     m_arm = new Arm();
     m_ArmTest = new ArmTest();
     
-    topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
-    bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
+    // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
+    // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
     // tankDrive();
     // arcadeDrive();
     
