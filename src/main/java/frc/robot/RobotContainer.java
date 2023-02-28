@@ -6,6 +6,9 @@ package frc.robot;
 
 import javax.naming.spi.DirStateFactory.Result;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -102,7 +105,10 @@ public static Object m_encoder;
    armButton.whileTrue(m_ArmTest);
   }
 
-
+  public static PhotonPipelineResult getResult()
+    {
+      return limeCamera.getLatestResult();
+    }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
