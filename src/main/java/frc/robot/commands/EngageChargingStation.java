@@ -57,11 +57,20 @@ public class EngageChargingStation extends CommandBase {
    }
 
    public void test(){
-      if (xbox.getAButton()){
-         mount();
+      if (xbox.getYButton()){
+         update();
+         if (zSample.size() == zSampleSize || (zSample.size() > zSampleSize)){
+            System.out.println(zAcc);
+         }
       }
       if (xbox.getBButton()){
+         mount();
+      }
+      if (xbox.getAButton()){
          balance();
+      }
+      if (xbox.getXButton()){
+         execute();
       }
    }
 
