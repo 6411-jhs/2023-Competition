@@ -19,7 +19,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AllignTarget;
-// import frc.robot.subsystems.Arm;
+
+import frc.robot.commands.ArmTest;
+import frc.robot.subsystems.Arm;
+
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.DriverControls;
 
@@ -37,9 +40,12 @@ public class RobotContainer {
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
  public static PhotonCamera limeCamera;
-//  public static Arm m_arm; 
- public static  DigitalInput topLimit;
- public static  DigitalInput bottomLimit;
+ 
+ public static Arm m_arm; 
+ public static ArmTest m_ArmTest;
+//  public static  DigitalInput topLimit;
+//  public static  DigitalInput bottomLimit;
+public static Object m_encoder;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -49,7 +55,9 @@ public class RobotContainer {
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
     limeCamera = new PhotonCamera("limeCamera");
-    // m_arm = new Arm();
+    
+    m_arm = new Arm();
+    m_ArmTest = new ArmTest();
     
     // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
     // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
@@ -85,6 +93,9 @@ public class RobotContainer {
    {
     System.out.println("problem is " + e.getLocalizedMessage());
    }
+
+   JoystickButton armButton = new JoystickButton(m_xboxController, 2);
+   armButton.whileTrue(m_ArmTest);
   }
 
 
