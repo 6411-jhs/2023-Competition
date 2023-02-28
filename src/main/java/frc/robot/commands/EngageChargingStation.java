@@ -96,7 +96,7 @@ public class EngageChargingStation extends CommandBase {
    }
    private void update(){
       //Uses an average of accelerometer values rather than raw data; this makes the robot move smoother.
-      if (zSample.size() != zSampleSize && !(zSample.size() > zSampleSize)){//*Change the average sample size here
+      if (zSample.size() != zSampleSize && !(zSample.size() > zSampleSize)){
          zSample.add(accelerometer.getZ());
       } else {
          int sum = 0;
@@ -106,7 +106,5 @@ public class EngageChargingStation extends CommandBase {
          zAcc = sum / zSample.size();
          zSample.clear();
       }
-
-
    }
 }
