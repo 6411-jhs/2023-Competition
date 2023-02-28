@@ -16,7 +16,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AllignTarget;
+
 import frc.robot.commands.EngageChargingStation;
+
+import frc.robot.commands.ArmTest;
+import frc.robot.subsystems.Arm;
+
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
 
@@ -34,8 +39,15 @@ public class RobotContainer {
  public static EngageChargingStation m_EngageChargingStation;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
+
  public static  DigitalInput topLimit;
  public static  DigitalInput bottomLimit;
+
+ public static PhotonCamera limeCamera;
+ 
+ public static Arm m_arm; 
+ public static ArmTest m_ArmTest;
+public static Object m_encoder;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -44,6 +56,11 @@ public class RobotContainer {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
+
+    limeCamera = new PhotonCamera("limeCamera");
+    
+    m_arm = new Arm();
+    m_ArmTest = new ArmTest();
     
     m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
     m_EngageChargingStation = new EngageChargingStation(m_driveTrain,m_xboxController);
@@ -54,7 +71,7 @@ public class RobotContainer {
      );
 
     // Configure the button bindings
-    configureButtonBindings();
+    // configureButtonBindings();
   }
 
   public void controlWrap(){
@@ -71,7 +88,18 @@ public class RobotContainer {
    */
   private void configureButtonBindings() 
   {
+   Trigger limeButton = new JoystickButton(m_xboxController,XboxController.Button.kRightBumper.value);
+   try {
+    limeButton.whileTrue(m_AllignTarget);
+    
+   }
+   catch(Exception e)
+   {
+    System.out.println("problem is " + e.getLocalizedMessage());
+   }
 
+   JoystickButton armButton = new JoystickButton(m_xboxController, 2);
+   armButton.whileTrue(m_ArmTest);
   }
 
 
