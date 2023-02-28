@@ -32,27 +32,28 @@ import frc.robot.DriverControls;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
  public static XboxController m_xboxController;
- public static XboxController m_joystick;
- public static AllignTarget m_AllignTarget;
+  public static AllignTarget m_AllignTarget;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
- public static Gripper m_gripper;
  public static PhotonCamera limeCamera;
- public static  DigitalInput topLimit;
- public static  DigitalInput bottomLimit;
- public static DigitalInput grippLimit;
+ public static Gripper m_gripper;
+ public static Gripp m_gripp;
+
+//  public static  DigitalInput topLimit;
+//  public static  DigitalInput bottomLimit;
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
-    m_joystick = new XboxController(Constants.JOYSTICK_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
     limeCamera = new PhotonCamera("limeCamera");
+    m_gripper = new Gripper();
+    m_gripp = new Gripp();
     
     // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
     // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
@@ -63,12 +64,12 @@ public class RobotContainer {
 
      m_driveTrain.setDefaultCommand(Commands.run(
       () -> 
-        m_driverControls.tankJoystickMode()
+        m_driverControls.ModeSwitchMode(null)
 
       ,m_driveTrain));
 
     // Configure the button bindings
-   configureButtonBindings();
+    configureButtonBindings();
   }
 
   /**
@@ -80,16 +81,17 @@ public class RobotContainer {
   private void configureButtonBindings() 
   {
    Trigger limeButton = new JoystickButton(m_xboxController,XboxController.Button.kRightBumper.value);
-   try {
+   try 
+   {
     limeButton.whileTrue(m_AllignTarget);
-    
    }
    catch(Exception e)
    {
     System.out.println("problem is " + e.getLocalizedMessage());
    }
 
-   Trigger grippTrigger = new JoystickButton(m_joystick, 2);
+   JoystickButton armButton = new JoystickButton(m_xboxController, Constants.ARM_BUTTON);
+   armButton.whileTrue(m_gripp);
   }
 
 

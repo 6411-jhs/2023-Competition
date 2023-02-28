@@ -24,14 +24,14 @@ public class Gripp extends CommandBase {
   @Override
   public void execute() 
   {
-    if (RobotContainer.grippLimit.get())
-    {
-      RobotContainer.m_gripper.stopGrippMotor();
-    }
-    else
-    {
-      RobotContainer.m_gripper.setGrippMotor(((1+RobotContainer.m_joystick.getRawAxis(3))/2)*Constants.GRIPP_SPEED);
-    }
+    // if (RobotContainer.grippLimit.get())
+    // {
+    //   RobotContainer.m_gripper.stopGrippMotor();
+    // }
+    // else
+    // {
+      RobotContainer.m_gripper.setGrippMotor(RobotContainer.m_xboxController.getRawAxis(3)*Constants.GRIPP_SPEED );
+    // }
   }
 
   // Called once the command ends or is interrupted.

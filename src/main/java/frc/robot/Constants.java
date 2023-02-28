@@ -22,14 +22,16 @@ public final class Constants {
     public static final int RIGHT_BACK_MOTOR = 3;
    
     //axis and button indexes 
-    public static final int XBOX_USB_NUM = 0;
+
     public static final int JOYSTICK_USB_NUM = 1;
     public static final int XBOX_LEFT_Y_AXIS = 1;
     public static final int XBOX_LEFT_X_AXIS = 0;
     public static final int XBOX_RIGHT_Y_AXIS = 5;
 
     //speeds
+
     public static final double DRIVE_TRAIN_SPEED = 1;
+
 
     public static final String PRIMARY_JOYSTICK = "Left";
 
@@ -55,5 +57,7 @@ public final class Constants {
     public static final int GRIPP_MOTOR = 0;
     public static final double STALL_SPEED = 0;
     public static final double GRIPP_SPEED = 0;
+    public static final int ARM_BUTTON = 0;
+    public static final int XBOX_USB_NUM = 0;
 
 }
