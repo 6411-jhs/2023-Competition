@@ -20,11 +20,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AllignTarget;
 
+import frc.robot.commands.EngageChargingStation;
+
 import frc.robot.commands.ArmTest;
 import frc.robot.subsystems.Arm;
 
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.DriverControls;
+import frc.robot.subsystems.DriverControls;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -36,15 +38,18 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
  public static XboxController m_xboxController;
-  public static AllignTarget m_AllignTarget;
+ public static AllignTarget m_AllignTarget;
+ public static EngageChargingStation m_EngageChargingStation;
  public static  DriveTrain m_driveTrain;
  public static DriverControls m_driverControls;
+
+ public static  DigitalInput topLimit;
+ public static  DigitalInput bottomLimit;
+
  public static PhotonCamera limeCamera;
  
  public static Arm m_arm; 
  public static ArmTest m_ArmTest;
-//  public static  DigitalInput topLimit;
-//  public static  DigitalInput bottomLimit;
 public static Object m_encoder;
 
 
@@ -54,26 +59,28 @@ public static Object m_encoder;
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
+
     limeCamera = new PhotonCamera("limeCamera");
     
     m_arm = new Arm();
     m_ArmTest = new ArmTest();
     
-    // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
-    // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
-    // tankDrive();
-    // arcadeDrive();
-    
     m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
+    m_EngageChargingStation = new EngageChargingStation(m_driveTrain,m_xboxController);
 
-     m_driveTrain.setDefaultCommand(Commands.run(
-      () -> 
-        m_driverControls.ModeSwitchMode(null)
-
-      ,m_driveTrain));
+     m_driveTrain.setDefaultCommand(
+      Commands.run(() -> controlWrap(),m_driveTrain)
+      //m_EngageChargingStation
+     );
 
     // Configure the button bindings
-    configureButtonBindings();
+    // configureButtonBindings();
+  }
+
+  public void controlWrap(){
+   m_driverControls.triggerHybridMode();
+   m_EngageChargingStation.test();
+
   }
 
   /**
@@ -98,7 +105,10 @@ public static Object m_encoder;
    armButton.whileTrue(m_ArmTest);
   }
 
-
+  public static PhotonPipelineResult getResult()
+    {
+      return limeCamera.getLatestResult();
+    }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -108,11 +118,6 @@ public static Object m_encoder;
   //   // An ExampleCommand will run in autonomous
   //   return m_arcadeDrive;
   // }
-//photon helper methods
-    public static PhotonPipelineResult getResult()
-    {
-      return limeCamera.getLatestResult();
-    }
 
     
 
