@@ -27,27 +27,28 @@ import limelightvision.limelight.frc.LimeLight;
 
 public class DriveTrain extends SubsystemBase {
 
-private WPI_VictorSPX leftBackMotor;
-private WPI_VictorSPX rightFrontMotor;
-private WPI_VictorSPX  rightBackMotor; 
-private WPI_VictorSPX leftFrontMotor;
-private MotorControllerGroup rightMotors;
-private MotorControllerGroup leftMotors;
-private DifferentialDrive drive;
-private LimeLight limeLight;
+  private WPI_VictorSPX leftBackMotor;
+  private WPI_VictorSPX rightFrontMotor;
+  private WPI_VictorSPX rightBackMotor;
+  private WPI_VictorSPX leftFrontMotor;
+  private MotorControllerGroup rightMotors;
+  private MotorControllerGroup leftMotors;
+  private DifferentialDrive drive;
+  private LimeLight limeLight;
+
   /** Creates a new DriveTrain. */
   public DriveTrain() {
     leftFrontMotor = new WPI_VictorSPX(Constants.LEFT_FRONT_MOTOR);
     leftBackMotor = new WPI_VictorSPX(Constants.LEFT_BACK_MOTOR);
     rightFrontMotor = new WPI_VictorSPX(Constants.RIGHT_FRONT_MOTOR);
-    rightFrontMotor.setInverted(true);
     rightBackMotor = new WPI_VictorSPX(Constants.RIGHT_BACK_MOTOR);
-    rightBackMotor.setInverted(true);
-    rightMotors = new MotorControllerGroup(rightFrontMotor,rightBackMotor);
+    rightMotors = new MotorControllerGroup(rightFrontMotor, rightBackMotor);
     leftMotors = new MotorControllerGroup(leftBackMotor, leftFrontMotor);
+
+    leftMotors.setInverted(true);
     
     limeLight = new LimeLight();
-    drive = new DifferentialDrive(rightMotors,leftMotors);
+    drive = new DifferentialDrive(rightMotors, leftMotors);
   }
 
   @Override
@@ -55,72 +56,64 @@ private LimeLight limeLight;
     // This method will be called once per scheduler run
   }
 
-  public void setRightMotors(double speed)
-  {
-    rightFrontMotor.set(ControlMode.PercentOutput, speed*Constants.DRIVE_TRAIN_SPEED);
-    rightBackMotor.set(ControlMode.PercentOutput, speed*Constants.DRIVE_TRAIN_SPEED);
+  public void setRightMotors(double speed) {
+    rightFrontMotor.set(ControlMode.PercentOutput, speed * Constants.DRIVE_TRAIN_SPEED);
+    rightBackMotor.set(ControlMode.PercentOutput, speed * Constants.DRIVE_TRAIN_SPEED);
   }
-  public void setLeftMotors(double speed)
-  {
-    leftFrontMotor.set(ControlMode.PercentOutput, speed*Constants.DRIVE_TRAIN_SPEED);
-    leftBackMotor.set(ControlMode.PercentOutput, speed*Constants.DRIVE_TRAIN_SPEED);
+
+  public void setLeftMotors(double speed) {
+    leftFrontMotor.set(ControlMode.PercentOutput, speed * Constants.DRIVE_TRAIN_SPEED);
+    leftBackMotor.set(ControlMode.PercentOutput, speed * Constants.DRIVE_TRAIN_SPEED);
   }
-  public void stop()
-  {
+
+  public void stop() {
     drive.stopMotor();
   }
 
-  public void arcadeDrive(double speed, double turn){
+  public void arcadeDrive(double speed, double turn) {
     drive.arcadeDrive(speed, turn);
   }
 
-  public void tankDrive(double left,  double right)
-  {
-    drive.tankDrive(left,right);
+  public void tankDrive(double left, double right) {
+    drive.tankDrive(left, right);
   }
 
-  public void allignTarget()
-  {
-    if (limeLight.getIsTargetFound() && limeLight.getdegRotationToTarget() !=0)
-    {
+  public void allignTarget() {
+    if (limeLight.getIsTargetFound() && limeLight.getdegRotationToTarget() != 0) {
       boolean negative = false;
       negative = -limeLight.getdegRotationToTarget() < 0;
       double turn = 0.3 + (0.02592 * Math.abs(limeLight.getdegRotationToTarget()));
-      if (negative) turn = -turn;
+      if (negative)
+        turn = -turn;
       drive.arcadeDrive(0, turn);
       System.out.println("turn is " + turn);
     }
   }
 
-  public boolean allignTargetLime()
-  {
+  public boolean allignTargetLime() {
     PhotonPipelineResult result = RobotContainer.getResult();
     PhotonTrackedTarget target = result.getBestTarget();
-    if (result.hasTargets() && target.getSkew() != 0)
-    {
+    if (result.hasTargets() && target.getSkew() != 0) {
       boolean negative = false;
-      negative = -target.getSkew() <0;
+      negative = -target.getSkew() < 0;
       double turn = 0.3 + (0.02592 * Math.abs(limeLight.getdegRotationToTarget()));
-      if (negative)
-      {
+      if (negative) {
         turn = -turn;
       }
       drive.arcadeDrive(0, turn);
     }
-    if (result.hasTargets() && 1.0 > target.getSkew() && target.getSkew() <-1)
-    {
+    if (result.hasTargets() && 1.0 > target.getSkew() && target.getSkew() < -1) {
       return true;
     }
     return false;
   }
 
-public void driveForward(String allignSpeed) {
-}
+  public void driveForward(String allignSpeed) {
+  }
 
-//   public void initDefaultCommand() {
-//     // Set the default command for a subsystem here.
-//     setDefaultCommand(new ArcadeDrive());
-// }
-
+  // public void initDefaultCommand() {
+  // // Set the default command for a subsystem here.
+  // setDefaultCommand(new ArcadeDrive());
+  // }
 
 }

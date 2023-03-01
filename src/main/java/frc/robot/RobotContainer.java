@@ -29,96 +29,96 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
- public static XboxController m_xboxController;
- public static AllignTarget m_AllignTarget;
- public static EngageChargingStation m_EngageChargingStation;
- public static  DriveTrain m_driveTrain;
- public static DriverControls m_driverControls;
+  public static XboxController m_xboxController;
+  public static AllignTarget m_AllignTarget;
 
- public static  DigitalInput topLimit;
- public static  DigitalInput bottomLimit;
+  public static EngageChargingStation m_EngageChargingStation;
+  public static DriveTrain m_driveTrain;
+  public static DriverControls m_driverControls;
 
- public static PhotonCamera limeCamera;
- 
- public static Arm m_arm; 
- public static ArmTest m_ArmTest;
-public static Object m_encoder;
+  public static DigitalInput topLimit;
+  public static DigitalInput bottomLimit;
 
+  public static PhotonCamera limeCamera;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() 
-  {
+  public static Arm m_arm;
+  public static ArmTest m_ArmTest;
+  public static Object m_encoder;
+
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
+  public RobotContainer() {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
 
     limeCamera = new PhotonCamera("limeCamera");
-    
+
     m_arm = new Arm();
     m_ArmTest = new ArmTest();
-    
-    m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
-    m_EngageChargingStation = new EngageChargingStation(m_driveTrain,m_xboxController);
 
-     m_driveTrain.setDefaultCommand(
-      Commands.run(() -> controlWrap(),m_driveTrain)
-      //m_EngageChargingStation
-     );
+    m_driverControls = new DriverControls(m_driveTrain, m_xboxController);
+    m_EngageChargingStation = new EngageChargingStation(m_driveTrain, m_xboxController);
+
+    m_driveTrain.setDefaultCommand(
+        Commands.run(() -> controlWrap(), m_driveTrain)
+    // m_EngageChargingStation
+    );
 
     // Configure the button bindings
     // configureButtonBindings();
   }
 
-  public void controlWrap(){
-   m_driverControls.triggerHybridMode();
-   m_EngageChargingStation.test();
+  public void controlWrap() {
+    m_driverControls.triggerHybridMode();
+    m_EngageChargingStation.test();
 
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() 
-  {
-   Trigger limeButton = new JoystickButton(m_xboxController,XboxController.Button.kRightBumper.value);
-   try {
-    limeButton.whileTrue(m_AllignTarget);
-    
-   }
-   catch(Exception e)
-   {
-    System.out.println("problem is " + e.getLocalizedMessage());
-   }
+  private void configureButtonBindings() {
+    Trigger limeButton = new JoystickButton(m_xboxController, XboxController.Button.kRightBumper.value);
+    try {
+      limeButton.whileTrue(m_AllignTarget);
 
-   JoystickButton armButton = new JoystickButton(m_xboxController, 2);
-   armButton.whileTrue(m_ArmTest);
+    } catch (Exception e) {
+      System.out.println("problem is " + e.getLocalizedMessage());
+    }
+
+    JoystickButton armButton = new JoystickButton(m_xboxController, 2);
+    armButton.whileTrue(m_ArmTest);
   }
 
-  public static PhotonPipelineResult getResult()
-    {
-      return limeCamera.getLatestResult();
-    }
+  public static PhotonPipelineResult getResult() {
+    return limeCamera.getLatestResult();
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
   // public Command getAutonomousCommand() {
-  //   // An ExampleCommand will run in autonomous
-  //   return m_arcadeDrive;
+  // // An ExampleCommand will run in autonomous
+  // return m_arcadeDrive;
   // }
-
-    
 
 }

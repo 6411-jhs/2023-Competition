@@ -110,9 +110,9 @@ public class DriverControls {
     */
    public void triggerHybridMode(){
       if (Constants.PRIMARY_JOYSTICK == "Left"){
-         drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - xbox.getLeftTriggerAxis(), -xbox.getLeftX());
+         drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), -xbox.getLeftX() * Constants.DRIVE_TRAIN_SPEED);
       } else {
-         drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - xbox.getLeftTriggerAxis(), -xbox.getRightX());
+         drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), -xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
       }
    }
    /**
