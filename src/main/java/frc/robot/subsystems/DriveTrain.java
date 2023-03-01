@@ -90,23 +90,32 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  public boolean allignTargetLime() {
+  public boolean allignTargetLime()
+  {
     PhotonPipelineResult result = RobotContainer.getResult();
     PhotonTrackedTarget target = result.getBestTarget();
-    if (result.hasTargets() && target.getSkew() != 0) {
+    if (result.hasTargets() && target.getSkew() != 0)
+    {
       boolean negative = false;
-      negative = -target.getSkew() < 0;
+      negative = -target.getSkew() <0;
       double turn = 0.3 + (0.02592 * Math.abs(limeLight.getdegRotationToTarget()));
-      if (negative) {
+      if (negative)
+      {
         turn = -turn;
       }
       drive.arcadeDrive(0, turn);
     }
-    if (result.hasTargets() && 1.0 > target.getSkew() && target.getSkew() < -1) {
+    if (result.hasTargets() && 1.0 > target.getSkew() && target.getSkew() <-1)
+    {
       return true;
     }
     return false;
   }
+
+//   public void initDefaultCommand() {
+//     // Set the default command for a subsystem here.
+//     setDefaultCommand(new ArcadeDrive());
+// }
 
   public void driveForward(String allignSpeed) {
   }

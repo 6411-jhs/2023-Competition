@@ -56,5 +56,11 @@ public final class Constants {
     public static final int TOTAL_HEIGHT = 0;
     public static final int OFFSET = 0;
     public static final double ARM_LENGTH = 0;
-    public static final String ALLIGN_SPEED = null;
+    public static final double ALLIGN_SPEED = 0;
+    public static final int GRIPP_MOTOR = 0;
+    public static final double STALL_SPEED = 0;
+    public static final double GRIPP_SPEED = 0;
+    public static final int ARM_BUTTON = 0;
+    public static final int XBOX_USB_NUM = 0;
+
 }

@@ -27,6 +27,10 @@ import frc.robot.subsystems.Arm;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
+import frc.robot.commands.Gripp;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Gripper;
+import frc.robot.DriverControls;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -39,9 +43,17 @@ import frc.robot.subsystems.DriverControls;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
-  public static XboxController m_xboxController;
+ public static XboxController m_xboxController;
   public static AllignTarget m_AllignTarget;
+ public static  DriveTrain m_driveTrain;
+ public static DriverControls m_driverControls;
+ public static PhotonCamera limeCamera;
+ public static Gripper m_gripper;
+ public static Gripp m_gripp;
+
+//  public static  DigitalInput topLimit;
+//  public static  DigitalInput bottomLimit;
+
 
   public static EngageChargingStation m_EngageChargingStation;
   public static DriveTrain m_driveTrain;
@@ -65,6 +77,15 @@ public class RobotContainer {
     m_AllignTarget = new AllignTarget();
 
     limeCamera = new PhotonCamera("limeCamera");
+    m_gripper = new Gripper();
+    m_gripp = new Gripp();
+    
+    // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
+    // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
+    // tankDrive();
+    // arcadeDrive();
+    
+    m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
 
     m_arm = new Arm();
     m_ArmTest = new ArmTest();
@@ -95,17 +116,20 @@ public class RobotContainer {
    * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-    Trigger limeButton = new JoystickButton(m_xboxController, XboxController.Button.kRightBumper.value);
-    try {
-      limeButton.whileTrue(m_AllignTarget);
+  private void configureButtonBindings() 
+  {
+   Trigger limeButton = new JoystickButton(m_xboxController,XboxController.Button.kRightBumper.value);
+   try 
+   {
+    limeButton.whileTrue(m_AllignTarget);
+   }
+   catch(Exception e)
+   {
+    System.out.println("problem is " + e.getLocalizedMessage());
+   }
 
-    } catch (Exception e) {
-      System.out.println("problem is " + e.getLocalizedMessage());
-    }
-
-    JoystickButton armButton = new JoystickButton(m_xboxController, 2);
-    armButton.whileTrue(m_ArmTest);
+   JoystickButton armButton = new JoystickButton(m_xboxController, Constants.ARM_BUTTON);
+   armButton.whileTrue(m_gripp);
   }
 
   public static PhotonPipelineResult getResult() {
