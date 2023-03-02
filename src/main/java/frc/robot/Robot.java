@@ -84,8 +84,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    // System.out.println("Running Charging Station Autonomous");
-    // m_robotContainer.m_EngageChargingStation.execute();
+    m_robotContainer.m_EngageChargingStation.execute();
   }
 
   @Override

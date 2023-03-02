@@ -41,15 +41,20 @@ public class EngageChargingStation extends CommandBase {
    @Override
    public void execute() {
       update();
-      switch (stage){
-         case 0:
-            travel();
-            break;
-         case 1:
-            mount();
-            break;
-         case 2: finished = true;
+      if (clock < clockThresholds[1]){
+         driveTrain.arcadeDrive(Constants.AUTO_DRIVE_TRAIN_SPEED, 0);
+         clock++;
+         System.out.println(yAcc + " " + yJerk);
       }
+      // switch (stage){
+      //    case 0:
+      //       travel();
+      //       break;
+      //    case 1:
+      //       mount();
+      //       break;
+      //    case 2: finished = true;
+      // }
    }
 
    public void test() {
