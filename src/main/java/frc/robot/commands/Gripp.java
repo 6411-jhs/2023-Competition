@@ -37,6 +37,10 @@ public class Gripp extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if (RobotContainer.m_joystick.getRawButtonPressed(7))
+    {
+      RobotContainer.m_gripper.setGrippMotor(RobotContainer.m_joystick.getRawAxis(0)*Constants.GRIPP_SPEED );
+    }
     RobotContainer.m_gripper.stopGrippMotor();
   }
 
