@@ -47,8 +47,8 @@ public final class Constants {
     public static final double ARM_DERIVITIVE = 0;
     public static final double ARM_INTEGRAL = 0;
     public static final double ARM_PROPORTIONAL = 0;
-    public static final double FALCON_ENCODER_UNITS = 0;
-    public static final double ARM_GEAR_RATIO = 0;
+    public static final double FALCON_ENCODER_UNITS = 2048;
+    public static final double ARM_GEAR_RATIO = 25;
     public static final double ARM_PULLEY_RATIO = 0;
     public static final int TOP_LIMIT_DIO = 0;
     public static final int BOTTOM_LIMIT_DIO = 0;
@@ -63,5 +63,7 @@ public final class Constants {
     public static final double GRIPP_SPEED = .7;
     public static final int ARM_BUTTON = 1;
     public static final int GRIPP_BUTTON = 2;
+
+    public static final double ARM_VERTICAL_POS = -.2;
 
 }

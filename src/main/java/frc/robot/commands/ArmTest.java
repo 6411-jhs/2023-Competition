@@ -23,11 +23,15 @@ public class ArmTest extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {RobotContainer.m_arm.setArmSpeed(Constants.ARM_SPEED * RobotContainer.m_joystick.getRawAxis(1)) ;}
+  public void execute() 
+  {
+    RobotContainer.m_arm.setArmSpeed(Constants.ARM_SPEED * RobotContainer.m_joystick.getRawAxis(1)) ;
+    System.out.println(RobotContainer.m_arm.getArmMotorPostion());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {RobotContainer.m_arm.setArmSpeed(0.0);}
+  public void end(boolean interrupted) {RobotContainer.m_arm.setArmSpeed(0.0  /*+(RobotContainer.m_arm.getArmMotorPostion()+Constants.ARM_VERTICAL_POS)*/);}
 
   // Returns true when the command should end.
   @Override

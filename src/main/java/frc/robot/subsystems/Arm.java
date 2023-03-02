@@ -32,13 +32,18 @@ public class Arm extends SubsystemBase {
   }
 
   public double getArmMotorPostion() {
-    return armMotor.getSelectedSensorPosition()/Constants.FALCON_ENCODER_UNITS / Constants.ARM_GEAR_RATIO * Constants.ARM_PULLEY_RATIO;
+    return armMotor.getSelectedSensorPosition()/Constants.FALCON_ENCODER_UNITS / Constants.ARM_GEAR_RATIO ;
   }
 
   public void setArmSpeed(double speed)
   {
+    // if (speed <0&&getArmMotorPostion() <= .02)
+    // {
     armMotor.set(speed *Constants.ARM_SPEED);
+    // }
   }
+
+  
 
   public void setArmPostion(double degree)
   {
