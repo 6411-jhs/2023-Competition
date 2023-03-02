@@ -14,12 +14,17 @@ public class EngageChargingStation extends CommandBase {
    private DriveTrain driveTrain;
    private XboxController xbox;
 
-
    //Data Collection
    //Holds the z axis acceleration of the robot; gravity is also detected as an accleration
    private double zAcc, yAcc, xAcc;
    private double prevZAcc, prevYAcc, prevXAcc;
    private double zJerk, yJerk, xJerk;
+
+   private int clock;
+   private int clockThresholds[] = {200,150};
+   private boolean collisionDetected, finished;
+   private double collisionThreshold = 0.2;
+   private int stage = 0;
 
    public EngageChargingStation(DriveTrain m_DriveTrain, XboxController m_XboxController) {
       this.driveTrain = m_DriveTrain;
@@ -35,20 +40,55 @@ public class EngageChargingStation extends CommandBase {
 
    @Override
    public void execute() {
-      
+      update();
+      switch (stage){
+         case 0:
+            travel();
+            break;
+         case 1:
+            mount();
+            break;
+         case 2: finished = true;
+      }
    }
 
    public void test() {
-      update();
+      if (xbox.getAButton()){
+         update();
+         mount();
+      }
+      if (xbox.getBButton()){
+         update();
+         travel();
+      }
+      if (xbox.getXButton()){
+         update();
+         System.out.println(yJerk);
+      }
       // System.out.println(yAcc + " " + yJerk);
    }
 
-   // Adjusts robot to balance and engage on the charging station
-   private void balance() {
+   private void travel(){
+      if (clock < clockThresholds[0]){
+         driveTrain.arcadeDrive(Constants.AUTO_DRIVE_TRAIN_SPEED, 0);
+         clock++;
+      } else {
+         stage = 1;
+      }
    }
 
    // Moves robot to sit on the incline of the charging station ramp
    private void mount() {
+      if (collisionDetected){
+         if (clock < clockThresholds[1]){
+            driveTrain.arcadeDrive(Constants.AUTO_DRIVE_TRAIN_SPEED, 0);
+            clock++;
+         } else {
+            stage = 2;
+         }
+      } else {
+         driveTrain.arcadeDrive(Constants.AUTO_DRIVE_TRAIN_SPEED, 0);
+      }
    }
    
    //Updates all the data the charging station program uses
@@ -64,5 +104,7 @@ public class EngageChargingStation extends CommandBase {
       prevZAcc = zAcc;
       prevYAcc = yAcc;
       prevXAcc = xAcc;
+
+      if (yJerk > collisionThreshold) collisionDetected = true;
    }
 }
