@@ -4,16 +4,18 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Gripper extends SubsystemBase {
   /** Creates a new Gripper. */
-  private final VictorSP grippMotor;
+  private final WPI_VictorSPX grippMotor;
   public Gripper() 
   {
-    grippMotor = new VictorSP(Constants.GRIPP_MOTOR);
+    grippMotor = new WPI_VictorSPX(Constants.GRIPP_MOTOR);
   }
 
   public void setGrippMotor(double speed )

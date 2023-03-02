@@ -66,6 +66,12 @@ public class DriveTrain extends SubsystemBase {
     leftBackMotor.set(ControlMode.PercentOutput, speed * Constants.DRIVE_TRAIN_SPEED);
   }
 
+  public void driveForward(double speed)
+  {
+    setLeftMotors(speed);
+    setRightMotors(speed);
+  }
+
   public void stop() {
     drive.stopMotor();
   }

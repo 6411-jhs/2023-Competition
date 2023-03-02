@@ -33,14 +33,15 @@ public final class Constants {
     // speeds
     public static final double DRIVE_TRAIN_SPEED = 0.5;
     public static final int XBOX_USB_NUM = 0;
+    public static final int JOYSTICK_USB_NUM = 1;
     public static final String PRIMARY_JOYSTICK = "Left";
 
     public static final double CHARGE_DRIVE_SPEED = 0.5;
 
     public static final float DRIVE_TRAIN_RATIO = 1; // Cannot go above 1; this multiplies the trigger input on the
                                                      // controller to set a speed limit
-    public static final int ARM_MOTOR = 5;
-    public static final double ARM_SPEED = .2;
+    public static final int ARM_MOTOR = 7;
+    public static final double ARM_SPEED = .7;
     public static final DigitalSource ENCODE_A = null;
     public static final DigitalSource ENCODE_B = null;
     public static final double ARM_DERIVITIVE = 0;
@@ -57,10 +58,10 @@ public final class Constants {
     public static final int OFFSET = 0;
     public static final double ARM_LENGTH = 0;
     public static final double ALLIGN_SPEED = 0;
-    public static final int GRIPP_MOTOR = 0;
+    public static final int GRIPP_MOTOR = 6;
     public static final double STALL_SPEED = 0;
-    public static final double GRIPP_SPEED = 0;
-    public static final int ARM_BUTTON = 0;
-    public static final int XBOX_USB_NUM = 0;
+    public static final double GRIPP_SPEED = .7;
+    public static final int ARM_BUTTON = 1;
+    public static final int GRIPP_BUTTON = 2;
 
 }

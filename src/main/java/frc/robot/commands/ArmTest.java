@@ -4,7 +4,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class ArmTest extends CommandBase {
@@ -21,7 +23,7 @@ public class ArmTest extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {RobotContainer.m_arm.setArmSpeed(.5);}
+  public void execute() {RobotContainer.m_arm.setArmSpeed(Constants.ARM_SPEED * RobotContainer.m_joystick.getRawAxis(1)) ;}
 
   // Called once the command ends or is interrupted.
   @Override

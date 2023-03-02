@@ -30,7 +30,7 @@ import frc.robot.subsystems.DriverControls;
 import frc.robot.commands.Gripp;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gripper;
-import frc.robot.DriverControls;
+import frc.robot.subsystems.DriverControls;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -44,10 +44,9 @@ import frc.robot.DriverControls;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
  public static XboxController m_xboxController;
+ public static XboxController m_joystick;
   public static AllignTarget m_AllignTarget;
- public static  DriveTrain m_driveTrain;
- public static DriverControls m_driverControls;
- public static PhotonCamera limeCamera;
+
  public static Gripper m_gripper;
  public static Gripp m_gripp;
 
@@ -65,7 +64,7 @@ public class RobotContainer {
   public static PhotonCamera limeCamera;
 
   public static Arm m_arm;
-  public static ArmTest m_ArmTest;
+  public static ArmTest m_armTest;
   public static Object m_encoder;
 
   /**
@@ -73,6 +72,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
+    m_joystick = new XboxController(Constants.JOYSTICK_USB_NUM);
     m_driveTrain = new DriveTrain();
     m_AllignTarget = new AllignTarget();
 
@@ -80,6 +80,7 @@ public class RobotContainer {
     m_gripper = new Gripper();
     m_gripp = new Gripp();
     
+    m_armTest = new ArmTest();
     // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
     // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
     // tankDrive();
@@ -88,7 +89,7 @@ public class RobotContainer {
     m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
 
     m_arm = new Arm();
-    m_ArmTest = new ArmTest();
+    m_armTest = new ArmTest();
 
     m_driverControls = new DriverControls(m_driveTrain, m_xboxController);
     m_EngageChargingStation = new EngageChargingStation(m_driveTrain, m_xboxController);
@@ -99,7 +100,7 @@ public class RobotContainer {
     );
 
     // Configure the button bindings
-    // configureButtonBindings();
+    configureButtonBindings();
   }
 
   public void controlWrap() {
@@ -128,8 +129,11 @@ public class RobotContainer {
     System.out.println("problem is " + e.getLocalizedMessage());
    }
 
-   JoystickButton armButton = new JoystickButton(m_xboxController, Constants.ARM_BUTTON);
-   armButton.whileTrue(m_gripp);
+   JoystickButton gripButton = new JoystickButton(m_joystick, Constants.GRIPP_BUTTON);
+   gripButton.whileTrue(m_gripp);
+
+   JoystickButton armButton = new JoystickButton(m_joystick, Constants.ARM_BUTTON);
+armButton.whileTrue(m_armTest);
   }
 
   public static PhotonPipelineResult getResult() {
