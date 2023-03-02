@@ -26,12 +26,22 @@ public class ArmTest extends CommandBase {
   public void execute() 
   {
     RobotContainer.m_arm.setArmSpeed(Constants.ARM_SPEED * RobotContainer.m_joystick.getRawAxis(1)) ;
-    System.out.println(RobotContainer.m_arm.getArmMotorPostion());
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {RobotContainer.m_arm.setArmSpeed(0.0  /*+(RobotContainer.m_arm.getArmMotorPostion()+Constants.ARM_VERTICAL_POS)*/);}
+  public void end(boolean interrupted)
+  {
+    if (RobotContainer.m_arm.getArmMotorPostion()<Constants.ARM_VERTICAL_POS)
+    {
+      RobotContainer.m_arm.setArmSpeed(Constants.SIT_PRETTY_SPEED);
+      
+    }else
+    {
+    RobotContainer.m_arm.setArmSpeed(0.0);
+  }
+  }
 
   // Returns true when the command should end.
   @Override

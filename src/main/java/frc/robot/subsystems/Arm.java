@@ -37,10 +37,11 @@ public class Arm extends SubsystemBase {
 
   public void setArmSpeed(double speed)
   {
-    // if (speed <0&&getArmMotorPostion() <= .02)
-    // {
+    if (!(speed >0 &&getArmMotorPostion() >= -.02) && !(speed <0 && getArmMotorPostion()< Constants.GROUND_LIMIT))
+    {
     armMotor.set(speed *Constants.ARM_SPEED);
-    // }
+    System.out.println("before" + speed + "after" + speed *Constants.ARM_SPEED);
+    }
   }
 
   

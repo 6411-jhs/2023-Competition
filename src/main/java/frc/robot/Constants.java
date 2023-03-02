@@ -41,7 +41,7 @@ public final class Constants {
     public static final float DRIVE_TRAIN_RATIO = 1; // Cannot go above 1; this multiplies the trigger input on the
                                                      // controller to set a speed limit
     public static final int ARM_MOTOR = 7;
-    public static final double ARM_SPEED = .7;
+    public static final double ARM_SPEED = .4;
     public static final DigitalSource ENCODE_A = null;
     public static final DigitalSource ENCODE_B = null;
     public static final double ARM_DERIVITIVE = 0;
@@ -65,5 +65,7 @@ public final class Constants {
     public static final int GRIPP_BUTTON = 2;
 
     public static final double ARM_VERTICAL_POS = -.2;
+    public static final double GROUND_LIMIT = -.683;
+	public static final double SIT_PRETTY_SPEED = .176;
 
 }

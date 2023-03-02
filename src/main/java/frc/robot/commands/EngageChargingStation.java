@@ -40,7 +40,7 @@ public class EngageChargingStation extends CommandBase {
 
    public void test() {
       update();
-      System.out.println(yAcc + " " + yJerk);
+      // System.out.println(yAcc + " " + yJerk);
    }
 
    // Adjusts robot to balance and engage on the charging station
