@@ -38,6 +38,7 @@ public class AutoPlaceMove extends CommandBase {
     fallTimer.start();
     while (fallTimer.get() < Constants.FALL_TIME )
     {
+      
 
     }
     dropTimer.reset();

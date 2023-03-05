@@ -35,6 +35,7 @@ import frc.robot.commands.Gripp;
 import frc.robot.commands.Squeeze;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gripper;
+import frc.robot.view.Frame;
 import frc.robot.subsystems.DriverControls;
 
 /**
@@ -76,6 +77,7 @@ public class RobotContainer {
   public static EncoderTest m_encoderTest;
   public static AutoMoveOut m_autoMoveOut;
   public static AutoPlaceMove m_autoPlaceMove;
+  public Frame m_frame;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -108,9 +110,12 @@ public class RobotContainer {
     m_driverControls = new DriverControls(m_driveTrain, m_xboxController);
     m_EngageChargingStation = new EngageChargingStation(m_driveTrain, m_xboxController);
 
+    m_frame = new Frame();
+
     m_driveTrain.setDefaultCommand(
         Commands.run(() -> controlWrap(), m_driveTrain)
     // m_EngageChargingStation
+
     );
 
     // Configure the button bindings
