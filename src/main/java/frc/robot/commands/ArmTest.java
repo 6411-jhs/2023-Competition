@@ -25,8 +25,14 @@ public class ArmTest extends CommandBase {
   @Override
   public void execute() 
   {
+    if (!(Constants.ARM_SPEED * RobotContainer.m_joystick.getRawAxis(1) >0 && RobotContainer.m_arm.getArmMotorPostion() >= -.02) && !(Constants.ARM_SPEED * RobotContainer.m_joystick.getRawAxis(1) <0 && RobotContainer.m_arm.getArmMotorPostion()< Constants.GROUND_LIMIT))
+    {
     RobotContainer.m_arm.setArmSpeed(Constants.ARM_SPEED * RobotContainer.m_joystick.getRawAxis(1)) ;
-    
+    }
+    else 
+  {
+    RobotContainer.m_arm.setArmSpeed(Constants.SIT_PRETTY_SPEED);
+  }
   }
 
   // Called once the command ends or is interrupted.

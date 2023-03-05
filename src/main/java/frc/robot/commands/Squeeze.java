@@ -4,15 +4,12 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class Gripp extends CommandBase {
-  /** Creates a new Gripp. */
-
-  public Gripp() {
+public class Squeeze extends CommandBase {
+  /** Creates a new Squeeze. */
+  public Squeeze() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,22 +21,12 @@ public class Gripp extends CommandBase {
   @Override
   public void execute() 
   {
-    // if (RobotContainer.grippLimit.get())
-    // {
-    //   RobotContainer.m_gripper.stopGrippMotor();
-    // }
-    // else
-    // {
-      RobotContainer.m_gripper.setGrippMotor(RobotContainer.m_joystick.getRawAxis(0)*Constants.GRIPP_SPEED );
-    // }
+    RobotContainer.m_gripper.setGrippMotor(.6);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-
-    RobotContainer.m_gripper.stopGrippMotor();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

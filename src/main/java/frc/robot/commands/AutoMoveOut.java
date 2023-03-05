@@ -4,41 +4,50 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.SerialPort.StopBits;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-public class Gripp extends CommandBase {
-  /** Creates a new Gripp. */
-
-  public Gripp() {
+public class AutoMoveOut extends CommandBase {
+  /** Creates a new AutoMoveOut. */
+  public Timer moveTime;
+  public AutoMoveOut() {
     // Use addRequirements() here to declare subsystem dependencies.
+    moveTime = new Timer();
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() 
+  {
+    System.out.println("autoStart");
+  
+    moveTime.reset();
+    moveTime.start();
+    while (moveTime.get() <Constants.MOVE_FORWARD_TIME)
+    {
+          RobotContainer.m_driveTrain.driveForward(Constants.AUTO_DRIVE_TRAIN_SPEED);
+          System.out.println(moveTime.get());
+        }
+     
+    
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    // if (RobotContainer.grippLimit.get())
-    // {
-    //   RobotContainer.m_gripper.stopGrippMotor();
-    // }
-    // else
-    // {
-      RobotContainer.m_gripper.setGrippMotor(RobotContainer.m_joystick.getRawAxis(0)*Constants.GRIPP_SPEED );
-    // }
+ 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-
-    RobotContainer.m_gripper.stopGrippMotor();
+  public void end(boolean interrupted) 
+  {
+    RobotContainer.m_driveTrain.driveForward(0.0);
   }
 
   // Returns true when the command should end.

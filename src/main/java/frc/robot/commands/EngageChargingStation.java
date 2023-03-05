@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotContainer;
 
 public class EngageChargingStation extends CommandBase {
    private Accelerometer accelerometer = new BuiltInAccelerometer();
@@ -33,19 +34,26 @@ public class EngageChargingStation extends CommandBase {
 
    @Override
    public void initialize() {
-      zAcc = accelerometer.getZ();
-      xAcc = accelerometer.getX();
+      // zAcc = accelerometer.getZ();
+      // xAcc = accelerometer.getX();
       yAcc = accelerometer.getY();
    }
 
    @Override
    public void execute() {
-      update();
-      if (clock < clockThresholds[1]){
-         driveTrain.arcadeDrive(Constants.AUTO_DRIVE_TRAIN_SPEED, 0);
-         clock++;
-         System.out.println(yAcc + " " + yJerk);
-      }
+      // update();
+      yAcc = accelerometer.getY();
+      yJerk = (yAcc - prevYAcc) / 0.2;
+      prevYAcc = yAcc;
+      
+      System.out.println(yAcc + " " + yJerk);
+      RobotContainer.m_driveTrain.driveForward(Constants.AUTO_DRIVE_TRAIN_SPEED);
+      // if (clock < clockThresholds[1]){
+      //    driveTrain.arcadeDrive(Constants.AUTO_DRIVE_TRAIN_SPEED, 0);
+      //    clock++;
+      //    // System.out.println(yAcc + " " + yJerk);
+      // }
+      
       // switch (stage){
       //    case 0:
       //       travel();
@@ -98,18 +106,18 @@ public class EngageChargingStation extends CommandBase {
    
    //Updates all the data the charging station program uses
    private void update() {
-      zAcc = accelerometer.getZ();
-      xAcc = accelerometer.getX();
+      // zAcc = accelerometer.getZ();
+      // xAcc = accelerometer.getX();
       yAcc = accelerometer.getY();
 
-      zJerk = (zAcc - prevZAcc) / 0.2;
+      // zJerk = (zAcc - prevZAcc) / 0.2;
       yJerk = (yAcc - prevYAcc) / 0.2;
-      xJerk = (xAcc - prevXAcc) / 0.2;
+      // xJerk = (xAcc - prevXAcc) / 0.2;
 
-      prevZAcc = zAcc;
+      // prevZAcc = zAcc;
       prevYAcc = yAcc;
-      prevXAcc = xAcc;
+      // prevXAcc = xAcc;
 
-      if (yJerk > collisionThreshold) collisionDetected = true;
+      // if (yJerk > collisionThreshold) collisionDetected = true;
    }
 }

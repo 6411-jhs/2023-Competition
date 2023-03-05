@@ -69,7 +69,7 @@ public class DriveTrain extends SubsystemBase {
   public void driveForward(double speed)
   {
     setLeftMotors(speed);
-    setRightMotors(speed);
+    setRightMotors(-speed);
   }
 
   public void stop() {

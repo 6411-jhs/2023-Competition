@@ -10,6 +10,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -23,11 +24,15 @@ import frc.robot.commands.AllignTarget;
 import frc.robot.commands.EngageChargingStation;
 
 import frc.robot.commands.ArmTest;
+import frc.robot.commands.AutoMoveOut;
+import frc.robot.commands.AutoPlaceMove;
+import frc.robot.commands.EncoderTest;
 import frc.robot.subsystems.Arm;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
 import frc.robot.commands.Gripp;
+import frc.robot.commands.Squeeze;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.DriverControls;
@@ -49,6 +54,8 @@ public class RobotContainer {
 
  public static Gripper m_gripper;
  public static Gripp m_gripp;
+ 
+ public static Squeeze m_squeeze;
 
 //  public static  DigitalInput topLimit;
 //  public static  DigitalInput bottomLimit;
@@ -65,8 +72,10 @@ public class RobotContainer {
 
   public static Arm m_arm;
   public static ArmTest m_armTest;
-  public static Object m_encoder;
-
+  public static Encoder m_encoder;
+  public static EncoderTest m_encoderTest;
+  public static AutoMoveOut m_autoMoveOut;
+  public static AutoPlaceMove m_autoPlaceMove;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -79,8 +88,13 @@ public class RobotContainer {
     limeCamera = new PhotonCamera("limeCamera");
     m_gripper = new Gripper();
     m_gripp = new Gripp();
-    
+    m_squeeze = new Squeeze(); 
+
+    m_encoder = new Encoder(7,8,9);
+    m_encoderTest = new EncoderTest();
     m_armTest = new ArmTest();
+    m_autoMoveOut = new AutoMoveOut();
+    m_autoPlaceMove = new AutoPlaceMove();
     // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
     // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
     // tankDrive();
@@ -134,6 +148,11 @@ public class RobotContainer {
 
    JoystickButton armButton = new JoystickButton(m_joystick, Constants.ARM_BUTTON);
 armButton.whileTrue(m_armTest);
+   JoystickButton encodeTestButton = new JoystickButton(m_joystick, 5);
+   encodeTestButton.whileTrue(m_encoderTest);
+
+   JoystickButton squeezeButton = new JoystickButton(m_joystick, 7);
+   squeezeButton.whileTrue(m_squeeze);
   }
 
   public static PhotonPipelineResult getResult() {
@@ -144,9 +163,10 @@ armButton.whileTrue(m_armTest);
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  // // An ExampleCommand will run in autonomous
-  // return m_arcadeDrive;
-  // }
+  public Command getAutonomousCommand() {
+  // An ExampleCommand will run in autonomous
+  // return m_EngageChargingStation;
+  return m_autoPlaceMove;
+  }
 
 }

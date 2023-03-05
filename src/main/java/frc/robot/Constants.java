@@ -31,8 +31,8 @@ public final class Constants {
     public static final int XBOX_RIGHT_Y_AXIS = 5;
 
     // speeds
-    public static final double DRIVE_TRAIN_SPEED = 0.6;
-    public static final double AUTO_DRIVE_TRAIN_SPEED = 0.6;
+    public static final double DRIVE_TRAIN_SPEED = 0.8;
+    public static final double AUTO_DRIVE_TRAIN_SPEED = 0.8;
     public static final int XBOX_USB_NUM = 0;
     public static final int JOYSTICK_USB_NUM = 1;
     public static final String PRIMARY_JOYSTICK = "Left";
@@ -66,5 +66,10 @@ public final class Constants {
     public static final double ARM_VERTICAL_POS = -.2;
     public static final double GROUND_LIMIT = -.683;
 	public static final double SIT_PRETTY_SPEED = .176;
+    public static final double DRIVE_TURN_SPEED = 0.6;
+    public static final double ENCODER_FULL_REV = 819.5;
+    public static final double MOVE_FORWARD_TIME = 1.0;
+    public static final double FALL_TIME = 2.5;
+    public static final double DROP_TIME = 1;
 
 }
