@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
 
-import edu.wpi.first.wpilibj.RobotController;
 import frc.robot.RobotContainer;
 
 import java.awt.Color;
@@ -44,12 +43,14 @@ public class Panel extends JPanel
 	
 	private void setupListeners()
 	{
-		taxiAuto.addActionListener(select -> RobotContainer.setAutoCommand("taxi"));
-		placetaxiAuto.addActionListener(select -> RobotContainer.setAutoCommand("place & taxi"));
+		taxiAuto.addActionListener(select -> {RobotContainer.setAutoCommand("taxi"); placetaxiAuto.setSelected(false); taxiAuto.setSelected(true);});
+		placetaxiAuto.addActionListener(select -> {RobotContainer.setAutoCommand("place & taxi");taxiAuto.setSelected(false); placetaxiAuto.setSelected(true);});
 	}
 	
 	private void setupLayout()
 	{
 	
+		panelLayout.putConstraint(SpringLayout.NORTH, taxiAuto, 5, SpringLayout.NORTH, this);
+		panelLayout.putConstraint(SpringLayout.NORTH, placetaxiAuto, 5, SpringLayout.SOUTH, taxiAuto);
 	}
 }

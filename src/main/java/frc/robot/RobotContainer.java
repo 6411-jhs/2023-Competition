@@ -112,7 +112,7 @@ public class RobotContainer {
     m_driverControls = new DriverControls(m_driveTrain, m_xboxController);
     m_EngageChargingStation = new EngageChargingStation(m_driveTrain, m_xboxController);
 
-    m_frame = new Frame();
+    // m_frame = new Frame();
 
     m_driveTrain.setDefaultCommand(
         Commands.run(() -> controlWrap(), m_driveTrain)
