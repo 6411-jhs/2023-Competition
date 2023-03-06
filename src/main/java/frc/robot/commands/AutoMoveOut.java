@@ -28,7 +28,7 @@ public class AutoMoveOut extends CommandBase {
     moveTime.start();
     while (moveTime.get() <Constants.MOVE_FORWARD_TIME)
     {
-          RobotContainer.m_driveTrain.driveForward(Constants.AUTO_DRIVE_TRAIN_SPEED);
+          RobotContainer.m_driveTrain.driveForward(-Constants.AUTO_DRIVE_TRAIN_SPEED);
           System.out.println(moveTime.get());
         }
      

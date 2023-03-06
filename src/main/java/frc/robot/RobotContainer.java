@@ -77,6 +77,7 @@ public class RobotContainer {
   public static EncoderTest m_encoderTest;
   public static AutoMoveOut m_autoMoveOut;
   public static AutoPlaceMove m_autoPlaceMove;
+  public static Command m_autoCommand;
   public Frame m_frame;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -97,6 +98,7 @@ public class RobotContainer {
     m_armTest = new ArmTest();
     m_autoMoveOut = new AutoMoveOut();
     m_autoPlaceMove = new AutoPlaceMove();
+  
     // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
     // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
     // tankDrive();
@@ -163,6 +165,23 @@ armButton.whileTrue(m_armTest);
   public static PhotonPipelineResult getResult() {
     return limeCamera.getLatestResult();
   }
+
+  public static void setAutoCommand(String command)
+  {
+    if (command.equals("taxi"))
+    {
+      m_autoCommand = new AutoMoveOut();
+    }
+    else if (command.equals("place & taxi"))
+    {
+      m_autoCommand = new AutoPlaceMove();
+    }
+    else 
+    {
+      m_autoCommand = new AutoMoveOut();
+    }
+
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -171,7 +190,14 @@ armButton.whileTrue(m_armTest);
   public Command getAutonomousCommand() {
   // An ExampleCommand will run in autonomous
   // return m_EngageChargingStation;
-  return m_autoPlaceMove;
+  if ( m_autoCommand != null) 
+  {
+  return m_autoCommand;
+  }
+  else {
+    return m_autoPlaceMove;
+  }
+
   }
 
 }
