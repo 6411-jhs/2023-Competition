@@ -32,6 +32,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
 import frc.robot.commands.Gripp;
+import frc.robot.commands.PositionArm;
 import frc.robot.commands.Squeeze;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gripper;
@@ -79,6 +80,7 @@ public class RobotContainer {
   public static AutoPlaceMove m_autoPlaceMove;
   public static Command m_autoCommand;
   public Frame m_frame;
+  public static PositionArm m_positionArm;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -98,6 +100,7 @@ public class RobotContainer {
     m_armTest = new ArmTest();
     m_autoMoveOut = new AutoMoveOut();
     m_autoPlaceMove = new AutoPlaceMove();
+    m_positionArm = new PositionArm();
   
     // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
     // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
@@ -160,6 +163,9 @@ armButton.whileTrue(m_armTest);
 
    JoystickButton squeezeButton = new JoystickButton(m_joystick, 7);
    squeezeButton.whileTrue(m_squeeze);
+
+   JoystickButton positionButton = new JoystickButton(m_joystick, 3);
+   positionButton.whileTrue(m_positionArm);
   }
 
   public static PhotonPipelineResult getResult() {

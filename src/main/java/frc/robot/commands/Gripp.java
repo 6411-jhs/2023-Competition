@@ -30,7 +30,7 @@ public class Gripp extends CommandBase {
     // }
     // else
     // {
-      RobotContainer.m_gripper.setGrippMotor(RobotContainer.m_joystick.getRawAxis(0)*Constants.GRIPP_SPEED );
+      RobotContainer.m_gripper.setGrippMotor(RobotContainer.m_joystick.getRawAxis(2)*Constants.GRIPP_SPEED );
     // }
   }
 

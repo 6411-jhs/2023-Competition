@@ -43,9 +43,11 @@ public final class Constants {
     public static final double ARM_SPEED = .4;
     public static final DigitalSource ENCODE_A = null;
     public static final DigitalSource ENCODE_B = null;
-    public static final double ARM_DERIVITIVE = 0;
-    public static final double ARM_INTEGRAL = 0;
-    public static final double ARM_PROPORTIONAL = 0;
+    
+    public static final double ARM_DERIVITIVE = .2;
+    public static final double ARM_INTEGRAL = 1.5;
+    public static final double ARM_PROPORTIONAL = 1.7;
+
     public static final double FALCON_ENCODER_UNITS = 2048;
     public static final double ARM_GEAR_RATIO = 25;
     public static final double ARM_PULLEY_RATIO = 0;

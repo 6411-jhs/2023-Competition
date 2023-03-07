@@ -30,23 +30,25 @@ public class PositionArm extends CommandBase {
   @Override
   public void execute() 
   {
-    PhotonPipelineResult result = RobotContainer.getResult();
+    // PhotonPipelineResult result = RobotContainer.getResult();
     // if (!RobotContainer.topLimit.get()&& !RobotContainer.bottomLimit.get())
     // {
-     if (result.hasTargets())
-     {
-      PhotonTrackedTarget target = result.getBestTarget();
-      if (RobotContainer.m_driveTrain.allignTargetLime())
-      {
-        double angle = calculateAngle(target);
-        double groundDistance = calculateCurrentDistance(target);
-        if (groundDistance > calculateIdealDistance(target))
-        {
-          RobotContainer.m_driveTrain.driveForward(Constants.ALLIGN_SPEED);
-        }
-      //  else grip drop
-      }
-     }
+    //  if (result.hasTargets())
+    //  {
+    //   PhotonTrackedTarget target = result.getBestTarget();
+    //   if (RobotContainer.m_driveTrain.allignTargetLime())
+    //   {
+    //     double angle = calculateAngle(target);
+    //     double groundDistance = calculateCurrentDistance(target);
+    //     if (groundDistance > calculateIdealDistance(target))
+    //     {
+    //       RobotContainer.m_driveTrain.driveForward(Constants.ALLIGN_SPEED);
+    //     }
+    //   //  else grip drop
+    //   }
+    //  }
+      RobotContainer.m_arm.setArmPostion(Constants.ARM_VERTICAL_POS);
+      System.out.println(RobotContainer.m_arm.getArmMotorPostion());
     // }
   }
 
@@ -74,7 +76,10 @@ public class PositionArm extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) 
+  {
+    RobotContainer.m_arm.setArmSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override
