@@ -29,7 +29,7 @@ public class AutoPlaceMove extends CommandBase {
     System.out.println("autoStart");
     RobotContainer.m_gripper.setGrippMotor(.6);
 
-    while (RobotContainer.m_arm.getArmMotorPostion()>=-.3)
+    while (RobotContainer.m_arm.getArmMotorPosition()>=-.3)
     {
       RobotContainer.m_arm.setArmSpeed(-.25);
     }
@@ -48,7 +48,7 @@ public class AutoPlaceMove extends CommandBase {
     {}
     RobotContainer.m_gripper.setGrippMotor(0);
 
-    while (RobotContainer.m_arm.getArmMotorPostion()<=-.2)
+    while (RobotContainer.m_arm.getArmMotorPosition()<=-.2)
     {
       RobotContainer.m_arm.setArmSpeed(.25);
     }

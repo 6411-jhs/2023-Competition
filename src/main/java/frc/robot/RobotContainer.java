@@ -49,28 +49,27 @@ import frc.robot.subsystems.DriverControls;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
- public static XboxController m_xboxController;
- public static XboxController m_joystick;
-  public static AllignTarget m_AllignTarget;
+   // The robot's subsystems and commands are defined here...
+   public static XboxController m_xboxController;
+   public static XboxController m_joystick;
+   public static AllignTarget m_AllignTarget;
 
- public static Gripper m_gripper;
- public static Gripp m_gripp;
- 
- public static Squeeze m_squeeze;
+   public static Gripper m_gripper;
+   public static Gripp m_gripp;
 
-//  public static  DigitalInput topLimit;
-//  public static  DigitalInput bottomLimit;
+   public static Squeeze m_squeeze;
 
+   // public static DigitalInput topLimit;
+   // public static DigitalInput bottomLimit;
 
-  public static EngageChargingStation m_EngageChargingStation;
-  public static DriveTrain m_driveTrain;
-  public static DriverControls m_driverControls;
+   public static EngageChargingStation m_EngageChargingStation;
+   public static DriveTrain m_driveTrain;
+   public static DriverControls m_driverControls;
 
-  public static DigitalInput topLimit;
-  public static DigitalInput bottomLimit;
+   public static DigitalInput topLimit;
+   public static DigitalInput bottomLimit;
 
-  public static PhotonCamera limeCamera;
+   public static PhotonCamera limeCamera;
 
   public static Arm m_arm;
   public static ArmTest m_armTest;
@@ -81,129 +80,133 @@ public class RobotContainer {
   public static Command m_autoCommand;
   public Frame m_frame;
   public static PositionArm m_positionArm;
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
-    m_joystick = new XboxController(Constants.JOYSTICK_USB_NUM);
-    m_driveTrain = new DriveTrain();
-    m_AllignTarget = new AllignTarget();
+   /**
+    * The container for the robot. Contains subsystems, OI devices, and commands.
+    */
+   public RobotContainer() {
+      m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
+      m_joystick = new XboxController(Constants.JOYSTICK_USB_NUM);
+      m_driveTrain = new DriveTrain();
+      m_AllignTarget = new AllignTarget();
 
-    limeCamera = new PhotonCamera("limeCamera");
-    m_gripper = new Gripper();
-    m_gripp = new Gripp();
-    m_squeeze = new Squeeze(); 
+      m_encoder = new Encoder(7, 8, 9);
+      m_encoderTest = new EncoderTest();
+      m_armTest = new ArmTest();
+      m_autoMoveOut = new AutoMoveOut();
+      m_autoPlaceMove = new AutoPlaceMove();
+      m_gripp = new Gripp();
+      m_squeeze = new Squeeze();
+      m_positionArm = new PositionArm();
 
-    m_encoder = new Encoder(7,8,9);
-    m_encoderTest = new EncoderTest();
-    m_armTest = new ArmTest();
-    m_autoMoveOut = new AutoMoveOut();
-    m_autoPlaceMove = new AutoPlaceMove();
-    m_positionArm = new PositionArm();
-  
-    // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
-    // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
-    // tankDrive();
-    // arcadeDrive();
-    
-    m_driverControls = new DriverControls(m_driveTrain,m_xboxController);
+      // topLimit = new DigitalInput(Constants.TOP_LIMIT_DIO);
+      // bottomLimit = new DigitalInput(Constants.BOTTOM_LIMIT_DIO);
+      // tankDrive();
+      // arcadeDrive();
 
-    m_arm = new Arm();
-    m_armTest = new ArmTest();
+      m_driverControls = new DriverControls(m_driveTrain, m_xboxController);
 
-    m_driverControls = new DriverControls(m_driveTrain, m_xboxController);
-    m_EngageChargingStation = new EngageChargingStation(m_driveTrain, m_xboxController);
+      m_arm = new Arm();
+      m_armTest = new ArmTest();
 
-    // m_frame = new Frame();
+      m_driverControls = new DriverControls(m_driveTrain, m_xboxController);
+      m_EngageChargingStation = new EngageChargingStation(m_driveTrain, m_xboxController);
 
-    m_driveTrain.setDefaultCommand(
-        Commands.run(() -> controlWrap(), m_driveTrain)
-    // m_EngageChargingStation
+      // m_frame = new Frame();
 
-    );
+      m_driveTrain.setDefaultCommand(
+            Commands.run(() -> controlWrap(), m_driveTrain)
+      // m_EngageChargingStation
 
-    // Configure the button bindings
-    configureButtonBindings();
-  }
+      );
 
-  public void controlWrap() {
-    m_driverControls.triggerHybridMode();
-    // m_EngageChargingStation.test();
-
-  }
-
-  /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-   * it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() 
-  {
-   Trigger limeButton = new JoystickButton(m_xboxController,XboxController.Button.kRightBumper.value);
-   try 
-   {
-    limeButton.whileTrue(m_AllignTarget);
-   }
-   catch(Exception e)
-   {
-    System.out.println("problem is " + e.getLocalizedMessage());
+      // Configure the button bindings
+      configureButtonBindings();
    }
 
-   JoystickButton gripButton = new JoystickButton(m_joystick, Constants.GRIPP_BUTTON);
-   gripButton.whileTrue(m_gripp);
+   public void controlWrap() {
+      m_driverControls.triggerHybridMode();
+   }
 
-   JoystickButton armButton = new JoystickButton(m_joystick, Constants.ARM_BUTTON);
-armButton.whileTrue(m_armTest);
-   JoystickButton encodeTestButton = new JoystickButton(m_joystick, 5);
-   encodeTestButton.whileTrue(m_encoderTest);
+   /**
+    * Use this method to define your button->command mappings. Buttons can be
+    * created by
+    * instantiating a {@link GenericHID} or one of its subclasses ({@link
+    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+    * it to a {@link
+    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+    */
+   private void configureButtonBindings() {
+      Trigger limeButton = new JoystickButton(m_xboxController, XboxController.Button.kRightBumper.value);
+      try {
+         limeButton.whileTrue(m_AllignTarget);
+      } catch (Exception e) {
+         System.out.println("problem is " + e.getLocalizedMessage());
+      }
 
-   JoystickButton squeezeButton = new JoystickButton(m_joystick, 7);
-   squeezeButton.whileTrue(m_squeeze);
+      JoystickButton gripButton = new JoystickButton(m_joystick, Constants.GRIPP_BUTTON);
+      gripButton.whileTrue(m_gripp);
 
-   JoystickButton positionButton = new JoystickButton(m_joystick, 3);
-   positionButton.whileTrue(m_positionArm);
-  }
+      JoystickButton armButton = new JoystickButton(m_joystick, Constants.ARM_BUTTON);
+      armButton.whileTrue(Commands.run(() -> {
+         System.out.println(m_arm.getArmMotorPosition());
+      }));
 
-  public static PhotonPipelineResult getResult() {
-    return limeCamera.getLatestResult();
-  }
+      JoystickButton encodeTestButton = new JoystickButton(m_joystick, 5);
+      encodeTestButton.whileTrue(m_encoderTest);
 
-  public static void setAutoCommand(String command)
-  {
-    if (command.equals("taxi"))
-    {
-      m_autoCommand = new AutoMoveOut();
-    }
-    else if (command.equals("place & taxi"))
-    {
-      m_autoCommand = new AutoPlaceMove();
-    }
-    else 
-    {
-      m_autoCommand = new AutoMoveOut();
-    }
+      JoystickButton squeezeButton = new JoystickButton(m_joystick, 7);
+      squeezeButton.whileTrue(m_squeeze);
 
-  }
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-  // An ExampleCommand will run in autonomous
-  // return m_EngageChargingStation;
-  if ( m_autoCommand != null) 
-  {
-  return m_autoCommand;
-  }
-  else {
-    return m_autoPlaceMove;
-  }
+      JoystickButton ninetyDegree = new JoystickButton(m_joystick, 11);
+      ninetyDegree.whileTrue(Commands.run(() -> {
+         m_arm.setDegree(90);
+      }));
 
-  }
+      JoystickButton oneEightyDegree = new JoystickButton(m_joystick, 12);
+      oneEightyDegree.whileTrue(Commands.run(() -> {
+         m_arm.setDegree(180);
+      }));
+
+      JoystickButton backDegree = new JoystickButton(m_joystick, 9);
+      backDegree.whileTrue(Commands.run(() -> {
+         m_arm.setDegree(30);
+      }));
+
+      JoystickButton fourtyFiveDegree = new JoystickButton(m_joystick, 10);
+      fourtyFiveDegree.whileTrue(Commands.run(() -> {
+         m_arm.setDegree(45);
+      }));
+   }
+
+   public static PhotonPipelineResult getResult() {
+      return limeCamera.getLatestResult();
+   }
+
+   public static void setAutoCommand(String command) {
+      if (command.equals("taxi")) {
+         m_autoCommand = new AutoMoveOut();
+      } else if (command.equals("place & taxi")) {
+         m_autoCommand = new AutoPlaceMove();
+      } else {
+         m_autoCommand = new AutoMoveOut();
+      }
+
+   }
+
+   /**
+    * Use this to pass the autonomous command to the main {@link Robot} class.
+    *
+    * @return the command to run in autonomous
+    */
+   public Command getAutonomousCommand() {
+      // An ExampleCommand will run in autonomous
+      // return m_EngageChargingStation;
+      if (m_autoCommand != null) {
+         return m_autoCommand;
+      } else {
+         return m_autoPlaceMove;
+      }
+
+   }
 
 }

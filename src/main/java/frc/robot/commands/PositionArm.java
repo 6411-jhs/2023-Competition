@@ -47,8 +47,9 @@ public class PositionArm extends CommandBase {
     //   //  else grip drop
     //   }
     //  }
-      RobotContainer.m_arm.setArmPostion(Constants.ARM_VERTICAL_POS);
-      System.out.println(RobotContainer.m_arm.getArmMotorPostion());
+      
+      RobotContainer.m_arm.setDegree(60);
+      // System.out.println(RobotContainer.m_arm.getArmMotorPosition());
     // }
   }
 
