@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.subsystems.DriveTrain;
@@ -23,7 +24,7 @@ public class RobotContainer {
    public static Command m_autoCommand;
 
    public static XboxController m_xboxController;
-   public static XboxController m_joystick;
+   public static Joystick m_joystick;
 
    public static DriveTrain m_driveTrain;
    public static DriverControls m_driverControls;
@@ -32,7 +33,7 @@ public class RobotContainer {
 
    public RobotContainer() {
       m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
-      m_joystick = new XboxController(Constants.JOYSTICK_USB_NUM);
+      m_joystick = new Joystick(Constants.JOYSTICK_USB_NUM);
 
       m_driveTrain = new DriveTrain();
       m_driverControls = new DriverControls();
@@ -43,18 +44,27 @@ public class RobotContainer {
          controlWrap();
       },m_driveTrain));
 
-      controlWrapInit();
+      // controlWrapInit();
    }
 
    private void controlWrap() {
       m_driverControls.triggerHybridMode();
+      //Takes the -1 to 1 range of the joystick axis and translates it to degree measurements for arm orientation
+      double degreeTranslate = Constants.ARM_DEGREE_RANGE[0] + (m_joystick.getX() + 1) * ((Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0]) / 2);
+      
+      if (m_joystick.getRawButtonPressed(11)){
+         m_arm.setPosition(90);
+      } else if (m_joystick.getRawButtonPressed(12)){
+         m_arm.setPosition(180);
+      } else if (m_joystick.getRawButtonPressed(9)){
+         m_arm.setPosition(30);
+      } else {
+         m_arm.setPosition(degreeTranslate);
+      }
    }
    
    private void controlWrapInit(){
       JoystickButton armButton = new JoystickButton(m_joystick, Constants.ARM_BUTTON);
-      armButton.whileTrue(Commands.run(() -> {
-         System.out.println(m_arm.getMotorPosition());
-      }));
 
       JoystickButton ninetyDegree = new JoystickButton(m_joystick, 11);
       ninetyDegree.whileTrue(Commands.run(() -> {
