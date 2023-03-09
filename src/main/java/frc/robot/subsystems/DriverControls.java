@@ -1,11 +1,12 @@
 package frc.robot.subsystems;
-
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 import java.util.Arrays;
+
+import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants;
 
 /**
  * Class containing all control modes for the robot. 
@@ -19,6 +20,11 @@ public class DriverControls extends SubsystemBase {
 
    private int currentMode = -1;
    private boolean modeSwitchEToggle = false;
+
+   public DriverControls(){
+      xbox = RobotContainer.m_xboxController;
+      drive = RobotContainer.m_driveTrain;
+   }
 
    /**
     * Uses a configuration that allows the user to change which control mode they're using. Press LB + RB to cycle through modes.
