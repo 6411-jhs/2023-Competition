@@ -50,13 +50,13 @@ public class RobotContainer {
    private void controlWrap() {
       m_driverControls.triggerHybridMode();
       //Takes the -1 to 1 range of the joystick axis and translates it to degree measurements for arm orientation
-      double degreeTranslate = Constants.ARM_DEGREE_RANGE[0] + (m_joystick.getX() + 1) * ((Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0]) / 2);
+      double degreeTranslate = Constants.ARM_DEGREE_RANGE[0] + (m_joystick.getY() + 1) * ((Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0]) / 2);
       
-      if (m_joystick.getRawButtonPressed(11)){
+      if (m_joystick.getRawButton(11)){
          m_arm.setPosition(90);
-      } else if (m_joystick.getRawButtonPressed(12)){
+      } else if (m_joystick.getRawButton(12)){
          m_arm.setPosition(180);
-      } else if (m_joystick.getRawButtonPressed(9)){
+      } else if (m_joystick.getRawButton(9)){
          m_arm.setPosition(30);
       } else {
          m_arm.setPosition(degreeTranslate);

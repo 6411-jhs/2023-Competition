@@ -34,7 +34,7 @@ public final class Constants {
    //Speeds for all systems of robot
    public static final double DRIVE_TRAIN_SPEED = 0.8;
    public static final double AUTO_DRIVE_TRAIN_SPEED = 0.8;
-   public static final double ARM_SPEED = 0.4;
+   public static final double ARM_SPEED = 0.7;
 
    //-> Arm system constants 
    //These are the value ranges the arm creates; the min and max values the encoder can create based on physical limitations of the arm.

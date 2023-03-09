@@ -36,7 +36,7 @@ public class Arm extends SubsystemBase {
    public boolean setPosition(double degree){
       //Calculations
       double targetEncoderValue = (Constants.ARM_ENCODER_RANGE[0] + ((Constants.ARM_ENCODER_RANGE[1] - Constants.ARM_ENCODER_RANGE[0]) / (Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0])) * (degree - Constants.ARM_DEGREE_RANGE[0]));
-      double speedCalc = (targetEncoderValue - getMotorPosition()) * 1.8;
+      double speedCalc = (targetEncoderValue - getMotorPosition()) * 2.3;
 
       if (getMotorPosition() <= targetEncoderValue - Constants.ARM_ENCODER_THRESHOLD_RANGE || getMotorPosition() >= targetEncoderValue + Constants.ARM_ENCODER_THRESHOLD_RANGE){
          if (Math.abs(speedCalc) > Constants.ARM_SPEED){
