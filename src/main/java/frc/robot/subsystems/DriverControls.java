@@ -110,7 +110,7 @@ public class DriverControls extends SubsystemBase {
    /** Uses primary stick X as the arcade turn and uses the right and left trigger for forward and back. */
    public void triggerHybridMode(){
       if (Constants.PRIMARY_JOYSTICK == "Left"){
-         drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), -xbox.getLeftX() * Constants.DRIVE_TURN_SPEED);
+         drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), -xbox.getLeftX() * Constants.DRIVE_TRAIN_SPEED);
       } else {
          drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), -xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
       }

@@ -62,28 +62,4 @@ public class RobotContainer {
          m_arm.setPosition(degreeTranslate);
       }
    }
-   
-   private void controlWrapInit(){
-      JoystickButton armButton = new JoystickButton(m_joystick, Constants.ARM_BUTTON);
-
-      JoystickButton ninetyDegree = new JoystickButton(m_joystick, 11);
-      ninetyDegree.whileTrue(Commands.run(() -> {
-         m_arm.setPosition(90);
-      }));
-
-      JoystickButton oneEightyDegree = new JoystickButton(m_joystick, 12);
-      oneEightyDegree.whileTrue(Commands.run(() -> {
-         m_arm.setPosition(180);
-      }));
-
-      JoystickButton backDegree = new JoystickButton(m_joystick, 9);
-      backDegree.whileTrue(Commands.run(() -> {
-         m_arm.setPosition(30);
-      }));
-
-      JoystickButton fourtyFiveDegree = new JoystickButton(m_joystick, 10);
-      fourtyFiveDegree.whileTrue(Commands.run(() -> {
-         m_arm.setPosition(45);
-      }));
-   }
 }

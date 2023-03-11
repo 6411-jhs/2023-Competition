@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalSource;
-
 /**
  * 
  */
@@ -41,35 +39,6 @@ public final class Constants {
    public static final double ARM_DEGREE_RANGE[] = {30,270};
    public static final double ARM_ENCODER_RANGE[] = {-0.00626,-0.878};
    public static final double ARM_ENCODER_THRESHOLD_RANGE = 0;
-
-   
-   public static final DigitalSource ENCODE_A = null;
-   public static final DigitalSource ENCODE_B = null;
-
    public static final double FALCON_ENCODER_UNITS = 2048;
    public static final double ARM_GEAR_RATIO = 25;
-   public static final double ARM_PULLEY_RATIO = 0;
-   public static final int TOP_LIMIT_DIO = 0;
-   public static final int BOTTOM_LIMIT_DIO = 0;
-   public static final int POLE_HEIGHT = 0;
-   public static final int CAM_HEIGHT = 0;
-   public static final int TOTAL_HEIGHT = 0;
-   public static final int OFFSET = 0;
-   public static final double ARM_LENGTH = 0;
-   public static final double ALLIGN_SPEED = 0;
-   public static final int GRIPP_MOTOR = 6;
-   public static final double STALL_SPEED = 0;
-   public static final double GRIPP_SPEED = .7;
-   public static final int ARM_BUTTON = 1;
-   public static final int GRIPP_BUTTON = 2;
-
-   public static final double ARM_VERTICAL_POS = -.2;
-   public static final double GROUND_LIMIT = -.683;
-   public static final double SIT_PRETTY_SPEED = .176;
-   public static final double DRIVE_TURN_SPEED = 0.6;
-   public static final double ENCODER_FULL_REV = 819.5;
-   public static final double MOVE_FORWARD_TIME = 1.0;
-   public static final double FALL_TIME = 2.5;
-   public static final double DROP_TIME = 1;
-
 }
