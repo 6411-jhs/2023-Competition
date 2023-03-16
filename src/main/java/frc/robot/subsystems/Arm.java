@@ -7,6 +7,7 @@ import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
    private final WPI_TalonFX armMotor;
+   private double degreeSet;
 
    public Arm() {
       armMotor = new WPI_TalonFX(Constants.ARM_MOTOR);

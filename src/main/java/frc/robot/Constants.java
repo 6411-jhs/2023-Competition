@@ -14,6 +14,10 @@ public final class Constants {
 
    //Primary joystick control mode for the drive train controls
    public static final String PRIMARY_JOYSTICK = "Left";
+   //Jostick mode for the arm mechanics
+   //Explicit = every joystick value equals a static degree value the arm goes to
+   //Progressive = it will throttle the arm speed based on the joystick
+   public static final String ARM_JOYSTICK_MODE = "Explicit";
 
    //* PWM PORTS
    //Drive Train

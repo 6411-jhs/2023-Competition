@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
@@ -49,17 +48,27 @@ public class RobotContainer {
 
    private void controlWrap() {
       m_driverControls.triggerHybridMode();
-      //Takes the -1 to 1 range of the joystick axis and translates it to degree measurements for arm orientation
-      double degreeTranslate = Constants.ARM_DEGREE_RANGE[0] + (m_joystick.getY() + 1) * ((Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0]) / 2);
-      
+      double degreeTranslate;
+      if (Constants.ARM_JOYSTICK_MODE == "Explicit"){//Test
+         //Takes the -1 to 1 range of the joystick axis and translates it to degree measurements for arm orientation
+         degreeTranslate = Constants.ARM_DEGREE_RANGE[0] + (m_joystick.getY() + 1) * ((Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0]) / 2);
+      }
+
       if (m_joystick.getRawButton(11)){
          m_arm.setPosition(90);
       } else if (m_joystick.getRawButton(12)){
          m_arm.setPosition(180);
       } else if (m_joystick.getRawButton(9)){
          m_arm.setPosition(30);
-      } else {
-         m_arm.setPosition(degreeTranslate);
+      } else {//Test
+         if (Constants.ARM_JOYSTICK_MODE == "Explicit"){
+            m_arm.setPosition(degreeTranslate);
+         } else {
+            m_arm.setArmSpeed(m_joystick.getY() * Constants.ARM_SPEED);
+         }
       }
+
+      //Testing code
+      System.out.println(m_driveTrain.gyro.getPitch());
    }
 }
