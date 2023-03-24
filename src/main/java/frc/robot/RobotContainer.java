@@ -15,6 +15,8 @@ import frc.robot.subsystems.DriverControls;
 
 import frc.robot.subsystems.Arm;
 
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+
 /**
  * Main container of robot code; everything from commands, subsystems to
  * sensing. All functonality leads here to then be sent to the robot class.
@@ -30,6 +32,8 @@ public class RobotContainer {
 
    public static Arm m_arm;
 
+   public static Spark intake;
+
    public RobotContainer() {
       m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
       m_joystick = new Joystick(Constants.JOYSTICK_USB_NUM);
@@ -38,6 +42,8 @@ public class RobotContainer {
       m_driverControls = new DriverControls();
 
       m_arm = new Arm();
+
+      intake = new Spark(0);
 
       m_driveTrain.setDefaultCommand(Commands.run(() -> {
          controlWrap();
@@ -68,6 +74,9 @@ public class RobotContainer {
          }
       }
 
+      if (m_xboxController.getBButton()){
+         intake.set(0.5);
+      } else intake.set(0);
       //Testing code
       System.out.println(m_driveTrain.gyro.getPitch());
    }
