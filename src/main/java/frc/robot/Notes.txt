@@ -2,3 +2,10 @@ Things to be tested:
 
 - Gyroscope
 - Motor controller braking for drive train
+- Neo code
+- Drive train encoder values (program to correlate to real distances)
+
+Things to be tuned again:
+
+- Gyroscope balancing code (probably)
+- Falcon motor degree movement

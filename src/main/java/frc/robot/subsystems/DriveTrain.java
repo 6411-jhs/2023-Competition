@@ -29,6 +29,8 @@ public class DriveTrain extends SubsystemBase {
    public Encoder encoder;
    public AHRS gyro;
 
+   private boolean brakesActive = false;
+
 
    /** Creates a new DriveTrain. */
    public DriveTrain() {
@@ -94,6 +96,7 @@ public class DriveTrain extends SubsystemBase {
     * @param enable Whether or not to enable brake mode
     */
    public void setBrakeMode(boolean enable){//test
+      brakesActive = enable;
       if (enable){
          leftBackMotor.setNeutralMode(NeutralMode.Brake);
          leftFrontMotor.setNeutralMode(NeutralMode.Brake);
@@ -105,5 +108,12 @@ public class DriveTrain extends SubsystemBase {
          rightBackMotor.setNeutralMode(NeutralMode.Coast);
          rightFrontMotor.setNeutralMode(NeutralMode.Coast);
       }
+   }
+   /**
+    * Get whether or not the drive train motors are set to brake mode
+    * @return Whether or not the drive train is in brake mode
+    */
+   public boolean getBrakeMode(){
+      return brakesActive;
    }
 }

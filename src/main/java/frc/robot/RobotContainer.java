@@ -14,8 +14,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
 
 import frc.robot.subsystems.Arm;
-
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import frc.robot.subsystems.Intake;
 
 /**
  * Main container of robot code; everything from commands, subsystems to
@@ -31,8 +30,7 @@ public class RobotContainer {
    public static DriverControls m_driverControls;
 
    public static Arm m_arm;
-
-   public static Spark intake;
+   public static Intake m_intake;
 
    public RobotContainer() {
       m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
@@ -43,7 +41,7 @@ public class RobotContainer {
 
       m_arm = new Arm();
 
-      intake = new Spark(0);
+      m_intake = new Intake();
 
       m_driveTrain.setDefaultCommand(Commands.run(() -> {
          controlWrap();
@@ -75,8 +73,8 @@ public class RobotContainer {
       }
 
       if (m_xboxController.getBButton()){
-         intake.set(0.5);
-      } else intake.set(0);
+         m_intake.on();
+      } else m_intake.off();
       if (m_xboxController.getAButton()){
          //Test
          System.out.println(m_driveTrain.gyro.getPitch());
