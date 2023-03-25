@@ -64,5 +64,6 @@ public class Intake extends SubsystemBase {
    public void toggleDirection(){
       if (motorDirection == "Inward") motorDirection = "Outward";
       else motorDirection = "Inward";
+      
    }
 }
