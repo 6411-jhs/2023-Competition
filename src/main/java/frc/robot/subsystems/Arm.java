@@ -26,7 +26,7 @@ public class Arm extends SubsystemBase {
       if ((speed > 0 && getMotorPosition() >= Constants.ARM_ENCODER_RANGE[0]) || (speed < 0 && getMotorPosition() <= Constants.ARM_ENCODER_RANGE[1])){
          armMotor.set(0);
       } else {
-         armMotor.set(speed * Constants.ARM_SPEED);
+         armMotor.set(speed * Constants.MAX_ARM_SPEED);
       }
    }
 
@@ -36,20 +36,24 @@ public class Arm extends SubsystemBase {
     */
    public boolean setPosition(double degree){
       //Calculations
-      double targetEncoderValue = (Constants.ARM_ENCODER_RANGE[0] + ((Constants.ARM_ENCODER_RANGE[1] - Constants.ARM_ENCODER_RANGE[0]) / (Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0])) * (degree - Constants.ARM_DEGREE_RANGE[0]));
+      double targetEncoderValue = -0.002777 * degree;
       double speedCalc = (targetEncoderValue - getMotorPosition()) * 2.3;
 
-      if (getMotorPosition() <= targetEncoderValue - Constants.ARM_ENCODER_THRESHOLD_RANGE || getMotorPosition() >= targetEncoderValue + Constants.ARM_ENCODER_THRESHOLD_RANGE){
-         if (Math.abs(speedCalc) > Constants.ARM_SPEED){
-            if (speedCalc < 0) setArmSpeed(-Constants.ARM_SPEED);
-            else setArmSpeed(Constants.ARM_SPEED);;
-         } else {
-            setArmSpeed(speedCalc);
-         }
-         return false;
-      } else {
-        setArmSpeed(0);
-        return true;
-      }
+      System.out.println(speedCalc + " " + targetEncoderValue);
+      return false;
+
+      // if (getMotorPosition() <= targetEncoderValue - Constants.ARM_ENCODER_THRESHOLD_RANGE || getMotorPosition() >= targetEncoderValue + Constants.ARM_ENCODER_THRESHOLD_RANGE){
+      //    if (Math.abs(speedCalc) > Constants.MAX_ARM_SPEED){
+      //       if (speedCalc < 0) setArmSpeed(-Constants.MAX_ARM_SPEED);
+      //       else setArmSpeed(Constants.MAX_ARM_SPEED);
+      //    } else {
+      //       setArmSpeed(speedCalc);
+      //       System.out.println(speedCalc);
+      //    }
+      //    return false;
+      // } else {
+      //   setArmSpeed(0);
+      //   return true;
+      // }
    }
 }

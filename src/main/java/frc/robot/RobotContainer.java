@@ -67,12 +67,15 @@ public class RobotContainer {
          m_arm.setPosition(180);
       } else if (m_joystick.getRawButton(9)){
          m_arm.setPosition(30);
+      } else if (m_joystick.getRawButton(10)){
+         m_arm.setPosition(0);
       } else {//Test
-         if (Constants.ARM_JOYSTICK_MODE == "Explicit"){
-            m_arm.setPosition(degreeTranslate);
-         } else {
-            m_arm.setArmSpeed(m_joystick.getY() * Constants.ARM_SPEED);
-         }
+         m_arm.setArmSpeed(0);
+         // if (Constants.ARM_JOYSTICK_MODE == "Explicit"){
+         //    m_arm.setPosition(degreeTranslate);
+         // } else {
+         //    m_arm.setArmSpeed(m_joystick.getY() * Constants.ARM_SPEED);
+         // }
       }
 
       if (m_xboxController.getBButton()){
@@ -84,6 +87,9 @@ public class RobotContainer {
       }
       if (m_xboxController.getXButton()){
          System.out.println(m_driveTrain.getEncoderDistance());
+      }
+      if (m_xboxController.getYButton()){
+         System.out.println(m_arm.getMotorPosition());
       }
    }
 }

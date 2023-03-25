@@ -37,17 +37,18 @@ public final class Constants {
    // Speeds for all systems of robot
    public static final double DRIVE_TRAIN_SPEED = 0.8;
    public static final double AUTO_DRIVE_TRAIN_SPEED = 0.8;
-   public static final double ARM_SPEED = 0.7;
-   public static final double INTAKE_SPEED = 0.5;
+   public static final double MAX_ARM_SPEED = 0.5;
+   // public static final double MIN_ARM_SPEED = 0.2;
+   public static final double INTAKE_SPEED = 1;
 
    // -> Arm system constants
    // These are the value ranges the arm creates; the min and max values the
    // encoder can create based on physical limitations of the arm.
-   public static final double ARM_DEGREE_RANGE[] = { 30, 270 };
-   public static final double ARM_ENCODER_RANGE[] = { -0.00626, -0.878 };
+   public static final double ARM_DEGREE_RANGE[] = { -13, 205 };
+   public static final double ARM_ENCODER_RANGE[] = { -0.008125, -0.5673 };
    public static final double ARM_ENCODER_THRESHOLD_RANGE = 0;
    public static final double FALCON_ENCODER_UNITS = 2048;
-   public static final double ARM_GEAR_RATIO = 25;
+   public static final double ARM_GEAR_RATIO = 50;
    public static final int POLE_HEIGHT = 0;
    public static final int CAM_HEIGHT = 6;
    public static final double ALLIGN_SPEED = 0.5;
