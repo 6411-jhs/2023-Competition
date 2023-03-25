@@ -77,7 +77,12 @@ public class RobotContainer {
       if (m_xboxController.getBButton()){
          intake.set(0.5);
       } else intake.set(0);
-      //Testing code
-      System.out.println(m_driveTrain.gyro.getPitch());
+      if (m_xboxController.getAButton()){
+         //Test
+         System.out.println(m_driveTrain.gyro.getPitch());
+      }
+      if (m_xboxController.getXButton()){
+         System.out.println(m_driveTrain.getEncoderDistance());
+      }
    }
 }
