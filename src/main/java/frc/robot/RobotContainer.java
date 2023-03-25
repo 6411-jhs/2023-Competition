@@ -15,6 +15,7 @@ import frc.robot.subsystems.DriverControls;
 
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LimeLight;
 
 /**
  * Main container of robot code; everything from commands, subsystems to
@@ -31,6 +32,8 @@ public class RobotContainer {
 
    public static Arm m_arm;
    public static Intake m_intake;
+
+   public static LimeLight m_limelight;
 
    public RobotContainer() {
       m_xboxController = new XboxController(Constants.XBOX_USB_NUM);

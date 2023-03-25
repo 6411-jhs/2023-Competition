@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import limelightvision.limelight.frc.LimeLightSrc;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
@@ -26,6 +26,7 @@ public class LimeLight extends SubsystemBase {
          driveTrain.arcadeDrive(0, turn);
          System.out.println("turn is " + turn);
       }
+      
    }
 
    /** Aligns robot to an april tag */
@@ -45,6 +46,27 @@ public class LimeLight extends SubsystemBase {
          return true;
       }
       return false;
+   }
+
+   public void placeMid()
+   {
+       PhotonPipelineResult result = getResult();
+
+     if (result.hasTargets())
+     {
+      PhotonTrackedTarget target = result.getBestTarget();
+      if (this.allignTargetTag())
+      {
+        
+        RobotContainer.m_arm.setPosition(Constants.MID_ANGLE);
+        double groundDistance =  (Constants.POLE_HEIGHT -Constants.CAM_HEIGHT )/ Math.tan(target.getPitch());;
+        if (groundDistance >  (Constants.POLE_HEIGHT -Constants.CAM_HEIGHT )/ Math.tan(target.getPitch()))
+        {
+          RobotContainer.m_driveTrain.driveForward(Constants.ALLIGN_SPEED);
+        }
+      //  else grip drop
+      }
+     }
    }
 
    /** Aligns robot to a limelight target (Uses command API for ease of use) */
