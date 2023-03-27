@@ -1,17 +1,17 @@
+//** This subsystem is a version of the intake built for PWM interfacing instead of CAN
+
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-
-
 import frc.robot.Constants;
 
-public class Intake extends SubsystemBase {
+public class IntakePWM extends SubsystemBase {
    private PWMSparkMax intakeMotor;
    private String motorDirection = "Inward";
 
-   public Intake(){
-      intakeMotor = new PWMSparkMax(Constants.INTAKE_MOTOR);
+   public IntakePWM(){
+      intakeMotor = new PWMSparkMax(Constants.INTAKE_MOTOR_PWM);
       intakeMotor.setInverted(true);
    }
 
@@ -65,6 +65,5 @@ public class Intake extends SubsystemBase {
    public void toggleDirection(){
       if (motorDirection == "Inward") motorDirection = "Outward";
       else motorDirection = "Inward";
-      
    }
 }

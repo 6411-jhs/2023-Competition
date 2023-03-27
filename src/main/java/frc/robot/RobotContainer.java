@@ -14,8 +14,11 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriverControls;
 
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakePWM;
+import frc.robot.subsystems.IntakeCAN;
 import frc.robot.subsystems.LimeLight;
+
+import frc.robot.commands.*;
 
 /**
  * Main container of robot code; everything from commands, subsystems to
@@ -31,9 +34,14 @@ public class RobotContainer {
    public static DriverControls m_driverControls;
 
    public static Arm m_arm;
-   public static Intake m_intake;
+   public static IntakePWM m_intake;
+   // public static IntakeCAN m_intake;
 
    public static LimeLight m_limelight;
+
+   BalanceChargingStation balanceChargingStation;
+   MountChargingStation mountChargingStation;
+   PickUpCube pickUpCube;
 
    public RobotContainer() {
       m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
@@ -43,14 +51,15 @@ public class RobotContainer {
       m_driverControls = new DriverControls();
 
       m_arm = new Arm();
+      m_intake = new IntakePWM();
 
-      m_intake = new Intake();
+      balanceChargingStation = new BalanceChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
+      mountChargingStation = new MountChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
+      // pickUpCube = new PickUpCube(m_intake);
 
       m_driveTrain.setDefaultCommand(Commands.run(() -> {
          controlWrap();
       },m_driveTrain));
-
-      // controlWrapInit();
    }
 
    private void controlWrap() {
@@ -86,10 +95,14 @@ public class RobotContainer {
          System.out.println(m_driveTrain.gyro.getPitch());
       }
       if (m_xboxController.getXButton()){
-         System.out.println(m_driveTrain.getEncoderDistance());
+         System.out.println(m_driveTrain.getEncoderValue());
       }
       if (m_xboxController.getYButton()){
          System.out.println(m_arm.getMotorPosition());
+      }
+      if (m_xboxController.getRightBumper()){
+         Commands.sequence(balanceChargingStation);
+         // Commands.sequence(mountChargingStation);
       }
    }
 }

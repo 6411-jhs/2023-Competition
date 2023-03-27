@@ -86,7 +86,7 @@ public class DriveTrain extends SubsystemBase {
    }
 
    /** Get encoder value of the drive train */
-   public double getEncoderDistance(){
+   public double getEncoderValue(){
       return encoder.getDistance();
    }
 
