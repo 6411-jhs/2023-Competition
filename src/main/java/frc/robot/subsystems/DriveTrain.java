@@ -42,15 +42,16 @@ public class DriveTrain extends SubsystemBase {
 
       rightMotors = new MotorControllerGroup(rightFrontMotor, rightBackMotor);
       leftMotors = new MotorControllerGroup(leftBackMotor, leftFrontMotor);
+      setBrakeMode(false);
 
-      leftMotors.setInverted(true);
+      rightMotors.setInverted(true);
 
       drive = new DifferentialDrive(rightMotors, leftMotors);
 
       encoder = new Encoder(7, 8, 9);
       encoder.reset();
 
-      gyro = new AHRS(SerialPort.Port.kUSB);
+      gyro = new AHRS(SerialPort.Port.kMXP);
    }
 
    /** Set right side motor speed */
@@ -115,5 +116,15 @@ public class DriveTrain extends SubsystemBase {
     */
    public boolean getBrakeMode(){
       return brakesActive;
+   }
+
+   public double getPitch(){
+      return gyro.getRoll();
+   }
+   public double getRoll(){
+      return gyro.getPitch();
+   }
+   public double getYaw(){
+      return gyro.getYaw();
    }
 }

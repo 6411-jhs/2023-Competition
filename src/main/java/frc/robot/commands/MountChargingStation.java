@@ -17,12 +17,14 @@ public class MountChargingStation extends CommandBase {
 
    @Override
    public void execute(){
-      if ((drive.gyro.getPitch() > Constants.GYRO_MOUNTING_VALUE - Constants.GYRO_THRESHOLD_RANGE && drive.gyro.getPitch() < Constants.GYRO_MOUNTING_VALUE + Constants.GYRO_THRESHOLD_RANGE)){
-         drive.arcadeDrive(0, 0);
-         finished = true;
-      } else {
-         drive.arcadeDrive(driveSpeed, 0);
-         finished = false;
+      if (!finished){
+         if ((drive.getPitch() > Constants.GYRO_MOUNTING_VALUE - Constants.GYRO_THRESHOLD_RANGE && drive.getPitch() < Constants.GYRO_MOUNTING_VALUE + Constants.GYRO_THRESHOLD_RANGE)){
+            drive.arcadeDrive(0, 0);
+            finished = true;
+         } else {
+            drive.arcadeDrive(driveSpeed, 0);
+            finished = false;
+         }
       }
    }
 

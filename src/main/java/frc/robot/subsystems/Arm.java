@@ -15,10 +15,10 @@ public class Arm extends SubsystemBase {
 
    /** 
     * Gets the motor encoder position of the arm
-    * @returns Encoder value (0 <-> -1);
+    * @returns Encoder value (0 <-> 360);
    */
    public double getMotorPosition() {
-      return armMotor.getSelectedSensorPosition() / Constants.FALCON_ENCODER_UNITS / Constants.ARM_GEAR_RATIO;
+      return (armMotor.getSelectedSensorPosition() / Constants.FALCON_ENCODER_UNITS / Constants.ARM_GEAR_RATIO) *360;
    }
 
    /** Sets arm speed based on set limitations; if speed is set to go a direction the arm cannot physically got it will set to 0. */
@@ -39,21 +39,21 @@ public class Arm extends SubsystemBase {
       double targetEncoderValue = -0.002777 * degree;
       double speedCalc = (targetEncoderValue - getMotorPosition()) * 2.3;
 
-      System.out.println(speedCalc + " " + targetEncoderValue);
-      return false;
+      // System.out.println(speedCalc + " " + targetEncoderValue);
+      // return false;
 
-      // if (getMotorPosition() <= targetEncoderValue - Constants.ARM_ENCODER_THRESHOLD_RANGE || getMotorPosition() >= targetEncoderValue + Constants.ARM_ENCODER_THRESHOLD_RANGE){
-      //    if (Math.abs(speedCalc) > Constants.MAX_ARM_SPEED){
-      //       if (speedCalc < 0) setArmSpeed(-Constants.MAX_ARM_SPEED);
-      //       else setArmSpeed(Constants.MAX_ARM_SPEED);
-      //    } else {
-      //       setArmSpeed(speedCalc);
-      //       System.out.println(speedCalc);
-      //    }
-      //    return false;
-      // } else {
-      //   setArmSpeed(0);
-      //   return true;
-      // }
+      if (getMotorPosition() <= targetEncoderValue - Constants.ARM_ENCODER_THRESHOLD_RANGE || getMotorPosition() >= targetEncoderValue + Constants.ARM_ENCODER_THRESHOLD_RANGE){
+         if (Math.abs(speedCalc) > Constants.MAX_ARM_SPEED){
+            if (speedCalc < 0) setArmSpeed(-Constants.MAX_ARM_SPEED);
+            else setArmSpeed(Constants.MAX_ARM_SPEED);
+         } else {
+            setArmSpeed(speedCalc);
+            System.out.println(speedCalc);
+         }
+         return false;
+      } else {
+        setArmSpeed(0);
+        return true;
+      }
    }
 }

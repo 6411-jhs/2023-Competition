@@ -20,9 +20,11 @@ public class BalanceChargingStation extends CommandBase {
 
    @Override
    public void execute(){
+      // System.out.println(drive.getPitch() + " " + conditionCount + " " + conditionThreshold);
       updateData();
       if (conditionCount < conditionThreshold){
-         double targetSpeed = drive.gyro.getPitch() * -0.015;
+         double targetSpeed = drive.getPitch() * 0.15;
+         System.out.println(targetSpeed + " " + drive.getPitch() + " " + conditionCount + " " + conditionThreshold);
          if (targetSpeed < -driveSpeed){
             targetSpeed = -driveSpeed;
          } else if (targetSpeed > driveSpeed){
@@ -38,7 +40,7 @@ public class BalanceChargingStation extends CommandBase {
    }
 
    private void updateData(){
-      if (drive.gyro.getPitch() > Constants.GYRO_BALANCING_VALUE - Constants.GYRO_THRESHOLD_RANGE && drive.gyro.getPitch() < Constants.GYRO_BALANCING_VALUE + Constants.GYRO_THRESHOLD_RANGE){
+      if (drive.getPitch() > Constants.GYRO_BALANCING_VALUE - Constants.GYRO_THRESHOLD_RANGE && drive.getPitch() < Constants.GYRO_BALANCING_VALUE + Constants.GYRO_THRESHOLD_RANGE){
          conditionCount++;
       } else conditionCount = 0;
    }

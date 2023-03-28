@@ -22,9 +22,9 @@ public final class Constants {
    // * PWM PORTS/ MOTOR IDS
    // Drive Train
    public static final int LEFT_FRONT_MOTOR = 2;
-   public static final int LEFT_BACK_MOTOR = 3;
+   public static final int LEFT_BACK_MOTOR = 1;
    public static final int RIGHT_FRONT_MOTOR = 0;
-   public static final int RIGHT_BACK_MOTOR = 1;
+   public static final int RIGHT_BACK_MOTOR = 3;
    // Other
    public static final int ARM_MOTOR = 7;
    public static final int INTAKE_MOTOR_PWM = 0;
@@ -36,8 +36,8 @@ public final class Constants {
    public static final int XBOX_RIGHT_Y_AXIS = 5;
 
    // Speeds for all systems of robot
-   public static final double DRIVE_TRAIN_SPEED = 0.8;
-   public static final double AUTO_DRIVE_TRAIN_SPEED = 0.8;
+   public static final double DRIVE_TRAIN_SPEED = 0.5;
+   public static final double AUTO_DRIVE_TRAIN_SPEED = 0.5;
    public static final double MAX_ARM_SPEED = 0.5;
    public static final double INTAKE_SPEED = 1;
 
@@ -58,8 +58,8 @@ public final class Constants {
    public static final double STALL_TIME_THRESHOLD = 0.5;
 
    // -> Charging station system consstants
-   public static final double GYRO_MOUNTING_VALUE = 0;
+   public static final double GYRO_MOUNTING_VALUE = 12.1;
    public static final double GYRO_BALANCING_VALUE = 0;
-   public static final double GYRO_THRESHOLD_RANGE = 2;
+   public static final double GYRO_THRESHOLD_RANGE = 0.4;
    public static final double GYRO_BALANCING_DETECTION_THRESHOLD = 2.5;
 }

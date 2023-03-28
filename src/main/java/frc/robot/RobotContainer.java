@@ -64,6 +64,19 @@ public class RobotContainer {
 
    private void controlWrap() {
       m_driverControls.triggerHybridMode();
+      if (m_joystick.getTrigger()){
+         m_intake.on();
+      } else {
+         m_intake.off();
+      }
+      
+      if (m_joystick.getThrottle() > 0.4){
+         m_intake.setDirection("Inward");
+      } else if (m_joystick.getThrottle() < -0.4){
+         m_intake.setDirection("Outward");
+      }
+      System.out.println(m_intake.getDirection());
+
       double degreeTranslate;
       if (Constants.ARM_JOYSTICK_MODE == "Explicit"){//Test
          //Takes the -1 to 1 range of the joystick axis and translates it to degree measurements for arm orientation
@@ -92,7 +105,7 @@ public class RobotContainer {
       } else m_intake.off();
       if (m_xboxController.getAButton()){
          //Test
-         System.out.println(m_driveTrain.gyro.getPitch());
+         System.out.println(m_driveTrain.getPitch());
       }
       if (m_xboxController.getXButton()){
          System.out.println(m_driveTrain.getEncoderValue());
@@ -101,7 +114,9 @@ public class RobotContainer {
          System.out.println(m_arm.getMotorPosition());
       }
       if (m_xboxController.getRightBumper()){
-         Commands.sequence(balanceChargingStation);
+         // Commands.sequence(balanceChargingStation);
+         balanceChargingStation.execute();
+         // mountChargingStation.execute();
          // Commands.sequence(mountChargingStation);
       }
    }
