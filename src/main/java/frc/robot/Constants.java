@@ -21,7 +21,7 @@ public final class Constants {
 
 
    //Use this to change auto between "Left", "Center", and "Right" positions
-   public static final String AUTO_MODE = "Center";
+   public static final String AUTO_MODE = "Left";
 
    // * PWM PORTS/ MOTOR IDS
    // Drive Train
@@ -54,10 +54,10 @@ public final class Constants {
    public static final double ARM_ENCODER_THRESHOLD_RANGE = 0.4;
    public static final double FALCON_ENCODER_UNITS = 2048;
    public static final double ARM_GEAR_RATIO = 50;
-   public static final int POLE_HEIGHT = 0;
+   public static final int POLE_HEIGHT = 36;
    public static final int CAM_HEIGHT = 6;
    public static final double ALLIGN_SPEED = 0.5;
-   public static final double MID_ANGLE = 0;
+   public static final double MID_ANGLE = 120;
 
    // -> Intake system constants
    public static final double STALL_TIME_THRESHOLD = 0.5;

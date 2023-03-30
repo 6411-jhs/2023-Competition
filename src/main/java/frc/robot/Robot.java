@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
    public void robotInit() {
       // Initializes create robot code and begins running
       m_robotContainer = new RobotContainer();
-      m_autonomousCommand = m_robotContainer.getAutoCommand();
+      // m_autonomousCommand = m_robotContainer.getAutoCommand();
    }
 
    /**

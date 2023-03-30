@@ -41,7 +41,7 @@ public class RobotContainer {
 
    BalanceChargingStation balanceChargingStation;
    MountChargingStation mountChargingStation;
-   AllignAndPlaceMidCube allignAndPlaceMidCube;
+   // AllignAndPlaceMidCube allignAndPlaceMidCube;
 
    public RobotContainer() {
       m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
@@ -56,6 +56,7 @@ public class RobotContainer {
       balanceChargingStation = new BalanceChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
       mountChargingStation = new MountChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
       m_auto = new Auto(m_arm, m_intake, m_driveTrain, m_limelight);
+      // allignAndPlaceMidCube = new AllignAndPlaceMidCube(m_limelight);
 
       m_driveTrain.setDefaultCommand(Commands.run(() -> {
          controlWrap();
@@ -81,12 +82,12 @@ public class RobotContainer {
       }
 
       m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
-   
-      JoystickButton limeFunctionButton = new JoystickButton(m_xboxController,6 );
-      limeFunctionButton.whileTrue(allignAndPlaceMidCube);
+      
+      // JoystickButton limeFunctionButton = new JoystickButton(m_xboxController,6 );
+      // limeFunctionButton.whileTrue(allignAndPlaceMidCube);
    }
 
-   public Command getAutoCommand(){
-      return m_auto.getCommand();
-   }
+   // public Command getAutoCommand(){
+   //    return m_auto.getCommand();
+   // }
 }

@@ -31,33 +31,33 @@ public class Auto {
       balanceChargingStation = new BalanceChargingStation(driveTrainSubsystem, Constants.AUTO_DRIVE_TRAIN_SPEED);
    }
 
-   public Command getCommand(){
-      switch (Constants.AUTO_MODE){
-         case "Left":
-            return leftPosition();
-         case "Center":
-            return centerPosition();
-         case "Right":
-            return rightPosition();
-         default: 
-            return null;
-      }
-   }
+   // public Command getCommand(){
+   //    switch (Constants.AUTO_MODE){
+   //       case "Left":
+   //          return leftPosition();
+   //       case "Center":
+   //          return centerPosition();
+   //       case "Right":
+   //          return rightPosition();
+   //       default: 
+   //          return null;
+   //    }
+   // }
 
-   public Command leftPosition(){
-      return Commands.sequence(
-         Commands.run(() -> {
-            intake.on();
-         })
-      );
-   }
-   public Command centerPosition(){
-      return Commands.sequence(
-         mountChargingStation,
-         balanceChargingStation
-      );
-   }
-   public Command rightPosition(){
-      return Commands.sequence(null);
-   }
+   // public Command leftPosition(){
+   //    return Commands.sequence(
+   //       Commands.run(() -> {
+   //          intake.on();
+   //       })
+   //    );
+   // }
+   // public Command centerPosition(){
+   //    return Commands.sequence(
+   //       mountChargingStation,
+   //       balanceChargingStation
+   //    );
+   // }
+   // public Command rightPosition(){
+   //    return Commands.sequence(null);
+   // }
 }
