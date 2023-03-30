@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -42,6 +42,7 @@ public class RobotContainer {
    BalanceChargingStation balanceChargingStation;
    MountChargingStation mountChargingStation;
    PickUpCube pickUpCube;
+   AllignAndPlaceMidCube allignAndPlaceMidCube;
 
    public RobotContainer() {
       m_xboxController = new XboxController(Constants.XBOX_USB_NUM);
@@ -99,6 +100,9 @@ public class RobotContainer {
       //    }
       // }
       m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
+   
+      JoystickButton limeFunctionButton = new JoystickButton(m_xboxController,6 );
+      limeFunctionButton.whileTrue(allignAndPlaceMidCube);
    }
 
    
