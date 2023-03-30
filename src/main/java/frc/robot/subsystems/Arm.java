@@ -23,11 +23,13 @@ public class Arm extends SubsystemBase {
 
    /** Sets arm speed based on set limitations; if speed is set to go a direction the arm cannot physically got it will set to 0. */
    public void setArmSpeed(double speed) {
-      if ((speed > 0 && getMotorPosition() >= Constants.ARM_ENCODER_RANGE[0]) || (speed < 0 && getMotorPosition() <= Constants.ARM_ENCODER_RANGE[1])){
-         armMotor.set(0);
-      } else {
-         armMotor.set(speed * Constants.MAX_ARM_SPEED);
+      if (speed < 0 && getMotorPosition() < 18){
+         armMotor.set(speed);
+      } else if (speed > 0 && getMotorPosition() > -205){
+         armMotor.set(speed);
       }
+      
+      // System.out.println(getMotorPosition());
    }
 
    /** 
@@ -36,19 +38,22 @@ public class Arm extends SubsystemBase {
     */
    public boolean setPosition(double degree){
       //Calculations
-      double targetEncoderValue = -0.002777 * degree;
-      double speedCalc = (targetEncoderValue - getMotorPosition()) * 2.3;
+      double targetDegree = -degree;
+      double speedCalc = (targetDegree - getMotorPosition()) * 0.013;
 
-      // System.out.println(speedCalc + " " + targetEncoderValue);
-      // return false;
+      System.out.println(speedCalc + " " + targetDegree + " " + getMotorPosition());
 
-      if (getMotorPosition() <= targetEncoderValue - Constants.ARM_ENCODER_THRESHOLD_RANGE || getMotorPosition() >= targetEncoderValue + Constants.ARM_ENCODER_THRESHOLD_RANGE){
+      if (getMotorPosition() <= targetDegree - Constants.ARM_ENCODER_THRESHOLD_RANGE || getMotorPosition() >= targetDegree + Constants.ARM_ENCODER_THRESHOLD_RANGE){
          if (Math.abs(speedCalc) > Constants.MAX_ARM_SPEED){
             if (speedCalc < 0) setArmSpeed(-Constants.MAX_ARM_SPEED);
             else setArmSpeed(Constants.MAX_ARM_SPEED);
          } else {
-            setArmSpeed(speedCalc);
-            System.out.println(speedCalc);
+            if (Math.abs(speedCalc) < Constants.MIN_ARM_SPEED){
+               if (speedCalc < 0) setArmSpeed(-Constants.MIN_ARM_SPEED);
+               else setArmSpeed(Constants.MIN_ARM_SPEED);
+            } else {
+               setArmSpeed(speedCalc);
+            }
          }
          return false;
       } else {

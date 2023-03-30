@@ -20,9 +20,9 @@ public class IntakePWM extends SubsystemBase {
    public void on(){
       if (motorDirection == "Inward"){
          intakeMotor.set(Constants.INTAKE_SPEED);
-      } else if (motorDirection == "Outward"){
-         intakeMotor.set(-Constants.INTAKE_SPEED);
-      }
+     } else if (motorDirection == "Outward"){
+        intakeMotor.set(-Constants.INTAKE_SPEED);
+     }
    }
    /**Turns intake off; writes a value of 0 to the motor */
    public void off(){

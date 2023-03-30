@@ -48,7 +48,7 @@ public class RobotContainer {
       m_joystick = new Joystick(Constants.JOYSTICK_USB_NUM);
 
       m_driveTrain = new DriveTrain();
-      m_driverControls = new DriverControls();
+      m_driverControls = new DriverControls(m_xboxController);
 
       m_arm = new Arm();
       m_intake = new IntakePWM();
@@ -75,49 +75,32 @@ public class RobotContainer {
       } else if (m_joystick.getThrottle() < -0.4){
          m_intake.setDirection("Outward");
       }
-      System.out.println(m_intake.getDirection());
 
       double degreeTranslate;
       if (Constants.ARM_JOYSTICK_MODE == "Explicit"){//Test
          //Takes the -1 to 1 range of the joystick axis and translates it to degree measurements for arm orientation
-         degreeTranslate = Constants.ARM_DEGREE_RANGE[0] + (m_joystick.getY() + 1) * ((Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0]) / 2);
+         degreeTranslate = -(Constants.ARM_DEGREE_RANGE[0] + (m_joystick.getY() - 1) * (Math.abs(Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0]) / 2));
       }
 
-      if (m_joystick.getRawButton(11)){
-         m_arm.setPosition(90);
-      } else if (m_joystick.getRawButton(12)){
-         m_arm.setPosition(180);
-      } else if (m_joystick.getRawButton(9)){
-         m_arm.setPosition(30);
-      } else if (m_joystick.getRawButton(10)){
-         m_arm.setPosition(0);
-      } else {//Test
-         m_arm.setArmSpeed(0);
-         // if (Constants.ARM_JOYSTICK_MODE == "Explicit"){
-         //    m_arm.setPosition(degreeTranslate);
-         // } else {
-         //    m_arm.setArmSpeed(m_joystick.getY() * Constants.ARM_SPEED);
-         // }
-      }
-
-      if (m_xboxController.getBButton()){
-         m_intake.on();
-      } else m_intake.off();
-      if (m_xboxController.getAButton()){
-         //Test
-         System.out.println(m_driveTrain.getPitch());
-      }
-      if (m_xboxController.getXButton()){
-         System.out.println(m_driveTrain.getEncoderValue());
-      }
-      if (m_xboxController.getYButton()){
-         System.out.println(m_arm.getMotorPosition());
-      }
-      if (m_xboxController.getRightBumper()){
-         // Commands.sequence(balanceChargingStation);
-         balanceChargingStation.execute();
-         // mountChargingStation.execute();
-         // Commands.sequence(mountChargingStation);
-      }
+      // if (m_joystick.getRawButton(11)){
+      //    m_arm.setPosition(90);
+      // } else if (m_joystick.getRawButton(12)){
+      //    m_arm.setPosition(180);
+      // } else if (m_joystick.getRawButton(9)){
+      //    m_arm.setPosition(30);
+      // } else if (m_joystick.getRawButton(10)){
+      //    m_arm.setPosition(0);
+      // } else {//Test
+      //    m_arm.setArmSpeed(0);
+      //    if (Constants.ARM_JOYSTICK_MODE == "Explicit"){
+      //       m_arm.setPosition(degreeTranslate);
+      //    } else {
+      //       m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
+      //    }
+      // }
+      m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
    }
+
+   
+
 }

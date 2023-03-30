@@ -8,6 +8,9 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 
+import frc.robot.commands.BalanceChargingStation;
+import frc.robot.commands.MountChargingStation;
+
 /**
  * Class containing all control modes for the robot. 
  * Currently only compatible for Xbox controller integration.
@@ -21,9 +24,15 @@ public class DriverControls extends SubsystemBase {
    private int currentMode = -1;
    private boolean modeSwitchEToggle = false;
 
-   public DriverControls(){
-      xbox = RobotContainer.m_xboxController;
+   BalanceChargingStation balanceChargingStation;
+   MountChargingStation mountChargingStation;
+
+   public DriverControls(XboxController xbox ){
+      this.xbox = xbox;
       drive = RobotContainer.m_driveTrain;
+
+      balanceChargingStation = new BalanceChargingStation(drive, Constants.AUTO_DRIVE_TRAIN_SPEED);
+      mountChargingStation = new MountChargingStation(drive, Constants.AUTO_DRIVE_TRAIN_SPEED);
    }
 
    /**
@@ -79,6 +88,7 @@ public class DriverControls extends SubsystemBase {
    /** Left stick controls left wheels and right stick controls right wheels. */
    public void tankJoystickMode(){
       drive.tankDrive(-xbox.getLeftY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED);
+      otherControls();
    }
 
    /** Use the trigger instead of joysticks for tank driving. */
@@ -86,6 +96,7 @@ public class DriverControls extends SubsystemBase {
       double triggerCalc = (xbox.getLeftTriggerAxis() + xbox.getRightTriggerAxis()) / 2;
       double turnCalc = xbox.getLeftTriggerAxis() - xbox.getRightTriggerAxis();
       drive.arcadeDrive(triggerCalc * Constants.DRIVE_TRAIN_SPEED, turnCalc * Constants.DRIVE_TRAIN_SPEED);
+      otherControls();
    }
    /**
     * This arcade mode is a bit different from the original arcade mode. The y value of the primary stick controls
@@ -97,6 +108,7 @@ public class DriverControls extends SubsystemBase {
       } else {
          drive.arcadeDrive(-xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getLeftX() * Constants.DRIVE_TRAIN_SPEED);
       }
+      otherControls();
    }
 
    /** Uses the primary joystick for all direction and speed. */
@@ -106,6 +118,7 @@ public class DriverControls extends SubsystemBase {
       } else {
          drive.arcadeDrive(-xbox.getRightY() * Constants.DRIVE_TRAIN_SPEED, -xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
       }
+      otherControls();
    }
    /** Uses primary stick X as the arcade turn and uses the right and left trigger for forward and back. */
    public void triggerHybridMode(){
@@ -114,5 +127,14 @@ public class DriverControls extends SubsystemBase {
       } else {
          drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
       }
+      // otherControls();
+   }
+
+   private void otherControls(){
+      if (xbox.getBButton()){
+         // balanceChargingStation.execute();
+         mountChargingStation.execute();
+      }
+      
    }
 }
