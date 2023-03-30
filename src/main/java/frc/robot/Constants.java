@@ -19,6 +19,10 @@ public final class Constants {
    // Progressive = it will throttle the arm speed based on the joystick
    public static final String ARM_JOYSTICK_MODE = "Explicit";
 
+
+   //Use this to change auto between "Left", "Center", and "Right" positions
+   public static final String AUTO_MODE = "Center";
+
    // * PWM PORTS/ MOTOR IDS
    // Drive Train
    public static final int LEFT_FRONT_MOTOR = 2;
@@ -57,6 +61,7 @@ public final class Constants {
 
    // -> Intake system constants
    public static final double STALL_TIME_THRESHOLD = 0.5;
+   public static final double IDLE_SPEED = 0.2;
 
    // -> Charging station system consstants
    public static final double GYRO_MOUNTING_VALUE = 12.1;
