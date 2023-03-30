@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.IntakePWM;
-import frc.robot.subsystems.IntakeCAN;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
 
@@ -21,9 +20,8 @@ public class Auto {
 
    MountChargingStation mountChargingStation;
    BalanceChargingStation balanceChargingStation;
-   PickUpCube pickUpCube;
 
-   public Auto(Arm armSubsystem, IntakePWM intakeSubsystem,/* IntakeCAN intakeSubsystem*/DriveTrain driveTrainSubsystem,LimeLight limeLightSubsystem){
+   public Auto(Arm armSubsystem, IntakePWM intakeSubsystem,DriveTrain driveTrainSubsystem,LimeLight limeLightSubsystem){
       arm = armSubsystem;
       intake = intakeSubsystem;
       drive = driveTrainSubsystem;
@@ -31,16 +29,35 @@ public class Auto {
 
       mountChargingStation = new MountChargingStation(drive, Constants.AUTO_DRIVE_TRAIN_SPEED);
       balanceChargingStation = new BalanceChargingStation(driveTrainSubsystem, Constants.AUTO_DRIVE_TRAIN_SPEED);
-      // pickUpCube = new PickUpCube(intake);
+   }
+
+   public Command getCommand(){
+      switch (Constants.AUTO_MODE){
+         case "Left":
+            return leftPosition();
+         case "Center":
+            return centerPosition();
+         case "Right":
+            return rightPosition();
+         default: 
+            return null;
+      }
    }
 
    public Command leftPosition(){
-      return Commands.sequence(null);
+      return Commands.sequence(
+         Commands.run(() -> {
+            intake.on();
+         })
+      );
    }
    public Command centerPosition(){
       return Commands.sequence(
          mountChargingStation,
          balanceChargingStation
       );
+   }
+   public Command rightPosition(){
+      return Commands.sequence(null);
    }
 }

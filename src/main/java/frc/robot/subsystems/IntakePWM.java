@@ -10,6 +10,8 @@ public class IntakePWM extends SubsystemBase {
    private PWMSparkMax intakeMotor;
    private String motorDirection = "Inward";
 
+   private boolean idleActive = false;
+
    public IntakePWM(){
       intakeMotor = new PWMSparkMax(Constants.INTAKE_MOTOR_PWM);
       intakeMotor.setInverted(true);
@@ -26,7 +28,11 @@ public class IntakePWM extends SubsystemBase {
    }
    /**Turns intake off; writes a value of 0 to the motor */
    public void off(){
-      intakeMotor.set(0);
+      if (idleActive){
+         intakeMotor.set(Constants.IDLE_SPEED);
+      } else {
+         intakeMotor.set(0);
+      }
    }
    /**
     * Sets a raw speed value to the motor itself (Used for more accessible  operation)
@@ -34,6 +40,11 @@ public class IntakePWM extends SubsystemBase {
     */
    public void set(double speed){
       intakeMotor.set(speed);
+   }
+
+   /**Toggles the idling mode of the intake; what speed the arm moves when nothing is being done */
+   public void toggleIdle(){
+      idleActive = !idleActive;
    }
 
    //*DIRECTION CODE

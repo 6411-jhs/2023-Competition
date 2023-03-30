@@ -15,8 +15,8 @@ import frc.robot.subsystems.DriverControls;
 
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.IntakePWM;
-import frc.robot.subsystems.IntakeCAN;
 import frc.robot.subsystems.LimeLight;
+import frc.robot.subsystems.Auto;
 
 import frc.robot.commands.*;
 
@@ -35,13 +35,12 @@ public class RobotContainer {
 
    public static Arm m_arm;
    public static IntakePWM m_intake;
-   // public static IntakeCAN m_intake;
 
    public static LimeLight m_limelight;
+   public static Auto m_auto;
 
    BalanceChargingStation balanceChargingStation;
    MountChargingStation mountChargingStation;
-   PickUpCube pickUpCube;
    AllignAndPlaceMidCube allignAndPlaceMidCube;
 
    public RobotContainer() {
@@ -56,7 +55,7 @@ public class RobotContainer {
 
       balanceChargingStation = new BalanceChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
       mountChargingStation = new MountChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
-      // pickUpCube = new PickUpCube(m_intake);
+      m_auto = new Auto(m_arm, m_intake, m_driveTrain, m_limelight);
 
       m_driveTrain.setDefaultCommand(Commands.run(() -> {
          controlWrap();
@@ -77,34 +76,17 @@ public class RobotContainer {
          m_intake.setDirection("Outward");
       }
 
-      double degreeTranslate;
-      if (Constants.ARM_JOYSTICK_MODE == "Explicit"){//Test
-         //Takes the -1 to 1 range of the joystick axis and translates it to degree measurements for arm orientation
-         degreeTranslate = -(Constants.ARM_DEGREE_RANGE[0] + (m_joystick.getY() - 1) * (Math.abs(Constants.ARM_DEGREE_RANGE[1] - Constants.ARM_DEGREE_RANGE[0]) / 2));
+      if (m_joystick.getRawButtonPressed(11)){
+         m_intake.toggleIdle();
       }
 
-      // if (m_joystick.getRawButton(11)){
-      //    m_arm.setPosition(90);
-      // } else if (m_joystick.getRawButton(12)){
-      //    m_arm.setPosition(180);
-      // } else if (m_joystick.getRawButton(9)){
-      //    m_arm.setPosition(30);
-      // } else if (m_joystick.getRawButton(10)){
-      //    m_arm.setPosition(0);
-      // } else {//Test
-      //    m_arm.setArmSpeed(0);
-      //    if (Constants.ARM_JOYSTICK_MODE == "Explicit"){
-      //       m_arm.setPosition(degreeTranslate);
-      //    } else {
-      //       m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
-      //    }
-      // }
       m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
    
       JoystickButton limeFunctionButton = new JoystickButton(m_xboxController,6 );
       limeFunctionButton.whileTrue(allignAndPlaceMidCube);
    }
 
-   
-
+   public Command getAutoCommand(){
+      return m_auto.getCommand();
+   }
 }
