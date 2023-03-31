@@ -21,7 +21,7 @@ public final class Constants {
 
 
    //Use this to change auto between "Left", "Center", and "Right" positions
-   public static final String AUTO_MODE = "Left";
+   public static final String AUTO_MODE = "Center";
 
    // * PWM PORTS/ MOTOR IDS
    // Drive Train
@@ -41,7 +41,7 @@ public final class Constants {
 
    // Speeds for all systems of robot
    public static final double DRIVE_TRAIN_SPEED = 0.8;
-   public static final double AUTO_DRIVE_TRAIN_SPEED = 0.5;
+   public static final double AUTO_DRIVE_TRAIN_SPEED = -0.5;
    public static final double MAX_ARM_SPEED = 0.35;
    public static final double MIN_ARM_SPEED = 0.07;
    public static final double INTAKE_SPEED = 1;
@@ -61,11 +61,13 @@ public final class Constants {
 
    // -> Intake system constants
    public static final double STALL_TIME_THRESHOLD = 0.5;
-   public static final double IDLE_SPEED = 0.2;
+   public static final double IDLE_SPEED = 0.08;
 
    // -> Charging station system consstants
    public static final double GYRO_MOUNTING_VALUE = 12.1;
    public static final double GYRO_BALANCING_VALUE = 0;
    public static final double GYRO_THRESHOLD_RANGE = 0.4;
    public static final double GYRO_BALANCING_DETECTION_THRESHOLD = 2.5;
+public static final double DROP_TIME = 3;
+public static final double MOVE_FORWARD_TIME = 1;
 }

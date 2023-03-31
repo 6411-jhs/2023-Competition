@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Arm extends SubsystemBase {
    private final WPI_TalonFX armMotor;
@@ -23,12 +24,17 @@ public class Arm extends SubsystemBase {
 
    /** Sets arm speed based on set limitations; if speed is set to go a direction the arm cannot physically got it will set to 0. */
    public void setArmSpeed(double speed) {
-      if (speed < 0 && getMotorPosition() < 18){
+      // System.out.println(getMotorPosition() + " " + speed);
+      if (speed < 0 && getMotorPosition() > -205){
          armMotor.set(speed);
-      } else if (speed > 0 && getMotorPosition() > -205){
+      } else if (speed > 0 && getMotorPosition() < -15){
          armMotor.set(speed);
       }
-      
+
+      else if(RobotContainer.m_joystick.getRawButtonPressed(2))
+      {
+         armMotor.set(speed);
+      }
       // System.out.println(getMotorPosition());
    }
 
@@ -41,7 +47,7 @@ public class Arm extends SubsystemBase {
       double targetDegree = -degree;
       double speedCalc = (targetDegree - getMotorPosition()) * 0.013;
 
-      System.out.println(speedCalc + " " + targetDegree + " " + getMotorPosition());
+      // System.out.println(speedCalc + " " + targetDegree + " " + getMotorPosition());
 
       if (getMotorPosition() <= targetDegree - Constants.ARM_ENCODER_THRESHOLD_RANGE || getMotorPosition() >= targetDegree + Constants.ARM_ENCODER_THRESHOLD_RANGE){
          if (Math.abs(speedCalc) > Constants.MAX_ARM_SPEED){

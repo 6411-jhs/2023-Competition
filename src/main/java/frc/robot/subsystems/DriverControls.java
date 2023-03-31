@@ -127,7 +127,7 @@ public class DriverControls extends SubsystemBase {
       } else {
          drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
       }
-      // otherControls();
+      otherControls();
    }
 
    private void otherControls(){

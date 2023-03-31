@@ -27,7 +27,11 @@ public class Robot extends TimedRobot {
    public void robotInit() {
       // Initializes create robot code and begins running
       m_robotContainer = new RobotContainer();
-      // m_autonomousCommand = m_robotContainer.getAutoCommand();
+      m_autonomousCommand = m_robotContainer.getAutoCommand();
+      if (m_autonomousCommand != null){
+         m_autonomousCommand.schedule();
+      }
+      // m_autonomousCommand = m_robotContainer.m_auto.leftPosition();
    }
 
    /**
@@ -62,11 +66,14 @@ public class Robot extends TimedRobot {
    /** Gets called when autonmous mode is enabled. */
    @Override
    public void autonomousInit() {
-      // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+      m_autonomousCommand = m_robotContainer.getAutoCommand();
 
       // schedule the autonomous command (example)
       if (m_autonomousCommand != null) {
          m_autonomousCommand.schedule();
+      }
+      else{
+         System.out.println("auto is null");
       }
    }
 

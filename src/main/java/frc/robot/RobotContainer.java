@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 
 import frc.robot.subsystems.DriveTrain;
@@ -37,10 +38,12 @@ public class RobotContainer {
    public static IntakePWM m_intake;
 
    public static LimeLight m_limelight;
-   public static Auto m_auto;
+   public Auto m_auto;
+   public TaxiAuto m_taxiAuto;
 
    BalanceChargingStation balanceChargingStation;
    MountChargingStation mountChargingStation;
+   AutoPlaceAndTaxi autoPlaceAndTaxi;
    // AllignAndPlaceMidCube allignAndPlaceMidCube;
 
    public RobotContainer() {
@@ -52,10 +55,12 @@ public class RobotContainer {
 
       m_arm = new Arm();
       m_intake = new IntakePWM();
+      m_taxiAuto = new TaxiAuto();
 
-      balanceChargingStation = new BalanceChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
-      mountChargingStation = new MountChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
+      // balanceChargingStation = new BalanceChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
+      // mountChargingStation = new MountChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
       m_auto = new Auto(m_arm, m_intake, m_driveTrain, m_limelight);
+      autoPlaceAndTaxi = new AutoPlaceAndTaxi();
       // allignAndPlaceMidCube = new AllignAndPlaceMidCube(m_limelight);
 
       m_driveTrain.setDefaultCommand(Commands.run(() -> {
@@ -64,7 +69,8 @@ public class RobotContainer {
    }
 
    private void controlWrap() {
-      m_driverControls.triggerHybridMode();
+      if (DriverStation.isTeleop()){
+         m_driverControls.triggerHybridMode();
       if (m_joystick.getTrigger()){
          m_intake.on();
       } else {
@@ -83,11 +89,13 @@ public class RobotContainer {
 
       m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
       
+      }
       // JoystickButton limeFunctionButton = new JoystickButton(m_xboxController,6 );
       // limeFunctionButton.whileTrue(allignAndPlaceMidCube);
    }
 
-   // public Command getAutoCommand(){
-   //    return m_auto.getCommand();
-   // }
+   public Command getAutoCommand(){
+      System.out.println("it got the auto command");
+      return m_taxiAuto;
+   }
 }

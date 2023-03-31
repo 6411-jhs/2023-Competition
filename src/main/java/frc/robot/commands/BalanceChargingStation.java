@@ -24,7 +24,7 @@ public class BalanceChargingStation extends CommandBase {
       updateData();
       if (conditionCount < conditionThreshold){
          double targetSpeed = drive.getPitch() * 0.15;
-         System.out.println(targetSpeed + " " + drive.getPitch() + " " + conditionCount + " " + conditionThreshold);
+         // System.out.println(targetSpeed + " " + drive.getPitch() + " " + conditionCount + " " + conditionThreshold);
          if (targetSpeed < -driveSpeed){
             targetSpeed = -driveSpeed;
          } else if (targetSpeed > driveSpeed){
