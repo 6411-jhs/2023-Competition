@@ -71,24 +71,24 @@ public class RobotContainer {
    private void controlWrap() {
       if (DriverStation.isTeleop()){
          m_driverControls.triggerHybridMode();
-      if (m_joystick.getTrigger()){
-         m_intake.on();
-      } else {
-         m_intake.off();
-      }
-      
-      if (m_joystick.getThrottle() > 0.4){
-         m_intake.setDirection("Inward");
-      } else if (m_joystick.getThrottle() < -0.4){
-         m_intake.setDirection("Outward");
-      }
+         if (m_joystick.getTrigger()){
+            m_intake.on();
+         } else {
+            m_intake.off();
+         }
+         
+         if (m_joystick.getThrottle() > 0.4){
+            m_intake.setDirection("Inward");
+         } else if (m_joystick.getThrottle() < -0.4){
+            m_intake.setDirection("Outward");
+         }
 
-      if (m_joystick.getRawButtonPressed(11)){
-         m_intake.toggleIdle();
-      }
+         if (m_joystick.getRawButtonPressed(11)){
+            m_intake.toggleIdle();
+         }
 
-      m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
-      
+         m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
+         
       }
       // JoystickButton limeFunctionButton = new JoystickButton(m_xboxController,6 );
       // limeFunctionButton.whileTrue(allignAndPlaceMidCube);
