@@ -30,7 +30,7 @@ public class TaxiAuto extends CommandBase {
   @Override
   public void execute()
    {
-    RobotContainer.m_driveTrain.driveForward(Constants.AUTO_DRIVE_TRAIN_SPEED);
+    RobotContainer.m_driveTrain.driveForward(-Constants.AUTO_DRIVE_TRAIN_SPEED);
    }
 
   // Called once the command ends or is interrupted.
@@ -42,7 +42,7 @@ public class TaxiAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(DriveTime.get()>1.5)
+    if(DriveTime.get()>2)
     {
       return true;
     }

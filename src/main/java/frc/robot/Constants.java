@@ -19,8 +19,7 @@ public final class Constants {
    // Progressive = it will throttle the arm speed based on the joystick
    public static final String ARM_JOYSTICK_MODE = "Explicit";
 
-
-   //Use this to change auto between "Left", "Center", and "Right" positions
+   // Use this to change auto between "Left", "Center", and "Right" positions
    public static final String AUTO_MODE = "Center";
 
    // * PWM PORTS/ MOTOR IDS
@@ -41,7 +40,9 @@ public final class Constants {
 
    // Speeds for all systems of robot
    public static final double DRIVE_TRAIN_SPEED = 0.8;
-   public static final double AUTO_DRIVE_TRAIN_SPEED = -0.5;
+   public static final double AUTO_DRIVE_TRAIN_SPEED = 0.5;
+   public static final double CHARGE_STATION_DRIVE_SPEED = 0.73;
+   public static final double CHARGE_STATION_DRIVE_SPEED_BALANCE = 0.55;
    public static final double MAX_ARM_SPEED = 0.35;
    public static final double MIN_ARM_SPEED = 0.07;
    public static final double INTAKE_SPEED = 1;
@@ -64,10 +65,10 @@ public final class Constants {
    public static final double IDLE_SPEED = 0.08;
 
    // -> Charging station system consstants
-   public static final double GYRO_MOUNTING_VALUE = 12.1;
+   public static final double GYRO_MOUNTING_VALUE = -14.5;
    public static final double GYRO_BALANCING_VALUE = 0;
-   public static final double GYRO_THRESHOLD_RANGE = 0.4;
+   public static final double GYRO_THRESHOLD_RANGE = 0.3;
    public static final double GYRO_BALANCING_DETECTION_THRESHOLD = 2.5;
-public static final double DROP_TIME = 3;
-public static final double MOVE_FORWARD_TIME = 1;
+   public static final double DROP_TIME = 3;
+   public static final double MOVE_FORWARD_TIME = 2.5;
 }

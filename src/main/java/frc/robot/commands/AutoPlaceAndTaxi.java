@@ -13,13 +13,15 @@ public class AutoPlaceAndTaxi extends CommandBase {
   /** Creates a new autoPlaceAndTaxi. */
     // Use addRequirements() here to declare subsystem dependencies.
       public Timer moveTime;
-  public Timer fallTimer;
+  public Timer autoTimer;
   public Timer dropTimer;
+  private boolean postitionCondition;
   public AutoPlaceAndTaxi() {
     // Use addRequirements() here to declare subsystem dependencies.
     moveTime = new Timer();
-    fallTimer = new Timer();
+    autoTimer = new Timer();
     dropTimer = new Timer();
+
   }
 
   // Called when the command is initially scheduled.
@@ -28,40 +30,30 @@ public class AutoPlaceAndTaxi extends CommandBase {
  {
    System.out.println("autoStart");
     RobotContainer.m_intake.set(Constants.IDLE_SPEED);
-
-    boolean positionCondition = false;
-    while (!positionCondition){
-      positionCondition = RobotContainer.m_arm.setPosition(-120);
-    }
-
-    dropTimer.reset();
-    dropTimer.start();
-    //!Does not set direction of idle mode; only sets the direction of the on() method
-    RobotContainer.m_intake.setDirection("Outward");
-    while (dropTimer.get()< Constants.DROP_TIME)
-    {}
-    RobotContainer.m_intake.set(0);
-
-
-positionCondition = false;
-    while (!positionCondition){
-      positionCondition = RobotContainer.m_arm.setPosition(-20);
-    }
-    moveTime.reset();
-    moveTime.start();
-    while (moveTime.get() <Constants.MOVE_FORWARD_TIME + .5)
-    {
-          RobotContainer.m_driveTrain.driveForward(Constants.AUTO_DRIVE_TRAIN_SPEED);
-          System.out.println(moveTime.get());
-        }
-     
+    autoTimer.reset();
+    autoTimer.start();
     
     
  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() 
+  {
+   if (autoTimer.get()< 2 )
+   {
+   RobotContainer.m_arm.setPosition(-120);
+   }
+   else if (autoTimer.get()> 2&& autoTimer.get() <4)
+   {
+    RobotContainer.m_intake.set(-Constants.INTAKE_SPEED);
+   }
+   else if (autoTimer.get()>4 && autoTimer.get() <4+Constants.MOVE_FORWARD_TIME);
+{
+  RobotContainer.m_driveTrain.driveForward(-Constants.AUTO_DRIVE_TRAIN_SPEED);
+}
+    
+  }
 
   // Called once the command ends or is interrupted.
   @Override

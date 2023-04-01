@@ -30,8 +30,10 @@ public class IntakePWM extends SubsystemBase {
    public void off(){
       if (idleActive){
          intakeMotor.set(Constants.IDLE_SPEED);
+         System.out.println("idle suck on");
       } else {
          intakeMotor.set(0);
+         System.out.println("idle off");
       }
    }
    /**

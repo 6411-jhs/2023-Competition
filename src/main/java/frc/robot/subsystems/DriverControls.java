@@ -31,8 +31,8 @@ public class DriverControls extends SubsystemBase {
       this.xbox = xbox;
       drive = RobotContainer.m_driveTrain;
 
-      balanceChargingStation = new BalanceChargingStation(drive, Constants.AUTO_DRIVE_TRAIN_SPEED);
-      mountChargingStation = new MountChargingStation(drive, Constants.AUTO_DRIVE_TRAIN_SPEED);
+      balanceChargingStation = new BalanceChargingStation(drive);
+      mountChargingStation = new MountChargingStation(drive);
    }
 
    /**

@@ -40,9 +40,8 @@ public class RobotContainer {
    public static LimeLight m_limelight;
    public Auto m_auto;
    public TaxiAuto m_taxiAuto;
+   public ActivateChargingStation m_activateChargingStation;
 
-   BalanceChargingStation balanceChargingStation;
-   MountChargingStation mountChargingStation;
    AutoPlaceAndTaxi autoPlaceAndTaxi;
    // AllignAndPlaceMidCube allignAndPlaceMidCube;
 
@@ -56,11 +55,13 @@ public class RobotContainer {
       m_arm = new Arm();
       m_intake = new IntakePWM();
       m_taxiAuto = new TaxiAuto();
+      // m_balanceAuto = new BalanceChargingStation(m_driveTrain, Constants.AUTO_DRIVE_TRAIN_SPEED);
 
       // balanceChargingStation = new BalanceChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
       // mountChargingStation = new MountChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
       m_auto = new Auto(m_arm, m_intake, m_driveTrain, m_limelight);
       autoPlaceAndTaxi = new AutoPlaceAndTaxi();
+      m_activateChargingStation = new ActivateChargingStation(m_driveTrain);
       // allignAndPlaceMidCube = new AllignAndPlaceMidCube(m_limelight);
 
       m_driveTrain.setDefaultCommand(Commands.run(() -> {
@@ -96,6 +97,6 @@ public class RobotContainer {
 
    public Command getAutoCommand(){
       System.out.println("it got the auto command");
-      return m_taxiAuto;
+      return m_activateChargingStation;
    }
 }

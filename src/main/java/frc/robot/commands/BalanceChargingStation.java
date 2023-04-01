@@ -11,11 +11,11 @@ public class BalanceChargingStation extends CommandBase {
    int conditionCount = 0;
    int conditionThreshold = (int) Math.round(Constants.GYRO_BALANCING_DETECTION_THRESHOLD * 50);
 
-   boolean finished = false;
+   public boolean finished = false;
 
-   public BalanceChargingStation(DriveTrain driveTrainSubsystem, double speed){
+   public BalanceChargingStation(DriveTrain driveTrainSubsystem){
       drive = driveTrainSubsystem;
-      driveSpeed = speed;
+      driveSpeed = Constants.CHARGE_STATION_DRIVE_SPEED_BALANCE;
    }
 
    @Override
@@ -23,7 +23,7 @@ public class BalanceChargingStation extends CommandBase {
       // System.out.println(drive.getPitch() + " " + conditionCount + " " + conditionThreshold);
       updateData();
       if (conditionCount < conditionThreshold){
-         double targetSpeed = drive.getPitch() * 0.15;
+         double targetSpeed = drive.getPitch() * 0.055;
          // System.out.println(targetSpeed + " " + drive.getPitch() + " " + conditionCount + " " + conditionThreshold);
          if (targetSpeed < -driveSpeed){
             targetSpeed = -driveSpeed;
@@ -31,7 +31,11 @@ public class BalanceChargingStation extends CommandBase {
             targetSpeed = driveSpeed;
          }
 
-         drive.arcadeDrive(targetSpeed, 0);
+         if (drive.getPitch() < 0){
+            drive.arcadeDrive(targetSpeed, 0);
+         } else {
+            drive.arcadeDrive(targetSpeed * 0.8, 0);
+         }
          finished = false;
       } else {
          drive.arcadeDrive(0, 0);

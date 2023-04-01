@@ -27,8 +27,8 @@ public class Auto {
       drive = driveTrainSubsystem;
       limeLight = limeLightSubsystem;
 
-      mountChargingStation = new MountChargingStation(drive, Constants.AUTO_DRIVE_TRAIN_SPEED);
-      balanceChargingStation = new BalanceChargingStation(driveTrainSubsystem, Constants.AUTO_DRIVE_TRAIN_SPEED);
+      mountChargingStation = new MountChargingStation(drive);
+      balanceChargingStation = new BalanceChargingStation(driveTrainSubsystem);
    }
 
    public Command getCommand(){
