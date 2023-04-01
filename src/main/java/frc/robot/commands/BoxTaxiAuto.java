@@ -33,11 +33,11 @@ public class BoxTaxiAuto extends CommandBase {
     if (DriveTime.get()<.5){
     RobotContainer.m_driveTrain.driveForward(-Constants.AUTO_DRIVE_TRAIN_SPEED);
     }
-    else if (DriveTime.get()>.5 && DriveTime.get() <1)
+    else if (DriveTime.get()>.5 && DriveTime.get() <1.5)
     {
       RobotContainer.m_driveTrain.driveForward(Constants.AUTO_DRIVE_TRAIN_SPEED);
     }
-    else if (DriveTime.get()>1  )
+    else if (DriveTime.get()>1.5  )
     {
       RobotContainer.m_driveTrain.driveForward(-Constants.AUTO_DRIVE_TRAIN_SPEED);
     }
@@ -52,7 +52,7 @@ public class BoxTaxiAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(DriveTime.get()>Constants.MOVE_FORWARD_TIME+1)
+    if(DriveTime.get()>Constants.MOVE_FORWARD_TIME+1.5)
     {
       return true;
     }
