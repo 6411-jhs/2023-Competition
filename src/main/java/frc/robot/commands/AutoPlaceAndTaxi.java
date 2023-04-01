@@ -48,10 +48,12 @@ public class AutoPlaceAndTaxi extends CommandBase {
    {
     RobotContainer.m_intake.set(-Constants.INTAKE_SPEED);
    }
+   
    else if (autoTimer.get()>4 && autoTimer.get() <4+Constants.MOVE_FORWARD_TIME);
-{
-  RobotContainer.m_driveTrain.driveForward(-Constants.AUTO_DRIVE_TRAIN_SPEED);
-}
+    {
+    RobotContainer.m_driveTrain.driveForward(-Constants.AUTO_DRIVE_TRAIN_SPEED);
+    RobotContainer.m_arm.setPosition(-30);
+   }
     
   }
 
