@@ -131,10 +131,6 @@ public class DriverControls extends SubsystemBase {
    }
 
    private void otherControls(){
-      if (xbox.getBButton()){
-         // balanceChargingStation.execute();
-         mountChargingStation.execute();
-      }
       
    }
 }
