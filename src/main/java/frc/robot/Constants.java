@@ -35,7 +35,10 @@ public final class Constants {
    public static final int XBOX_RIGHT_Y_AXIS = 5;
 
    // Speeds for all systems of robot
-   public static final double DRIVE_TRAIN_SPEED = 0.8;
+   public static final String SPEED_SWITCH_MODE = "Button"; //"Button" || "Bumper"
+   public static final double Y_BUTTON_SPEED = 1;
+   public static final double DRIVE_TRAIN_SPEED = 0.8; //X Button
+   public static final double A_BUTTON_SPEED = 0.5;
    public static final double AUTO_DRIVE_TRAIN_SPEED = 0.5;
    public static final double CHARGE_STATION_DRIVE_SPEED = 0.73;
    public static final double CHARGE_STATION_DRIVE_SPEED_BALANCE = 0.55;
