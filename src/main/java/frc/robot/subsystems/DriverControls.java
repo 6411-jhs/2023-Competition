@@ -24,6 +24,9 @@ public class DriverControls extends SubsystemBase {
    private int currentMode = -1;
    private boolean modeSwitchEToggle = false;
 
+   private double driveSpeedCycle[] = {0,0,0};
+   private int driveSpeedSelect = 1;
+
    BalanceChargingStation balanceChargingStation;
    MountChargingStation mountChargingStation;
 
@@ -33,6 +36,10 @@ public class DriverControls extends SubsystemBase {
 
       balanceChargingStation = new BalanceChargingStation(drive);
       mountChargingStation = new MountChargingStation(drive);
+
+      driveSpeedCycle[0] = Constants.A_BUTTON_SPEED;
+      driveSpeedCycle[1] = Constants.DRIVE_TRAIN_SPEED;
+      driveSpeedCycle[2] = Constants.Y_BUTTON_SPEED;
    }
 
    /**
@@ -123,14 +130,30 @@ public class DriverControls extends SubsystemBase {
    /** Uses primary stick X as the arcade turn and uses the right and left trigger for forward and back. */
    public void triggerHybridMode(){
       if (Constants.PRIMARY_JOYSTICK == "Left"){
-         drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), xbox.getLeftX() * Constants.DRIVE_TRAIN_SPEED);
+         drive.arcadeDrive(xbox.getRightTriggerAxis() * driveSpeedCycle[driveSpeedSelect] - (xbox.getLeftTriggerAxis() * driveSpeedCycle[driveSpeedSelect]), xbox.getLeftX() * driveSpeedCycle[driveSpeedSelect]);
       } else {
-         drive.arcadeDrive(xbox.getRightTriggerAxis() * Constants.DRIVE_TRAIN_SPEED - (xbox.getLeftTriggerAxis() * Constants.DRIVE_TRAIN_SPEED), xbox.getRightX() * Constants.DRIVE_TRAIN_SPEED);
+         drive.arcadeDrive(xbox.getRightTriggerAxis() * driveSpeedCycle[driveSpeedSelect] - (xbox.getLeftTriggerAxis() * driveSpeedCycle[driveSpeedSelect]), xbox.getRightX() * driveSpeedCycle[driveSpeedSelect]);
       }
       otherControls();
    }
 
    private void otherControls(){
-      
+      if (Constants.SPEED_SWITCH_MODE == "Button"){
+         if (xbox.getYButton()){
+            driveSpeedSelect = 2;
+         } else if (xbox.getXButton()){
+            driveSpeedSelect = 1;
+         } else if (xbox.getAButton()){
+            driveSpeedSelect = 0;
+         }
+      } else if (Constants.SPEED_SWITCH_MODE == "Bumper"){
+         if (xbox.getRightBumper()){
+            driveSpeedSelect++;
+            if (driveSpeedSelect > 2) driveSpeedSelect = 0;
+         } else if (xbox.getLeftBumper()){
+            driveSpeedSelect--;
+            if (driveSpeedSelect < 0) driveSpeedSelect = 2;
+         }
+      }
    }
 }
