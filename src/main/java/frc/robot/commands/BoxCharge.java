@@ -27,6 +27,7 @@ private boolean balanced;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() { 
+     stageLog=-2;
     DriveTime.reset();
     DriveTime.start();
     addRequirements(RobotContainer.m_driveTrain);

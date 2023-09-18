@@ -40,6 +40,7 @@ public class RobotContainer {
    public Auto m_auto;
    public TaxiAuto m_taxiAuto;
    public ActivateChargingStation m_activateChargingStation;
+   public BoxCharge m_boxCharge;
 public BoxTaxiAuto m_boxTaxiAuto;
    AutoPlaceAndTaxi autoPlaceAndTaxi;
    // AllignAndPlaceMidCube allignAndPlaceMidCube;
@@ -52,16 +53,17 @@ public BoxTaxiAuto m_boxTaxiAuto;
       m_driverControls = new DriverControls(m_xboxController);
 
       m_arm = new Arm();
-      m_intake = new IntakePWM();
+      // m_intake = new IntakePWM();
       m_taxiAuto = new TaxiAuto();
       m_boxTaxiAuto = new BoxTaxiAuto();
+      m_boxCharge =new BoxCharge();
       // m_balanceAuto = new BalanceChargingStation(m_driveTrain, Constants.AUTO_DRIVE_TRAIN_SPEED);
 
       // balanceChargingStation = new BalanceChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
       // mountChargingStation = new MountChargingStation(m_driveTrain, Constants.DRIVE_TRAIN_SPEED);
-      m_auto = new Auto(m_arm, m_intake, m_driveTrain, m_limelight);
-      autoPlaceAndTaxi = new AutoPlaceAndTaxi();
-      m_activateChargingStation = new ActivateChargingStation(m_driveTrain);
+      // m_auto = new Auto(m_arm, m_intake, m_driveTrain, m_limelight);
+      // autoPlaceAndTaxi = new AutoPlaceAndTaxi();
+      // m_activateChargingStation = new ActivateChargingStation(m_driveTrain);
       // allignAndPlaceMidCube = new AllignAndPlaceMidCube(m_limelight);
 
       m_driveTrain.setDefaultCommand(Commands.run(() -> {
@@ -72,21 +74,21 @@ public BoxTaxiAuto m_boxTaxiAuto;
    private void controlWrap() {
       if (DriverStation.isTeleop()){
          m_driverControls.triggerHybridMode();
-         if (m_joystick.getTrigger()){
-            m_intake.on();
-         } else {
-            m_intake.off();
-         }
+         // if (m_joystick.getTrigger()){
+         //    m_intake.on();
+         // } else {
+         //    m_intake.off();
+         // }
          
-         if (m_joystick.getThrottle() > 0.4){
-            m_intake.setDirection("Inward");
-         } else if (m_joystick.getThrottle() < -0.4){
-            m_intake.setDirection("Outward");
-         }
+         // if (m_joystick.getThrottle() > 0.4){
+         //    m_intake.setDirection("Inward");
+         // } else if (m_joystick.getThrottle() < -0.4){
+         //    m_intake.setDirection("Outward");
+         // }
 
-         if (m_joystick.getRawButtonPressed(11)){
-            m_intake.toggleIdle();
-         }
+         // if (m_joystick.getRawButtonPressed(11)){
+         //    m_intake.toggleIdle();
+         // }
 
          m_arm.setArmSpeed(m_joystick.getY() * Constants.MAX_ARM_SPEED);
          
@@ -95,6 +97,6 @@ public BoxTaxiAuto m_boxTaxiAuto;
 
    public Command getAutoCommand(){
       System.out.println("it got the auto command");
-      return m_boxTaxiAuto;
+      return m_activateChargingStation;
    }
 }

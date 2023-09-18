@@ -69,5 +69,5 @@ public final class Constants {
    public static final double GYRO_THRESHOLD_RANGE = 0.3;
    public static final double GYRO_BALANCING_DETECTION_THRESHOLD = 2.5;
    public static final double DROP_TIME = 3;
-   public static final double MOVE_FORWARD_TIME = 2.5;
+   public static final double MOVE_FORWARD_TIME = 3;
 }
