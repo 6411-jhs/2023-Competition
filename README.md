@@ -3,4 +3,4 @@ This is the repository containing all the code for our 2023 FRC competition robo
 
   Robot Image              |   Group Image
 :-------------------------:|:-------------------------:
-![](./IMG_5501.png)  |  ![](./IMG_8545.jpg)
+![](./IMG_5501.png)        |  ![](./IMG_8545.jpg)
